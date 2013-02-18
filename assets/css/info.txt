@@ -1,0 +1,3 @@
+=== WordPress Plugin Template ===
+
+Place your plugin's CSS files in here.

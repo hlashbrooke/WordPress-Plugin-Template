@@ -1,0 +1,3 @@
+=== WordPress Plugin Template ===
+
+Use this folder for your plugins assets - generally speaking this includes CSS, Javascript and image files, but it can include any extra files that are associated with your plugin.

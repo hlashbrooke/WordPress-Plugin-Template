@@ -1,0 +1,5 @@
+=== WordPress Plugin Template ===
+
+Use the Codestyling Localization plugin to generate your translation files and place them in this folder.
+
+http://wordpress.org/extend/plugins/codestyling-localization/
