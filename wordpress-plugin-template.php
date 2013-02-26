@@ -18,5 +18,5 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 require_once( 'classes/class-wordpress-plugin-template.php' );
 
-global $wc_ohd;
-$wc_ohd = new WordPress_Plugin_Template( __FILE__ );
+global $plugin_obj;
+$plugin_obj = new WordPress_Plugin_Template( __FILE__ );
