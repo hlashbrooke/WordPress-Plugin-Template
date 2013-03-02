@@ -1,3 +1,0 @@
-=== WordPress Plugin Template ===
-
-Place your plugin's Javascript files in here.
