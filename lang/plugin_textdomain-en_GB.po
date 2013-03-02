@@ -1,0 +1,266 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Plugin Template v1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2013-03-02 13:31:43+0000\n"
+"Last-Translator: ssoadmin <hlashbrooke@gmail.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: \n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: classes/class-wordpress-plugin-template-settings.php:40
+#@ plugin_textdomain
+msgid "Modify plugin settings"
+msgstr ""
+
+#: classes/class-wordpress-plugin-template-settings.php:43
+#@ plugin_textdomain
+msgid "Settings field:"
+msgstr ""
+
+#: classes/class-wordpress-plugin-template-settings.php:50
+#@ plugin_textdomain
+msgid "Change these settings ot customise your plugin."
+msgstr ""
+
+#: classes/class-wordpress-plugin-template-settings.php:62
+#@ plugin_textdomain
+msgid "Descipriton of settings field"
+msgstr ""
+
+#: classes/class-wordpress-plugin-template-settings.php:83
+#@ plugin_textdomain
+msgid "Save Settings"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:48
+#@ plugin_textdomain
+msgctxt "post type general name"
+msgid "Post Type"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:49
+#@ plugin_textdomain
+msgctxt "post type singular name"
+msgid "Post Type"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:51
+#, php-format
+#@ plugin_textdomain
+msgid "Add New %s"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:51
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:52
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:53
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:55
+#@ plugin_textdomain
+msgid "Post"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:52
+#, php-format
+#@ plugin_textdomain
+msgid "Edit %s"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:53
+#, php-format
+#@ plugin_textdomain
+msgid "New %s"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:54
+#, php-format
+#@ plugin_textdomain
+msgid "All %s"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:54
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:56
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:57
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:58
+#@ plugin_textdomain
+msgid "Posts"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:55
+#, php-format
+#@ plugin_textdomain
+msgid "View %s"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:56
+#, php-format
+#@ plugin_textdomain
+msgid "Search %a"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:57
+#, php-format
+#@ plugin_textdomain
+msgid "No %s Found"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:58
+#, php-format
+#@ plugin_textdomain
+msgid "No %s Found In Trash"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:60
+#@ plugin_textdomain
+msgid "*Posts"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:87
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:97
+#@ plugin_textdomain
+msgid "Terms"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:88
+#@ plugin_textdomain
+msgid "Term"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:89
+#@ plugin_textdomain
+msgid "Search Terms"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:90
+#@ plugin_textdomain
+msgid "All Terms"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:91
+#@ plugin_textdomain
+msgid "Parent Term"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:92
+#@ plugin_textdomain
+msgid "Parent Term:"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:93
+#@ plugin_textdomain
+msgid "Edit Term"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:94
+#@ plugin_textdomain
+msgid "Update Term"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:95
+#@ plugin_textdomain
+msgid "Add New Term"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:96
+#@ plugin_textdomain
+msgid "New Term Name"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:112
+#@ plugin_textdomain
+msgid "Custom Field"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:156
+#, php-format
+#@ plugin_textdomain
+msgid "Post updated. %sView post%s."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:157
+#@ plugin_textdomain
+msgid "Custom field updated."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:158
+#@ plugin_textdomain
+msgid "Custom field deleted."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:159
+#@ plugin_textdomain
+msgid "Post updated."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:161
+#, php-format
+#@ plugin_textdomain
+msgid "Post restored to revision from %s."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:162
+#, php-format
+#@ plugin_textdomain
+msgid "Post published. %sView post%s."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:163
+#@ plugin_textdomain
+msgid "Post saved."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:164
+#, php-format
+#@ plugin_textdomain
+msgid "Post submitted. %sPreview post%s."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:165
+#, php-format
+#@ plugin_textdomain
+msgid "Post scheduled for: %1$s. %2$sPreview post%3$s."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:165
+#@ plugin_textdomain
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:166
+#, php-format
+#@ plugin_textdomain
+msgid "Post draft updated. %sPreview post%s."
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:173
+#@ plugin_textdomain
+msgid "Post Details"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:253
+#@ plugin_textdomain
+msgid "Enter the post title here"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:262
+#@ plugin_textdomain
+msgid "Custom field:"
+msgstr ""
+
+#: classes/post-types/class-wordpress-plugin-template-post_type.php:263
+#@ plugin_textdomain
+msgid "Description of this custom field."
+msgstr ""
+
