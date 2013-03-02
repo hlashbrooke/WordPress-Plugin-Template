@@ -10,9 +10,9 @@ A comprehensive code template for any WordPress plugin.
 
 == Description ==
 
-"WordPress Plugin Template" is an object-oriented WordPress plugin that includes built-in support for:
+"WordPress Plugin Template" is an object-oriented code template for any kind of WordPress plugin that includes built-in support for:
 
-1. Custom post type with custom fields and custom taxonomy
+1. Custom post types with custom fields and custom taxonomies
 1. Plugin settings page
 1. WPML localisation
 
