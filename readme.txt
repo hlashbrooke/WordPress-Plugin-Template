@@ -3,7 +3,7 @@ Contributors: hlashbrooke
 Donate link: http://www.hughlashbrooke.com/donate
 Tags: wordpress, plugin, template
 Requires at least: 3.0
-Tested up to: 3.5.1
+Tested up to: 3.7.1
 Stable tag: 1.0
 
 A comprehensive code template for any WordPress plugin.
@@ -38,11 +38,23 @@ While this plugin adds a post type, taxonomy and settings page to your WordPress
 
 == Changelog ==
 
+= 1.0.1 =
+* 2013-12-05
+* [UPDATE] Adding DocBlock comments
+* [UPDATE] Slight refactor
+* [UPDATE] Updating WordPress version compatibility
+
 = 1.0 =
 * 2012-12-13
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+* 2013-12-05
+* [UPDATE] Adding DocBlock comments
+* [UPDATE] Slight refactor
+* [UPDATE] Updating WordPress version compatibility
 
 = 1.0 =
 * 2012-12-13
