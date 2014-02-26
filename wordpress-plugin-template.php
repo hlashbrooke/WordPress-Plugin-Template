@@ -1,13 +1,13 @@
 <?php
 /*
  * Plugin Name: WordPress Plugin Template
- * Version: 1.0
+ * Version: 1.1
  * Plugin URI: http://www.hughlashbrooke.com/
- * Description: Basic template for creating a WordPress plugin.
+ * Description: Comprehensive template for creating a WordPress plugin.
  * Author: Hugh Lashbrooke
  * Author URI: http://www.hughlashbrooke.com/
  * Requires at least: 3.0
- * Tested up to: 3.7.1
+ * Tested up to: 3.8.1
  *
  * @package WordPress
  * @author Hugh Lashbrooke
