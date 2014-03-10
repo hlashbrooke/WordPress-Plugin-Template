@@ -53,10 +53,14 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	public function settings_assets() {
 
-		// We are including the farbtastic script here because it is needed for the colour picker
-		// If you are not including a colour picker field then you can leave this script out as well as the farbtastic dependency for the wpt-admin-js script below
+		// We're including the farbtastic script & styles here because they're needed for the colour picker
+		// If you're not including a colour picker field then you can leave these calls out as well as the farbtastic dependency for the wpt-admin-js script below
 		wp_enqueue_style( 'farbtastic' );
     	wp_enqueue_script( 'farbtastic' );
+
+    	// We're including the WP media scripts here because they're needed for the image upload field
+    	// If you're not including an image upload then you can leave this function call out
+    	wp_enqueue_media();
 
     	wp_register_script( 'wpt-admin-js', $this->assets_url . 'js/admin.js', array( 'farbtastic', 'jquery' ), '1.0.0' );
     	wp_enqueue_script( 'wpt-admin-js' );
@@ -181,7 +185,7 @@ class WordPress_Plugin_Template_Settings {
 					'label'			=> __( 'A Multi-Select Box', 'plugin_textdomain' ),
 					'description'	=> __( 'A standard multi-select box - the saved data is stored as an array.', 'plugin_textdomain' ),
 					'type'			=> 'select_multi',
-					'options'		=> array( 'linux' => 'Linux', 'mac' => 'Mac', 'windows' => 'windows' ),
+					'options'		=> array( 'linux' => 'Linux', 'mac' => 'Mac', 'windows' => 'Windows' ),
 					'default'		=> array( 'linux' )
 				)
 			)
@@ -323,7 +327,7 @@ class WordPress_Plugin_Template_Settings {
 					$image_thumb = wp_get_attachment_thumb_url( $data );
 				}
 				$html .= '<img id="' . $option_name . '_preview" class="image_preview" src="' . $image_thumb . '" /><br/>' . "\n";
-				$html .= '<input id="' . $option_name . '_button" type="button" class="image_upload_button button" value="'. __( 'Upload new image' , 'plugin_textdomain' ) . '" />' . "\n";
+				$html .= '<input id="' . $option_name . '_button" type="button" data-uploader_title="' . __( 'Upload an image' , 'plugin_textdomain' ) . '" data-uploader_button_text="' . __( 'Use image' , 'plugin_textdomain' ) . '" class="image_upload_button button" value="'. __( 'Upload new image' , 'plugin_textdomain' ) . '" />' . "\n";
 				$html .= '<input id="' . $option_name . '_delete" type="button" class="image_delete_button button" value="'. __( 'Remove image' , 'plugin_textdomain' ) . '" />' . "\n";
 				$html .= '<input id="' . $option_name . '" class="image_data_field" type="hidden" name="' . $option_name . '" value="' . $data . '"/><br/>' . "\n";
 			break;
