@@ -36,7 +36,7 @@ class WordPress_Plugin_Template_Post_Type {
 
 			// Handle post columns
 			add_filter( 'manage_edit-' . $this->token . '_columns', array( $this, 'register_custom_column_headings' ), 10, 1 );
-			add_action( 'manage_pages_custom_column', array( $this, 'register_custom_columns' ), 10, 2 );
+			add_action( 'manage_posts_custom_column', array( $this, 'register_custom_columns' ), 10, 2 );
 
 		}
 
