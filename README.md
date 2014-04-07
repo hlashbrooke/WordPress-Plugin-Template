@@ -1,4 +1,4 @@
 WordPress Plugin Template
 =========================
 
-A basic code template for creating a standards-compliant WordPress plugin
+A robust code template for creating a standards-compliant WordPress plugin.

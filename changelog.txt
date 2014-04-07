@@ -1,0 +1,27 @@
+*** WordPress Plugin Template Changelog ***
+
+= 2.0 =
+* 2013-04-07
+* New - Refactoring method for loading main class - see main plugin file for changes and explanation
+* New - Minifying JS
+* New - Adding default CSS & Less files
+* New - Adding script and style enqueue functions
+* New - Adding shell script to clone template to new folder
+* Tweak - Adding further DocBlock comments
+* Tweak - Modifying readme.txt to be more generic
+* Fix - Fixing image upload settings field to work with more than one field on the same page
+
+= 1.1 =
+* 2013-02-26
+* New - Completely refactoring the settings class
+* Tweak - Updating WordPress version compatibility
+
+= 1.0.1 =
+* 2013-12-05
+* Tweak - Adding DocBlock comments
+* Tweak - Slight refactor
+* Tweak - Updating WordPress version compatibility
+
+= 1.0 =
+* 2012-12-13
+* Initial release

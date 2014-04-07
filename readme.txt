@@ -2,25 +2,19 @@
 Contributors: hlashbrooke
 Donate link: http://www.hughlashbrooke.com/donate
 Tags: wordpress, plugin, template
-Requires at least: 3.0
+Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 1.1
+Stable tag: 1.0
 
-A comprehensive code template for any WordPress plugin.
+{short_description}
 
 == Description ==
 
-"WordPress Plugin Template" is an object-oriented code template for any kind of WordPress plugin that includes built-in support for:
-
-1. Custom post types with custom fields and custom taxonomies
-1. Plugin settings page
-1. WPML localisation
-
-Activating this plugin template in your WordPress dashboard will activate a new custom post type (identified as '*Posts' in the menu) as well as a new settings page (found at Settings > Plugin Settings). These pages are for demonstration purposes - all you need to do is edit the files in the plugin where necessary and these pages will reflect your new functionality.
+{long_description}
 
 == Usage ==
 
-This plugin is intended to be a code framework for creating your own plugin. Just edit the files where necessary to have it working in the way that you need it to be.
+{usage_notes}
 
 == Installation ==
 
@@ -32,39 +26,17 @@ Installing "WordPress Plugin Template" can be done either by searching for "Word
 
 == Frequently Asked Questions ==
 
-= I've installed the plugin - now what? =
+= {question} =
 
-While this plugin adds a post type, taxonomy and settings page to your WordPress dashboard, it is just a framework and is not intended for real world use in its current form. You need to edit the included files to buid your own plugin and create your own functionality.
+{answer}
 
 == Changelog ==
-
-= 1.1 =
-* 2013-02-26
-* [UPDATE] Completely refactoring the settings class
-* [UPDATE] Updating WordPress version compatibility
-
-= 1.0.1 =
-* 2013-12-05
-* [UPDATE] Adding DocBlock comments
-* [UPDATE] Slight refactor
-* [UPDATE] Updating WordPress version compatibility
 
 = 1.0 =
 * 2012-12-13
 * Initial release
 
 == Upgrade Notice ==
-
-= 1.1 =
-* 2013-02-26
-* [UPDATE] Completely refactoring the settings class
-* [UPDATE] Updating WordPress version compatibility
-
-= 1.0.1 =
-* 2013-12-05
-* [UPDATE] Adding DocBlock comments
-* [UPDATE] Slight refactor
-* [UPDATE] Updating WordPress version compatibility
 
 = 1.0 =
 * 2012-12-13

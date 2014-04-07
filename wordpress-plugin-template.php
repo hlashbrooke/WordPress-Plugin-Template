@@ -1,12 +1,12 @@
 <?php
 /*
  * Plugin Name: WordPress Plugin Template
- * Version: 1.1
+ * Version: 1.0
  * Plugin URI: http://www.hughlashbrooke.com/
- * Description: Comprehensive template for creating a WordPress plugin.
+ * Description: 
  * Author: Hugh Lashbrooke
  * Author URI: http://www.hughlashbrooke.com/
- * Requires at least: 3.0
+ * Requires at least: 3.8
  * Tested up to: 3.8.1
  *
  * @package WordPress
@@ -17,12 +17,21 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Include plugin class files
-require_once( 'classes/class-wordpress-plugin-template.php' );
-require_once( 'classes/class-wordpress-plugin-template-settings.php' );
-require_once( 'classes/post-types/class-wordpress-plugin-template-post_type.php' );
+require_once( 'includes/class-wordpress-plugin-template.php' );
+require_once( 'includes/class-wordpress-plugin-template-settings.php' );
 
-// Instantiate necessary classes
-global $plugin_obj;
-$plugin_obj = new WordPress_Plugin_Template( __FILE__ );
-$plugin_settings_obj = new WordPress_Plugin_Template_Settings( __FILE__ );
-$plugin_post_type_obj = new WordPress_Plugin_Template_Post_Type( __FILE__ );
+/**
+ * Returns the main instance of WordPress_Plugin_Template to prevent the need to use globals.
+ *
+ * @since  2.0.0
+ * @return object WordPress_Plugin_Template
+ */
+function WordPress_Plugin_Template () {
+	$instance = WordPress_Plugin_Template::instance( __FILE__, '2.0.0' );
+	if( is_null( $instance->settings ) ) {
+		$instance->settings = WordPress_Plugin_Template_Settings::instance( $instance );
+	}
+	return $instance;
+}
+
+WordPress_Plugin_Template();
