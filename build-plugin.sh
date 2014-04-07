@@ -53,21 +53,21 @@ rm readme.tmp
 cd lang
 mv $DEFAULT_SLUG.pot $SLUG.pot
 
-cp $SLUG.pot $SLUG.pot
+cp $SLUG.pot $SLUG.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" $SLUG.tmp > $SLUG.pot
-rm $SLUG.pot
+rm $SLUG.tmp
 
-cp $SLUG.pot $SLUG.pot
+cp $SLUG.pot $SLUG.tmp
 sed "s/$DEFAULT_CLASS/$CLASS/g" $SLUG.tmp > $SLUG.pot
-rm $SLUG.pot
+rm $SLUG.tmp
 
-cp $SLUG.pot $SLUG.pot
+cp $SLUG.pot $SLUG.tmp
 sed "s/$DEFAULT_TOKEN/$TOKEN/g" $SLUG.tmp > $SLUG.pot
-rm $SLUG.pot
+rm $SLUG.tmp
 
-cp $SLUG.pot $SLUG.pot
+cp $SLUG.pot $SLUG.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" $SLUG.tmp > $SLUG.pot
-rm $SLUG.pot
+rm $SLUG.tmp
 
 cd ../includes
 mv class-$DEFAULT_SLUG.php class-$SLUG.php
@@ -100,8 +100,8 @@ sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.ph
 rm class-$SLUG-settings.tmp
 
 
-cd /post-types
-mv class-$SLUG-post_type.php class-$SLUG-post_type.php
+cd post-types
+mv class-$DEFAULT_SLUG-post_type.php class-$SLUG-post_type.php
 
 cp class-$SLUG-post_type.php class-$SLUG-post_type.tmp
 sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-post_type.tmp > class-$SLUG-post_type.php
