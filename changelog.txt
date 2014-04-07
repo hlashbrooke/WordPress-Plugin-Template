@@ -10,6 +10,7 @@
 * Tweak - Adding further DocBlock comments
 * Tweak - Modifying readme.txt to be more generic
 * Fix - Fixing image upload settings field to work with more than one field on the same page
+* Fix - Fixing column headres for custom post types (kudos ffabiosales)
 
 = 1.1 =
 * 2013-02-26
