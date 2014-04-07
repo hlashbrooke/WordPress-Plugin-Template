@@ -23,6 +23,8 @@ cd $FOLDER/$SLUG
 
 rm -rf .git
 rm README.md
+rm build-plugin.sh
+rm changelog.txt
 
 echo "Updating extension files..."
 
@@ -49,10 +51,26 @@ sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
 rm readme.tmp
 
 cd lang
-rm $DEFAULT_TOKEN.pot
+mv $DEFAULT_SLUG.pot $SLUG.pot
+
+cp $SLUG.pot $SLUG.pot
+sed "s/$DEFAULT_NAME/$NAME/g" $SLUG.tmp > $SLUG.pot
+rm $SLUG.pot
+
+cp $SLUG.pot $SLUG.pot
+sed "s/$DEFAULT_CLASS/$CLASS/g" $SLUG.tmp > $SLUG.pot
+rm $SLUG.pot
+
+cp $SLUG.pot $SLUG.pot
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" $SLUG.tmp > $SLUG.pot
+rm $SLUG.pot
+
+cp $SLUG.pot $SLUG.pot
+sed "s/$DEFAULT_SLUG/$SLUG/g" $SLUG.tmp > $SLUG.pot
+rm $SLUG.pot
 
 cd ../includes
-mv class-$SLUG.php class-$SLUG.php
+mv class-$DEFAULT_SLUG.php class-$SLUG.php
 
 cp class-$SLUG.php class-$SLUG.tmp
 sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG.tmp > class-$SLUG.php
@@ -67,7 +85,7 @@ sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG.tmp > class-$SLUG.php
 rm class-$SLUG.tmp
 
 
-mv class-$SLUG-settings.php class-$SLUG-settings.php
+mv class-$DEFAULT_SLUG-settings.php class-$SLUG-settings.php
 
 cp class-$SLUG-settings.php class-$SLUG-settings.tmp
 sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
