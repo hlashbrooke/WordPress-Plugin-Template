@@ -35,6 +35,10 @@ This template includes the following features:
 
 See the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/changelog.txt) for a complete list of changes as the template develops.
 
+## I've got an idea/fix for the template
+
+If you would like to contribute to this template then please fork it and send a pull request. I'll merge the request if it fits into the goals for the template and credit you in the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/changelog.txt).
+
 ## This template is amazing! How can I ever repay you?
 
-There's no need to credit me in your code for this template, but if you would like to uy me some lunch that you can [donate here](http://www.hughlashbrooke.com/donate).
+There's no need to credit me in your code for this template, but if you would like to buy me some lunch that you can [donate here](http://www.hughlashbrooke.com/donate).
