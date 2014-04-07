@@ -16,8 +16,8 @@ You can simply copy the files out of this repo and rename everything as you need
 
 You can run the script just like you would run any shell script - it does not take any arguments, so you don't need to worry about that. Once you start the script it will ask for two things:
 
-1. **Plugin name** - this must be the full name of your plugin, with  correct capitalisation and spacing
-2. **Destination folder** - this will be the folder where your new plugin will be created. Typically this will be your `wp-content/plugins` folder. You can provide a path that is relative to the script, or an absolute path - either will work.
+1. **Plugin name** - this must be the full name of your plugin, with correct capitalisation and spacing.
+2. **Destination folder** - this will be the folder where your new plugin will be created - typically this will be your `wp-content/plugins` folder. You can provide a path that is relative to the script, or an absolute path - either will work.
 
 ## What does this template give me?
 
@@ -41,4 +41,4 @@ If you would like to contribute to this template then please fork it and send a 
 
 ## This template is amazing! How can I ever repay you?
 
-There's no need to credit me in your code for this template, but if you would like to buy me some lunch that you can [donate here](http://www.hughlashbrooke.com/donate).
+There's no need to credit me in your code for this template, but if you would like to buy me some lunch then you can [donate here](http://www.hughlashbrooke.com/donate).
