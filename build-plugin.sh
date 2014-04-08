@@ -6,6 +6,9 @@ read NAME
 printf "Destination folder: "
 read FOLDER
 
+printf "Initialise new git repo (y/n): "
+read NEWREPO
+
 DEFAULT_NAME="WordPress Plugin Template"
 DEFAULT_CLASS=${DEFAULT_NAME// /_}
 DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
@@ -115,9 +118,10 @@ cp class-$SLUG-post_type.php class-$SLUG-post_type.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-post_type.tmp > class-$SLUG-post_type.php
 rm class-$SLUG-post_type.tmp
 
-echo "Creating new git repo..."
-
-cd ../..
-git init
+if [ "$NEWREPO" == "y" ]; then
+	echo "Initialising new git repo..."
+	cd ../..
+	git init
+fi
 
 echo "Complete!"
