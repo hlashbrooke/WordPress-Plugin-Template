@@ -8,7 +8,7 @@ class WordPress_Plugin_Template_Settings {
 	 * The single instance of WordPress_Plugin_Template_Settings.
 	 * @var 	object
 	 * @access  private
-	 * @since 	2.0.0
+	 * @since 	1.0.0
 	 */
 	private static $_instance = null;
 
@@ -16,7 +16,7 @@ class WordPress_Plugin_Template_Settings {
 	 * The main plugin object.
 	 * @var 	object
 	 * @access  public
-	 * @since 	2.0.0
+	 * @since 	1.0.0
 	 */
 	public $parent = null;
 
@@ -24,7 +24,7 @@ class WordPress_Plugin_Template_Settings {
 	 * Prefix for plugin settings.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $base = '';
 
@@ -32,7 +32,7 @@ class WordPress_Plugin_Template_Settings {
 	 * Available settings for plugin.
 	 * @var     array
 	 * @access  public
-	 * @since   1.1.0
+	 * @since   1.0.0
 	 */
 	public $settings = array();
 
@@ -437,7 +437,7 @@ class WordPress_Plugin_Template_Settings {
 	 *
 	 * Ensures only one instance of WordPress_Plugin_Template_Settings is loaded or can be loaded.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 * @static
 	 * @see WordPress_Plugin_Template()
 	 * @return Main WordPress_Plugin_Template_Settings instance
@@ -452,7 +452,7 @@ class WordPress_Plugin_Template_Settings {
 	/**
 	 * Cloning is forbidden.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public function __clone () {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
@@ -461,7 +461,7 @@ class WordPress_Plugin_Template_Settings {
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public function __wakeup () {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );

@@ -8,7 +8,7 @@ class WordPress_Plugin_Template {
 	 * The single instance of WordPress_Plugin_Template.
 	 * @var 	object
 	 * @access  private
-	 * @since 	2.0.0
+	 * @since 	1.0.0
 	 */
 	private static $_instance = null;
 
@@ -16,7 +16,7 @@ class WordPress_Plugin_Template {
 	 * Settings class object
 	 * @var     object
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $settings = null;
 
@@ -24,7 +24,7 @@ class WordPress_Plugin_Template {
 	 * The version number.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $_version;
 
@@ -32,7 +32,7 @@ class WordPress_Plugin_Template {
 	 * The token.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $_token;
 
@@ -40,7 +40,7 @@ class WordPress_Plugin_Template {
 	 * The main plugin file.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $file;
 
@@ -48,7 +48,7 @@ class WordPress_Plugin_Template {
 	 * The main plugin directory.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $dir;
 
@@ -56,7 +56,7 @@ class WordPress_Plugin_Template {
 	 * The plugin assets directory.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $assets_dir;
 
@@ -64,7 +64,7 @@ class WordPress_Plugin_Template {
 	 * The plugin assets URL.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $assets_url;
 
@@ -72,7 +72,7 @@ class WordPress_Plugin_Template {
 	 * Suffix for Javascripts.
 	 * @var     string
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 */
 	public $script_suffix;
 
@@ -111,7 +111,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Load frontend CSS.
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 * @return void
 	 */
 	public function enqueue_styles () {
@@ -124,7 +124,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Load frontend Javascript.
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 * @return void
 	 */
 	public function enqueue_scripts () {
@@ -137,7 +137,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Load admin CSS.
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 * @return void
 	 */
 	public function admin_enqueue_styles ( $hook = '' ) {
@@ -148,7 +148,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Load admin Javascript.
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 * @return void
 	 */
 	public function admin_enqueue_scripts ( $hook = '' ) {
@@ -186,7 +186,7 @@ class WordPress_Plugin_Template {
 	 *
 	 * Ensures only one instance of WordPress_Plugin_Template is loaded or can be loaded.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 * @static
 	 * @see WordPress_Plugin_Template()
 	 * @return Main WordPress_Plugin_Template instance
@@ -201,7 +201,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Cloning is forbidden.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public function __clone () {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
@@ -210,7 +210,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Unserializing instances of this class is forbidden.
 	 *
-	 * @since 2.0.0
+	 * @since 1.0.0
 	 */
 	public function __wakeup () {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
@@ -219,7 +219,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Installation. Runs on activation.
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 * @return  void
 	 */
 	public function install () {
@@ -229,7 +229,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * Log the plugin version number.
 	 * @access  public
-	 * @since   2.0.0
+	 * @since   1.0.0
 	 * @return  void
 	 */
 	private function _log_version_number () {
