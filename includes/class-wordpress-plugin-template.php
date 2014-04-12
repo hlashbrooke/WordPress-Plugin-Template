@@ -106,7 +106,7 @@ class WordPress_Plugin_Template {
 		// Handle localisation
 		$this->load_plugin_textdomain();
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
-	}
+	} // Edn __construct ()
 
 	/**
 	 * Load frontend CSS.
@@ -115,71 +115,67 @@ class WordPress_Plugin_Template {
 	 * @return void
 	 */
 	public function enqueue_styles () {
-		global $woothemes_sensei;
-
-		wp_register_style( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'css/frontend.css', array( $woothemes_sensei->token . '-frontend' ), $this->_version );
+		wp_register_style( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'css/frontend.css', array(), $this->_version );
 		wp_enqueue_style( $this->_token . '-frontend' );
-	} // End enqueue_styles()
+	} // End enqueue_styles ()
 
 	/**
 	 * Load frontend Javascript.
 	 * @access  public
 	 * @since   1.0.0
-	 * @return void
+	 * @return  void
 	 */
 	public function enqueue_scripts () {
-		global $woothemes_sensei;
-
 		wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
 		wp_enqueue_script( $this->_token . '-frontend' );
-	} // End enqueue_scripts()
+	} // End enqueue_scripts ()
 
 	/**
 	 * Load admin CSS.
 	 * @access  public
 	 * @since   1.0.0
-	 * @return void
+	 * @return  void
 	 */
 	public function admin_enqueue_styles ( $hook = '' ) {
 		wp_register_style( $this->_token . '-admin', esc_url( $this->assets_url ) . 'css/admin.css', array(), $this->_version );
 		wp_enqueue_style( $this->_token . '-admin' );
-	} // End admin_enqueue_styles()
+	} // End admin_enqueue_styles ()
 
 	/**
 	 * Load admin Javascript.
 	 * @access  public
 	 * @since   1.0.0
-	 * @return void
+	 * @return  void
 	 */
 	public function admin_enqueue_scripts ( $hook = '' ) {
 		wp_register_script( $this->_token . '-admin', esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
 		wp_enqueue_script( $this->_token . '-admin' );
-	} // End admin_enqueue_scripts()
+	} // End admin_enqueue_scripts ()
 
 	/**
 	 * Load plugin localisation
 	 * @access  public
 	 * @since   1.0.0
-	 * @return void
+	 * @return  void
 	 */
 	public function load_localisation () {
-		load_plugin_textdomain( 'wordpress-plugin-template' , false , dirname( plugin_basename( $this->file ) ) . '/lang/' );
-	} // End load_localisation()
+		load_plugin_textdomain( 'wordpress-plugin-template', false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
+	} // End load_localisation ()
 
 	/**
 	 * Load plugin textdomain
 	 * @access  public
 	 * @since   1.0.0
-	 * @return void
+	 * @return  void
 	 */
 	public function load_plugin_textdomain () {
 	    $domain = 'wordpress-plugin-template';
 
-	    $locale = apply_filters( 'plugin_locale' , get_locale() , $domain );
+	    $locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
-	    load_textdomain( $domain , WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
-	    load_plugin_textdomain( $domain , FALSE , dirname( plugin_basename( $this->file ) ) . '/lang/' );
-	} // End load_plugin_textdomain()
+	    load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
+	    load_plugin_textdomain( $domain, false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
+	} // End load_plugin_textdomain ()
 
 	/**
 	 * Main WordPress_Plugin_Template Instance
@@ -196,7 +192,7 @@ class WordPress_Plugin_Template {
 			self::$_instance = new self( $file, $version );
 		}
 		return self::$_instance;
-	} // End instance()
+	} // End instance ()
 
 	/**
 	 * Cloning is forbidden.
@@ -205,7 +201,7 @@ class WordPress_Plugin_Template {
 	 */
 	public function __clone () {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
-	} // End __clone()
+	} // End __clone ()
 
 	/**
 	 * Unserializing instances of this class is forbidden.
@@ -214,7 +210,7 @@ class WordPress_Plugin_Template {
 	 */
 	public function __wakeup () {
 		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
-	} // End __wakeup()
+	} // End __wakeup ()
 
 	/**
 	 * Installation. Runs on activation.
@@ -224,7 +220,7 @@ class WordPress_Plugin_Template {
 	 */
 	public function install () {
 		$this->_log_version_number();
-	} // End install()
+	} // End install ()
 
 	/**
 	 * Log the plugin version number.
@@ -234,6 +230,6 @@ class WordPress_Plugin_Template {
 	 */
 	private function _log_version_number () {
 		update_option( $this->_token . '_version', $this->_version );
-	}
+	} // End _log_version_number ()
 
 }
