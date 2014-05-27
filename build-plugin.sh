@@ -10,7 +10,6 @@ printf "Initialise new git repo (y/n): "
 read NEWREPO
 
 DEFAULT_NAME="WordPress Plugin Template"
-echo $DEFAULT_NAME
 DEFAULT_CLASS=${DEFAULT_NAME// /_}
 DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
 DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
