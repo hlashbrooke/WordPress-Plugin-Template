@@ -28,6 +28,7 @@ This template includes the following features:
 + Readme.txt file as required by WordPress.org
 + Main plugin class
 + Full & minified Javascript files
++ Grnut.js support
 + Standard enqueue functions for the dashboard and the frontend
 + A class (not utilised in the template directly) that can be used to create a new custom post type and custom taxonomies
 + A complete and versatile settings class like you see [here](http://www.hughlashbrooke.com/complete-versatile-options-page-class-wordpress-plugin/)
