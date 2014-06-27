@@ -3,8 +3,10 @@
 = 2.1 =
 * 2013-06-27
 * New - Adding Grunt.js support (kudos kloon)
+* New - Including custom post type class by default
+* Tweak - Updating custom post type class to be compatible with the rest of the plugin
 * Tweak - Improving general syntax
-* Tweak - Making build-plugin.sh more compatible (kudos Natrio42)
+* Tweak - Making build-plugin.sh compatible with more devices (kudos Natrio42)
 * Fix - Markup fix (kudos mrsonord)
 
 = 2.0 =

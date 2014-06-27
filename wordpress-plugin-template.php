@@ -19,6 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // Include plugin class files
 require_once( 'includes/class-wordpress-plugin-template.php' );
 require_once( 'includes/class-wordpress-plugin-template-settings.php' );
+require_once( 'includes/post-types/class-wordpress-plugin-template-post_type.php' );
 
 /**
  * Returns the main instance of WordPress_Plugin_Template to prevent the need to use globals.
@@ -31,6 +32,9 @@ function WordPress_Plugin_Template () {
 	if( is_null( $instance->settings ) ) {
 		$instance->settings = WordPress_Plugin_Template_Settings::instance( $instance );
 	}
+
+	$instance->post_type = WordPress_Plugin_Template_Post_Type::instance( $instance );
+
 	return $instance;
 }
 

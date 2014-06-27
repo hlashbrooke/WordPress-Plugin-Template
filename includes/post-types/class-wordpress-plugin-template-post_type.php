@@ -4,7 +4,35 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 class WordPress_Plugin_Template_Post_Type {
 
-	public function __construct () {
+	/**
+	 * The single instance of WordPress_Plugin_Template_Post_Type.
+	 * @var 	object
+	 * @access  private
+	 * @since 	1.0.0
+	 */
+	private static $_instance = null;
+
+	/**
+	 * The main plugin object.
+	 * @var 	object
+	 * @access  public
+	 * @since 	1.0.0
+	 */
+	public $parent = null;
+
+	/**
+	 * The name for the custom post type.
+	 * @var 	string
+	 * @access  public
+	 * @since 	1.0.0
+	 */
+	public $post_type;
+
+	public function __construct ( $parent ) {
+		$this->parent = $parent;
+
+		// Modify this to the name of your custom post type
+		$this->post_type = 'post_type';
 
 		// Regsiter post type
 		add_action( 'init' , array( $this, 'register_post_type' ) );
@@ -25,8 +53,8 @@ class WordPress_Plugin_Template_Post_Type {
 			add_filter( 'post_updated_messages', array( $this, 'updated_messages' ) );
 
 			// Handle post columns
-			add_filter( 'manage_edit-' . $this->_token . '_columns', array( $this, 'register_custom_column_headings' ), 10, 1 );
-			add_action( 'manage_posts_custom_column', array( $this, 'register_custom_columns' ), 10, 2 );
+			add_filter( 'manage_edit-' . $this->post_type . '_columns', array( $this, 'register_custom_column_headings' ), 10, 1 );
+			add_action( 'manage_' . $this->post_type . '_posts_custom_column', array( $this, 'register_custom_columns' ), 10, 2 );
 
 		}
 
@@ -41,7 +69,7 @@ class WordPress_Plugin_Template_Post_Type {
 		$labels = array(
 			'name' => _x( 'Post Type', 'post type general name' , 'wordpress-plugin-template' ),
 			'singular_name' => _x( 'Post Type', 'post type singular name' , 'wordpress-plugin-template' ),
-			'add_new' => _x( 'Add New', $this->_token , 'wordpress-plugin-template' ),
+			'add_new' => _x( 'Add New', $this->post_type , 'wordpress-plugin-template' ),
 			'add_new_item' => sprintf( __( 'Add New %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
 			'edit_item' => sprintf( __( 'Edit %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
 			'new_item' => sprintf( __( 'New %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
@@ -72,7 +100,7 @@ class WordPress_Plugin_Template_Post_Type {
 			'menu_icon' => ''
 		);
 
-		register_post_type( $this->_token, $args );
+		register_post_type( $this->post_type, $args );
 	}
 
 	/**
@@ -102,7 +130,7 @@ class WordPress_Plugin_Template_Post_Type {
             'labels' => $labels
         );
 
-        register_taxonomy( 'post_type_terms' , $this->_token , $args );
+        register_taxonomy( 'post_type_terms' , $this->post_type , $args );
     }
 
     /**
@@ -139,15 +167,15 @@ class WordPress_Plugin_Template_Post_Type {
 	/**
 	 * Load data for post type columns
 	 * @param  string  $column_name Name of column
-	 * @param  integer $id          Post ID
+	 * @param  integer $post_id     Post ID
 	 * @return void
 	 */
-	public function register_custom_columns ( $column_name, $id ) {
+	public function register_custom_columns ( $column_name, $post_id ) {
 
 		switch ( $column_name ) {
 
 			case 'custom-field':
-				$data = get_post_meta( $id, '_custom_field', true );
+				$data = get_post_meta( $post_id, '_custom_field', true );
 				echo $data;
 			break;
 
@@ -165,7 +193,7 @@ class WordPress_Plugin_Template_Post_Type {
 	public function updated_messages ( $messages ) {
 	  global $post, $post_ID;
 
-	  $messages[$this->_token] = array(
+	  $messages[$this->post_type] = array(
 	    0 => '', // Unused. Messages start at index 1.
 	    1 => sprintf( __( 'Post updated. %sView post%s.' , 'wordpress-plugin-template' ), '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', '</a>' ),
 	    2 => __( 'Custom field updated.' , 'wordpress-plugin-template' ),
@@ -188,7 +216,7 @@ class WordPress_Plugin_Template_Post_Type {
 	 * @return void
 	 */
 	public function meta_box_setup () {
-		add_meta_box( 'post-data', __( 'Post Details' , 'wordpress-plugin-template' ), array( $this, 'meta_box_content' ), $this->_token, 'normal', 'high' );
+		add_meta_box( 'post-data', __( 'Post Details' , 'wordpress-plugin-template' ), array( $this, 'meta_box_content' ), $this->post_type, 'normal', 'high' );
 	}
 
 	/**
@@ -202,7 +230,7 @@ class WordPress_Plugin_Template_Post_Type {
 
 		$html = '';
 
-		$html .= '<input type="hidden" name="' . $this->_token . '_nonce" id="' . $this->_token . '_nonce" value="' . wp_create_nonce( plugin_basename( $this->dir ) ) . '" />';
+		$html .= '<input type="hidden" name="' . $this->post_type . '_nonce" id="' . $this->post_type . '_nonce" value="' . wp_create_nonce( plugin_basename( $this->parent->dir ) ) . '" />';
 
 		if ( 0 < count( $field_data ) ) {
 			$html .= '<table class="form-table">' . "\n";
@@ -242,7 +270,7 @@ class WordPress_Plugin_Template_Post_Type {
 		global $post, $messages;
 
 		// Verify nonce
-		if ( ( get_post_type() != $this->_token ) || ! wp_verify_nonce( $_POST[ $this->_token . '_nonce'], plugin_basename( $this->dir ) ) ) {
+		if ( ( get_post_type() != $this->post_type ) || ! wp_verify_nonce( $_POST[ $this->post_type . '_nonce'], plugin_basename( $this->parent->dir ) ) ) {
 			return $post_id;
 		}
 
@@ -281,7 +309,7 @@ class WordPress_Plugin_Template_Post_Type {
 	 * @return string        Modified title placeholder
 	 */
 	public function enter_title_here ( $title ) {
-		if ( get_post_type() == $this->_token ) {
+		if ( get_post_type() == $this->post_type ) {
 			$title = __( 'Enter the post title here' , 'wordpress-plugin-template' );
 		}
 		return $title;
@@ -304,5 +332,40 @@ class WordPress_Plugin_Template_Post_Type {
 
 		return $fields;
 	}
+
+	/**
+	 * Main WordPress_Plugin_Template_Post_Type Instance
+	 *
+	 * Ensures only one instance of WordPress_Plugin_Template_Post_Type is loaded or can be loaded.
+	 *
+	 * @since 1.0.0
+	 * @static
+	 * @see WordPress_Plugin_Template()
+	 * @return Main WordPress_Plugin_Template_Post_Type instance
+	 */
+	public static function instance ( $parent ) {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self( $parent );
+		}
+		return self::$_instance;
+	} // End instance()
+
+	/**
+	 * Cloning is forbidden.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __clone () {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
+	} // End __clone()
+
+	/**
+	 * Unserializing instances of this class is forbidden.
+	 *
+	 * @since 1.0.0
+	 */
+	public function __wakeup () {
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
+	} // End __wakeup()
 
 }

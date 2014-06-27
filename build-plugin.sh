@@ -53,6 +53,7 @@ cp readme.txt readme.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
 rm readme.tmp
 
+
 cd lang
 mv $DEFAULT_SLUG.pot $SLUG.pot
 
@@ -71,6 +72,7 @@ rm $SLUG.tmp
 cp $SLUG.pot $SLUG.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" $SLUG.tmp > $SLUG.pot
 rm $SLUG.tmp
+
 
 cd ../includes
 mv class-$DEFAULT_SLUG.php class-$SLUG.php
