@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 printf "Plugin name: "
 read NAME
