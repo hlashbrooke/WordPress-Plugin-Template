@@ -1,5 +1,10 @@
 *** WordPress Plugin Template Changelog ***
 
+= 2.1 =
+* 2013-06-27
+* New - Adding Grunt.js support (kudos kloon)
+* Fix - Markup fix (kudos mrsonord)
+
 = 2.0 =
 * 2013-04-07
 * New - Refactoring method for loading main class - see main plugin file for changes and explanation
@@ -10,7 +15,7 @@
 * Tweak - Adding further DocBlock comments
 * Tweak - Modifying readme.txt to be more generic
 * Fix - Fixing image upload settings field to work with more than one field on the same page
-* Fix - Fixing column headres for custom post types (kudos ffabiosales)
+* Fix - Fixing column headers for custom post types (kudos ffabiosales)
 
 = 1.1 =
 * 2013-02-26

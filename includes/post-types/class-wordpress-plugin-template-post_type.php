@@ -217,11 +217,11 @@ class WordPress_Plugin_Template_Post_Type {
 
 				if( $v['type'] == 'checkbox' ) {
 					$html .= '<tr valign="top"><th scope="row">' . $v['name'] . '</th><td><input name="' . esc_attr( $k ) . '" type="checkbox" id="' . esc_attr( $k ) . '" ' . checked( 'on' , $data , false ) . ' /> <label for="' . esc_attr( $k ) . '"><span class="description">' . $v['description'] . '</span></label>' . "\n";
-					$html .= '</td><tr/>' . "\n";
+					$html .= '</td></tr>' . "\n";
 				} else {
 					$html .= '<tr valign="top"><th scope="row"><label for="' . esc_attr( $k ) . '">' . $v['name'] . '</label></th><td><input name="' . esc_attr( $k ) . '" type="text" id="' . esc_attr( $k ) . '" class="regular-text" value="' . esc_attr( $data ) . '" />' . "\n";
 					$html .= '<p class="description">' . $v['description'] . '</p>' . "\n";
-					$html .= '</td><tr/>' . "\n";
+					$html .= '</td></tr>' . "\n";
 				}
 
 			}

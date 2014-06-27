@@ -1,0 +1,14 @@
+{
+	"name": "wordpress-plugin-template",
+	"title": "WordPress Plugin Template",
+	"version": "1.0.0",
+	"homepage": "http://gerhardpotgieter.com/",
+	"main": "Gruntfile.js",
+	"devDependencies": {
+		"grunt": "~0.4.5",
+		"grunt-contrib-uglify": "~0.4.0",
+		"grunt-contrib-less": "~0.11.1",
+		"grunt-contrib-cssmin": "~0.9.0",
+		"grunt-contrib-watch": "~0.6.1"
+	}
+}
