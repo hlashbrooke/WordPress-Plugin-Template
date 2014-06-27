@@ -4,6 +4,7 @@
 * 2013-06-27
 * New - Adding Grunt.js support (kudos kloon)
 * Tweak - Improving general syntax
+* Tweak - Making build-plugin.sh more compatible (kudos Natrio42)
 * Fix - Markup fix (kudos mrsonord)
 
 = 2.0 =
