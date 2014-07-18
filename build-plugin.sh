@@ -22,6 +22,7 @@ git clone git@github.com:hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
 echo "Removing git files..."
 
+mkdir -p $FOLDER
 cd $FOLDER/$SLUG
 
 rm -rf .git
