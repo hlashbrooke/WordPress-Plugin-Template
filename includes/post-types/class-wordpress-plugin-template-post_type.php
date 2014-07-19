@@ -28,17 +28,35 @@ class WordPress_Plugin_Template_Post_Type {
 	 */
 	public $post_type;
 
+	/**
+	 * The plural name for the custom post type posts.
+	 * @var 	string
+	 * @access  public
+	 * @since 	1.0.0
+	 */
+	public $plural;
+
+	/**
+	 * The singular name for the custom post type posts.
+	 * @var 	string
+	 * @access  public
+	 * @since 	1.0.0
+	 */
+	public $single;
+
 	public function __construct ( $parent ) {
 		$this->parent = $parent;
 
-		// Modify this to the name of your custom post type
+		// Post type name and labels
 		$this->post_type = 'post_type';
+		$this->plural = _x( 'Posts', 'post type general name' , 'wordpress-plugin-template' );
+		$this->single = _x( 'Post', 'post type singular name' , 'wordpress-plugin-template' );
 
 		// Regsiter post type
 		add_action( 'init' , array( $this, 'register_post_type' ) );
 
 		// Register taxonomy
-		add_action('init', array( $this, 'register_taxonomy' ) );
+		add_action('init', array( $this, 'register_taxonomies' ) );
 
 		if ( is_admin() ) {
 
@@ -67,37 +85,40 @@ class WordPress_Plugin_Template_Post_Type {
 	public function register_post_type () {
 
 		$labels = array(
-			'name' => _x( 'Post Type', 'post type general name' , 'wordpress-plugin-template' ),
-			'singular_name' => _x( 'Post Type', 'post type singular name' , 'wordpress-plugin-template' ),
+			'name' => $this->plural,
+			'singular_name' => $this->single,
+			'name_admin_bar' => $this->single,
 			'add_new' => _x( 'Add New', $this->post_type , 'wordpress-plugin-template' ),
-			'add_new_item' => sprintf( __( 'Add New %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
-			'edit_item' => sprintf( __( 'Edit %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
-			'new_item' => sprintf( __( 'New %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
-			'all_items' => sprintf( __( 'All %s' , 'wordpress-plugin-template' ), __( 'Posts' , 'wordpress-plugin-template' ) ),
-			'view_item' => sprintf( __( 'View %s' , 'wordpress-plugin-template' ), __( 'Post' , 'wordpress-plugin-template' ) ),
-			'search_items' => sprintf( __( 'Search %a' , 'wordpress-plugin-template' ), __( 'Posts' , 'wordpress-plugin-template' ) ),
-			'not_found' =>  sprintf( __( 'No %s Found' , 'wordpress-plugin-template' ), __( 'Posts' , 'wordpress-plugin-template' ) ),
-			'not_found_in_trash' => sprintf( __( 'No %s Found In Trash' , 'wordpress-plugin-template' ), __( 'Posts' , 'wordpress-plugin-template' ) ),
-			'parent_item_colon' => '',
-			'menu_name' => __( '*Posts' , 'wordpress-plugin-template' )
+			'add_new_item' => sprintf( __( 'Add New %s' , 'wordpress-plugin-template' ), $this->single ),
+			'edit_item' => sprintf( __( 'Edit %s' , 'wordpress-plugin-template' ), $this->single ),
+			'new_item' => sprintf( __( 'New %s' , 'wordpress-plugin-template' ), $this->single ),
+			'all_items' => sprintf( __( 'All %s' , 'wordpress-plugin-template' ), $this->plural ),
+			'view_item' => sprintf( __( 'View %s' , 'wordpress-plugin-template' ), $this->single ),
+			'search_items' => sprintf( __( 'Search %s' , 'wordpress-plugin-template' ), $this->plural ),
+			'not_found' =>  sprintf( __( 'No %s Found' , 'wordpress-plugin-template' ), $this->plural ),
+			'not_found_in_trash' => sprintf( __( 'No %s Found In Trash' , 'wordpress-plugin-template' ), $this->plural ),
+			'parent_item_colon' => sprintf( __( 'Parent %s' ), $this->single ),
+			'menu_name' => $this->plural,
 		);
 
 		$args = array(
 			'labels' => $labels,
+			'description' => __( '', 'wordpress-plugin-template' ),
 			'public' => true,
 			'publicly_queryable' => true,
-			'exclude_from_search' => true,
+			'exclude_from_search' => false,
 			'show_ui' => true,
 			'show_in_menu' => true,
 			'show_in_nav_menus' => true,
-			'query_var' => false,
+			'query_var' => true,
+			'can_export' => true,
 			'rewrite' => true,
 			'capability_type' => 'post',
 			'has_archive' => true,
 			'hierarchical' => true,
-			'supports' => array( 'title' , 'editor' , 'excerpt' , 'comments' ),
+			'supports' => array( 'title', 'editor', 'excerpt', 'comments', 'thumbnail' ),
 			'menu_position' => 5,
-			'menu_icon' => ''
+			'menu_icon' => 'dashicons-admin-post'
 		);
 
 		register_post_type( $this->post_type, $args );
@@ -107,30 +128,49 @@ class WordPress_Plugin_Template_Post_Type {
 	 * Register new taxonomy
 	 * @return void
 	 */
-	public function register_taxonomy () {
+	public function register_taxonomies () {
+
+		$tax_name = 'post_type_terms';
+		$tax_plural = __( 'Terms', 'wordpress-plugin-template' );
+		$tax_single = __( 'Term', 'wordpress-plugin-template' );
 
         $labels = array(
-            'name' => __( 'Terms' , 'wordpress-plugin-template' ),
-            'singular_name' => __( 'Term', 'wordpress-plugin-template' ),
-            'search_items' =>  __( 'Search Terms' , 'wordpress-plugin-template' ),
-            'all_items' => __( 'All Terms' , 'wordpress-plugin-template' ),
-            'parent_item' => __( 'Parent Term' , 'wordpress-plugin-template' ),
-            'parent_item_colon' => __( 'Parent Term:' , 'wordpress-plugin-template' ),
-            'edit_item' => __( 'Edit Term' , 'wordpress-plugin-template' ),
-            'update_item' => __( 'Update Term' , 'wordpress-plugin-template' ),
-            'add_new_item' => __( 'Add New Term' , 'wordpress-plugin-template' ),
-            'new_item_name' => __( 'New Term Name' , 'wordpress-plugin-template' ),
-            'menu_name' => __( 'Terms' , 'wordpress-plugin-template' ),
+            'name' => $tax_plural,
+            'singular_name' => $tax_single,
+            'menu_name' => $tax_plural,
+            'all_items' => sprintf( __( 'All %s' , 'wordpress-plugin-template' ), $tax_plural ),
+            'edit_item' => sprintf( __( 'Edit %s' , 'wordpress-plugin-template' ), $tax_single ),
+            'view_item' => sprintf( __( 'View %s' , 'wordpress-plugin-template' ), $tax_single ),
+            'update_item' => sprintf( __( 'Update %s' , 'wordpress-plugin-template' ), $tax_single ),
+            'add_new_item' => sprintf( __( 'Add New %s' , 'wordpress-plugin-template' ), $tax_single ),
+            'new_item_name' => sprintf( __( 'New %s Name' , 'wordpress-plugin-template' ), $tax_single ),
+            'parent_item' => sprintf( __( 'Parent %s' , 'wordpress-plugin-template' ), $tax_single ),
+            'parent_item_colon' => sprintf( __( 'Parent %s:' , 'wordpress-plugin-template' ), $tax_single ),
+            'search_items' =>  sprintf( __( 'Search %s' , 'wordpress-plugin-template' ), $tax_plural ),
+            'popular_items' =>  sprintf( __( 'Popular %s' , 'wordpress-plugin-template' ), $tax_plural ),
+            'separate_items_with_commas' =>  sprintf( __( 'Separate %s with commas' , 'wordpress-plugin-template' ), $tax_plural ),
+            'add_or_remove_items' =>  sprintf( __( 'Add or remove %s' , 'wordpress-plugin-template' ), $tax_plural ),
+            'choose_from_most_used' =>  sprintf( __( 'Choose from the most used %s' , 'wordpress-plugin-template' ), $tax_plural ),
+            'not_found' =>  sprintf( __( 'No %s found' , 'wordpress-plugin-template' ), $tax_plural ),
         );
 
         $args = array(
+        	'label' => $tax_plural,
+        	'labels' => $labels,
+        	'hierarchical' => true,
             'public' => true,
-            'hierarchical' => true,
+            'show_ui' => true,
+            'show_in_nav_menus' => true,
+            'show_tagcloud' => true,
+            'meta_box_cb' => null,
+            'show_admin_column' => true,
+            'update_count_callback' => '',
+            'query_var' => $tax_name,
             'rewrite' => true,
-            'labels' => $labels
+            'sort' => '',
         );
 
-        register_taxonomy( 'post_type_terms' , $this->post_type , $args );
+        register_taxonomy( $tax_name , $this->post_type , $args );
     }
 
     /**
