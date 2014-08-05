@@ -26,7 +26,7 @@ As of v3.0 of this template, there are a few libraries built into it that will m
 
 #### Registering a new post type
 
-Using the post type API and the wrapper function from the main plugin class you can easily register new post types with one line of code. For exapmle if you wanted to register a `listing` post type then you could do it like this:
+Using the [post type API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/lib/class-wordpress-plugin-template-post-type.php) and the wrapper function from the main plugin class you can easily register new post types with one line of code. For exapmle if you wanted to register a `listing` post type then you could do it like this:
 
 `WordPress_Plugin_Template()->register_post_type( 'listing', __( 'Listings', 'wordpress-plugin-template' ), __( 'Listing', 'wordpress-plugin-template' ) );`
 
@@ -36,7 +36,7 @@ This will register a new post type with all the standard settings. If you would 
 
 #### Registering a new taxonomy
 
-Using the taxonomy API and the wrapper function from the main plugin class you can easily register new taxonomies with one line of code. For exapmle if you wanted to register a `location` taxonomy that applies to the `listing` post type then you could do it like this:
+Using the [taxonomy API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/lib/class-wordpress-plugin-template-taxonomy.php) and the wrapper function from the main plugin class you can easily register new taxonomies with one line of code. For exapmle if you wanted to register a `location` taxonomy that applies to the `listing` post type then you could do it like this:
 
 `WordPress_Plugin_Template()->register_taxonomy( 'location', __( 'Locations', 'wordpress-plugin-template' ), __( 'Location', 'wordpress-plugin-template' ), 'listing' );`
 
