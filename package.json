@@ -2,7 +2,7 @@
 	"name": "wordpress-plugin-template",
 	"title": "WordPress Plugin Template",
 	"version": "1.0.0",
-	"homepage": "http://gerhardpotgieter.com/",
+	"homepage": "https://github.com/hlashbrooke/WordPress-Plugin-Template",
 	"main": "Gruntfile.js",
 	"devDependencies": {
 		"grunt": "~0.4.5",

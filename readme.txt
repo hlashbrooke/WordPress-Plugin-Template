@@ -2,19 +2,17 @@
 Contributors: hlashbrooke
 Donate link: http://www.hughlashbrooke.com/donate
 Tags: wordpress, plugin, template
-Requires at least: 3.8
-Tested up to: 3.8.1
+Requires at least: 3.9
+Tested up to: 3.9.1
 Stable tag: 1.0
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-{short_description}
+This is where you craft a short, punchy description of your plugin
 
 == Description ==
 
-{long_description}
-
-== Usage ==
-
-{usage_notes}
+This is where you can give a much longer description of your plugin that you can use to explain just how it awesome it really is.
 
 == Installation ==
 
@@ -26,9 +24,9 @@ Installing "WordPress Plugin Template" can be done either by searching for "Word
 
 == Frequently Asked Questions ==
 
-= {question} =
+= What is the plugin tepmlate for? =
 
-{answer}
+This plugin template is designed to help you get started with any new WordPress plugin.
 
 == Changelog ==
 

@@ -86,6 +86,7 @@ class WordPress_Plugin_Template {
 		$this->_version = $version;
 		$this->_token = 'wordpress_plugin_template';
 
+		// Load plugin environment variables
 		$this->file = $file;
 		$this->dir = dirname( $this->file );
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
@@ -103,10 +104,49 @@ class WordPress_Plugin_Template {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ), 10, 1 );
 
+		// Load API for generic admin functions
+		if( is_admin() ) {
+			$this->admin = new WordPress_Plugin_Template_Admin_API();
+		}
+
 		// Handle localisation
 		$this->load_plugin_textdomain();
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
-	} // Edn __construct ()
+	} // End __construct ()
+
+	/**
+	 * Wrapper function to register a new post type
+	 * @param  string $post_type   Post type name
+	 * @param  string $plural      Post type item plural name
+	 * @param  string $single      Post type item single name
+	 * @param  string $description Description of post type
+	 * @return object              Post type class object
+	 */
+	public function register_post_type ( $post_type = '', $plural = '', $single = '', $description = '' ) {
+
+		if( ! $post_type || ! $plural || ! $single ) return;
+
+		$post_type = new WordPress_Plugin_Template_Post_Type( $post_type, $plural, $single, $description );
+
+		return $post_type;
+	}
+
+	/**
+	 * Wrapper function to register a new taxonomy
+	 * @param  string $taxonomy   Taxonomy name
+	 * @param  string $plural     Taxonomy single name
+	 * @param  string $single     Taxonomy plural name
+	 * @param  array  $post_types Post types to which this taxonomy applies
+	 * @return object             Taxonomy class object
+	 */
+	public function register_taxonomy ( $taxonomy = '', $plural = '', $single = '', $post_types = array() ) {
+
+		if( ! $taxonomy || ! $plural || ! $single ) return;
+
+		$taxonomy = new WordPress_Plugin_Template_Taxonomy( $taxonomy, $plural, $single, $post_types );
+
+		return $taxonomy;
+	}
 
 	/**
 	 * Load frontend CSS.

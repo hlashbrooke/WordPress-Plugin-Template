@@ -106,20 +106,51 @@ sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.ph
 rm class-$SLUG-settings.tmp
 
 
-cd post-types
-mv class-$DEFAULT_SLUG-post_type.php class-$SLUG-post_type.php
+cd lib
+mv class-$DEFAULT_SLUG-post-type.php class-$SLUG-post-type.php
 
-cp class-$SLUG-post_type.php class-$SLUG-post_type.tmp
-sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-post_type.tmp > class-$SLUG-post_type.php
-rm class-$SLUG-post_type.tmp
+cp class-$SLUG-post-type.php class-$SLUG-post-type.tmp
+sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-post-type.tmp > class-$SLUG-post-type.php
+rm class-$SLUG-post-type.tmp
 
-cp class-$SLUG-post_type.php class-$SLUG-post_type.tmp
-sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG-post_type.tmp > class-$SLUG-post_type.php
-rm class-$SLUG-post_type.tmp
+cp class-$SLUG-post-type.php class-$SLUG-post-type.tmp
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG-post-type.tmp > class-$SLUG-post-type.php
+rm class-$SLUG-post-type.tmp
 
-cp class-$SLUG-post_type.php class-$SLUG-post_type.tmp
-sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-post_type.tmp > class-$SLUG-post_type.php
-rm class-$SLUG-post_type.tmp
+cp class-$SLUG-post-type.php class-$SLUG-post-type.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-post-type.tmp > class-$SLUG-post-type.php
+rm class-$SLUG-post-type.tmp
+
+
+mv class-$DEFAULT_SLUG-taxonomy.php class-$SLUG-taxonomy.php
+
+cp class-$SLUG-taxonomy.php class-$SLUG-taxonomy.tmp
+sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-taxonomy.tmp > class-$SLUG-taxonomy.php
+rm class-$SLUG-taxonomy.tmp
+
+cp class-$SLUG-taxonomy.php class-$SLUG-taxonomy.tmp
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG-taxonomy.tmp > class-$SLUG-taxonomy.php
+rm class-$SLUG-taxonomy.tmp
+
+cp class-$SLUG-taxonomy.php class-$SLUG-taxonomy.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-taxonomy.tmp > class-$SLUG-taxonomy.php
+rm class-$SLUG-taxonomy.tmp
+
+
+mv class-$DEFAULT_SLUG-admin-api.php class-$SLUG-admin-api.php
+
+cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
+sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
+rm class-$SLUG-admin-api.tmp
+
+cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
+rm class-$SLUG-admin-api.tmp
+
+cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
+rm class-$SLUG-admin-api.tmp
+
 
 if [ "$NEWREPO" == "y" ]; then
 	echo "Initialising new git repo..."
