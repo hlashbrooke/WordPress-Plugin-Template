@@ -6,6 +6,9 @@ read NAME
 printf "Destination folder: "
 read FOLDER
 
+printf "Include Grunt support (y/n): "
+read GRUNT
+
 printf "Initialise new git repo (y/n): "
 read NEWREPO
 
@@ -30,7 +33,12 @@ rm README.md
 rm build-plugin.sh
 rm changelog.txt
 
-echo "Updating extension files..."
+if [ "$GRUNT" == "n" ]; then
+	rm Gruntfile.js
+	rm package.json
+fi
+
+echo "Updating plugin files..."
 
 mv $DEFAULT_SLUG.php $SLUG.php
 

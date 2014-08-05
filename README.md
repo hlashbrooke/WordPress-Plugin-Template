@@ -18,7 +18,8 @@ You can run the script just like you would run any shell script - it does not ta
 
 1. **Plugin name** - this must be the full name of your plugin, with correct capitalisation and spacing.
 2. **Destination folder** - this will be the folder where your new plugin will be created - typically this will be your `wp-content/plugins` folder. You can provide a path that is relative to the script, or an absolute path - either will work.
-3. **Initialise new git repo (y/n)** - if you enter 'y' here then a git repo will be initialised in the new plugin folder.
+3. **Include Grunt support (y/n)** - if you enter 'y' here then the Grunt files will be included in the new plugin folder.
+4. **Initialise new git repo (y/n)** - if you enter 'y' here then a git repo will be initialised in the new plugin folder.
 
 ### API functions
 
