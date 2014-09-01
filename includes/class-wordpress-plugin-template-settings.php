@@ -42,7 +42,7 @@ class WordPress_Plugin_Template_Settings {
 		$this->base = 'wpt_';
 
 		// Initialise settings
-		add_action( 'admin_init', array( $this, 'init_settings' ) );
+		add_action( 'init', array( $this, 'init_settings' ), 11 );
 
 		// Register plugin settings
 		add_action( 'admin_init' , array( $this, 'register_settings' ) );
@@ -226,7 +226,20 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	public function register_settings () {
 		if( is_array( $this->settings ) ) {
+
+			// Check posted/selected tab
+			$current_section = '';
+			if( isset( $_POST['tab'] ) && $_POST['tab'] ) {
+				$current_section = $_POST['tab'];
+			} else {
+				if( isset( $_GET['tab'] ) && $_GET['tab'] ) {
+					$current_section = $_GET['tab'];
+				}
+			}
+
 			foreach( $this->settings as $section => $data ) {
+
+				if( $current_section && $current_section != $section ) continue;
 
 				// Add section to page
 				add_settings_section( $section, $data['title'], array( $this, 'settings_section' ), $this->parent->_token . '_settings' );
@@ -244,8 +257,10 @@ class WordPress_Plugin_Template_Settings {
 					register_setting( $this->parent->_token . '_settings', $option_name, $validation );
 
 					// Add field to page
-					add_settings_field( $field['id'], $field['label'], array( $this->parent->admin, 'display_field' ), $this->parent->_token . '_settings', $section, array( 'field' => $field ) );
+					add_settings_field( $field['id'], $field['label'], array( $this->parent->admin, 'display_field' ), $this->parent->_token . '_settings', $section, array( 'field' => $field, 'prefix' => $this->base ) );
 				}
+
+				if( ! $current_section ) break;
 			}
 		}
 	}
@@ -264,19 +279,60 @@ class WordPress_Plugin_Template_Settings {
 		// Build page HTML
 		$html = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
 			$html .= '<h2>' . __( 'Plugin Settings' , 'wordpress-plugin-template' ) . '</h2>' . "\n";
+
+			$tab = '';
+			if( isset( $_GET['tab'] ) && $_GET['tab'] ) {
+				$tab .= $_GET['tab'];
+			}
+
+			// Show page tabs
+			if( is_array( $this->settings ) && 1 < count( $this->settings ) ) {
+
+				$html .= '<h2 class="nav-tab-wrapper">' . "\n";
+
+				$c = 0;
+				foreach( $this->settings as $section => $data ) {
+
+					// Set tab class
+					$class = 'nav-tab';
+					if( ! isset( $_GET['tab'] ) ) {
+						if( 0 == $c ) {
+							$class .= ' nav-tab-active';
+						}
+					} else {
+						if( isset( $_GET['tab'] ) && $section == $_GET['tab'] ) {
+							$class .= ' nav-tab-active';
+						}
+					}
+
+					// Set tab link
+					$tab_link = add_query_arg( array( 'tab' => $section ) );
+					if( isset( $_GET['settings-updated'] ) ) {
+						$tab_link = remove_query_arg( 'settings-updated', $tab_link );
+					}
+
+					// Output tab
+					$html .= '<a href="' . $tab_link . '" class="' . esc_attr( $class ) . '">' . esc_html( $data['title'] ) . '</a>' . "\n";
+
+					++$c;
+				}
+
+				$html .= '</h2>' . "\n";
+			}
+
 			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
 
 				// Setup navigation
-				$html .= '<ul id="settings-sections" class="subsubsub hide-if-no-js">' . "\n";
-					$html .= '<li><a class="tab all current" href="#all">' . __( 'All' , 'wordpress-plugin-template' ) . '</a></li>' . "\n";
+				// $html .= '<ul id="settings-sections" class="subsubsub hide-if-no-js">' . "\n";
+				// 	$html .= '<li><a class="tab all current" href="#all">' . __( 'All' , 'ss-podcasting' ) . '</a></li>' . "\n";
 
-					foreach( $this->settings as $section => $data ) {
-						$html .= '<li>| <a class="tab" href="#' . $section . '">' . $data['title'] . '</a></li>' . "\n";
-					}
+				// 	foreach( $this->settings as $section => $data ) {
+				// 		$html .= '<li>| <a class="tab" href="#' . $section . '">' . $data['title'] . '</a></li>' . "\n";
+				// 	}
 
-				$html .= '</ul>' . "\n";
+				// $html .= '</ul>' . "\n";
 
-				$html .= '<div class="clear"></div>' . "\n";
+				// $html .= '<div class="clear"></div>' . "\n";
 
 				// Get settings fields
 				ob_start();
@@ -285,6 +341,7 @@ class WordPress_Plugin_Template_Settings {
 				$html .= ob_get_clean();
 
 				$html .= '<p class="submit">' . "\n";
+					$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
 					$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings' , 'wordpress-plugin-template' ) ) . '" />' . "\n";
 				$html .= '</p>' . "\n";
 			$html .= '</form>' . "\n";
