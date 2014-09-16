@@ -4,7 +4,7 @@
  * New - Library for registering post types
  * New - Library for registering taxonomies
  * New - Library for generic admin functions
- * New - Adding wrapper functions to main plugin class to emply new libraries
+ * New - Adding wrapper functions to main plugin class to employ new libraries
  * New - Adding tabs to settings page
  * Tweak - Updating build-plugin.sh to cater for new library files
  * Tweak - Bumping compatibility version

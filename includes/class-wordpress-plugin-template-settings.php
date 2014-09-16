@@ -96,7 +96,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @return array 		Modified links
 	 */
 	public function add_settings_link ( $links ) {
-		$settings_link = '<a href="options-general.php?page=wordpress_plugin_template_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
+		$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
   		array_push( $links, $settings_link );
   		return $links;
 	}
@@ -321,18 +321,6 @@ class WordPress_Plugin_Template_Settings {
 			}
 
 			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
-
-				// Setup navigation
-				// $html .= '<ul id="settings-sections" class="subsubsub hide-if-no-js">' . "\n";
-				// 	$html .= '<li><a class="tab all current" href="#all">' . __( 'All' , 'ss-podcasting' ) . '</a></li>' . "\n";
-
-				// 	foreach( $this->settings as $section => $data ) {
-				// 		$html .= '<li>| <a class="tab" href="#' . $section . '">' . $data['title'] . '</a></li>' . "\n";
-				// 	}
-
-				// $html .= '</ul>' . "\n";
-
-				// $html .= '<div class="clear"></div>' . "\n";
 
 				// Get settings fields
 				ob_start();

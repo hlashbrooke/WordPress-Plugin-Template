@@ -95,7 +95,7 @@ class WordPress_Plugin_Template_Taxonomy {
             'sort' => '',
         );
 
-        register_taxonomy( $this->taxonomy, $this->post_types, apply_filters( $this->taxonomy . '_register_args', $args ) );
+        register_taxonomy( $this->taxonomy, $this->post_types, apply_filters( $this->taxonomy . '_register_args', $args, $this->taxonomy, $this->post_types ) );
     }
 
 }

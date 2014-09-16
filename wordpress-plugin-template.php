@@ -7,7 +7,7 @@
  * Author: Hugh Lashbrooke
  * Author URI: http://www.hughlashbrooke.com/
  * Requires at least: 3.9
- * Tested up to: 3.9.1
+ * Tested up to: 4.0
  *
  * @package WordPress
  * @author Hugh Lashbrooke

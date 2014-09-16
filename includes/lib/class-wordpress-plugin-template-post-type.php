@@ -51,6 +51,7 @@ class WordPress_Plugin_Template_Post_Type {
 
 		// Display custom update messages for posts edits
 		add_filter( 'post_updated_messages', array( $this, 'updated_messages' ) );
+		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_updated_messages' ), 10, 2 );
 	}
 
 	/**
@@ -96,7 +97,7 @@ class WordPress_Plugin_Template_Post_Type {
 			'menu_icon' => 'dashicons-admin-post',
 		);
 
-		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args ) );
+		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args, $this->post_type ) );
 	}
 
 	/**
@@ -122,6 +123,25 @@ class WordPress_Plugin_Template_Post_Type {
 	  );
 
 	  return $messages;
+	}
+
+	/**
+	 * Set up bulk admin messages for post type
+	 * @param  array  $bulk_messages Default bulk messages
+	 * @param  array  $bulk_counts   Counts of selected posts in each status
+	 * @return array                Modified messages
+	 */
+	public function bulk_updated_messages ( $bulk_messages = array(), $bulk_counts = array() ) {
+
+		$bulk_messages[ $this->post_type ] = array(
+	        'updated'   => sprintf( _n( '%1$s %2$s updated.', '%1$s %3$s updated.', $bulk_counts['updated'], 'wordpress-plugin-template' ), $bulk_counts['updated'], $this->single, $this->plural ),
+	        'locked'    => sprintf( _n( '%1$s %2$s not updated, somebody is editing it.', '%1$s %3$s not updated, somebody is editing them.', $bulk_counts['locked'], 'wordpress-plugin-template' ), $bulk_counts['locked'], $this->single, $this->plural ),
+	        'deleted'   => sprintf( _n( '%1$s %2$s permanently deleted.', '%1$s %3$s permanently deleted.', $bulk_counts['deleted'], 'wordpress-plugin-template' ), $bulk_counts['deleted'], $this->single, $this->plural ),
+	        'trashed'   => sprintf( _n( '%1$s %2$s moved to the Trash.', '%1$s %3$s moved to the Trash.', $bulk_counts['trashed'], 'wordpress-plugin-template' ), $bulk_counts['trashed'], $this->single, $this->plural ),
+	        'untrashed' => sprintf( _n( '%1$s %2$s restored from the Trash.', '%1$s %3$s restored from the Trash.', $bulk_counts['untrashed'], 'wordpress-plugin-template' ), $bulk_counts['untrashed'], $this->single, $this->plural ),
+	    );
+
+	    return $bulk_messages;
 	}
 
 }

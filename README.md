@@ -57,7 +57,7 @@ This template includes the following features:
 + Standard enqueue functions for the dashboard and the frontend
 + A library for easily registering a new post type
 + A library for easily registering a new taxonomy
-+ A library for handling common admin functions
++ A library for handling common admin functions (including adding meta boxes to any post type, displaying settings fields and display custom fields for posts)
 + A complete and versatile settings class like you see [here](http://www.hughlashbrooke.com/complete-versatile-options-page-class-wordpress-plugin/)
 + A .pot file to make localisation easier
 + Full text of the GPLv2 license
