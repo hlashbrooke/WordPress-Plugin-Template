@@ -41,7 +41,7 @@ class WordPress_Plugin_Template_Admin_API {
 			$option = get_post_meta( $post->ID, $field['id'], true );
 
 			// Get data to display in field
-			if( $option ) {
+			if( isset( $option ) ) {
 				$data = $option;
 			}
 
@@ -52,15 +52,17 @@ class WordPress_Plugin_Template_Admin_API {
 			$option = get_option( $option_name );
 
 			// Get data to display in field
-			if( $option ) {
+			if( isset( $option ) ) {
 				$data = $option;
 			}
 
 		}
 
 		// Show default data if no option saved and default is supplied
-		if( ! $data && isset( $field['default'] ) ) {
+		if( $data === false && isset( $field['default'] ) ) {
 			$data = $field['default'];
+		} elseif( $data === false ) {
+			$data = '';
 		}
 
 		$html = '';
@@ -98,7 +100,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'checkbox':
 				$checked = '';
-				if( $option && 'on' == $option ) {
+				if( $data && 'on' == $data ) {
 					$checked = 'checked="checked"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" ' . $checked . '/>' . "\n";
@@ -110,7 +112,7 @@ class WordPress_Plugin_Template_Admin_API {
 					if( in_array( $k, $data ) ) {
 						$checked = true;
 					}
-					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '"><input type="checkbox" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
+					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '" class="checkbox_multi"><input type="checkbox" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
 				}
 			break;
 

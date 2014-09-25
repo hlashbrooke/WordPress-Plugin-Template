@@ -6,8 +6,11 @@
  * Description: This is your starter template for your next WordPress plugin.
  * Author: Hugh Lashbrooke
  * Author URI: http://www.hughlashbrooke.com/
- * Requires at least: 3.9
+ * Requires at least: 4.0
  * Tested up to: 4.0
+ *
+ * Text Domain: wordpress-plugin-template
+ * Domain Path: /lang/
  *
  * @package WordPress
  * @author Hugh Lashbrooke
@@ -33,6 +36,7 @@ require_once( 'includes/lib/class-wordpress-plugin-template-taxonomy.php' );
  */
 function WordPress_Plugin_Template () {
 	$instance = WordPress_Plugin_Template::instance( __FILE__, '1.0.0' );
+
 	if( is_null( $instance->settings ) ) {
 		$instance->settings = WordPress_Plugin_Template_Settings::instance( $instance );
 	}
