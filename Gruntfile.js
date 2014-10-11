@@ -11,7 +11,7 @@ module.exports = function( grunt ){
             scss: 'assets/css/scss'
 		},
 
-        preprocessor : 'compass', // or compass
+        preprocessor : 'less', // or compass
 
 		// Compile all .less files.
 		less: {
