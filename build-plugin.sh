@@ -12,6 +12,9 @@ read GRUNT
 printf "Initialise new git repo (y/n): "
 read NEWREPO
 
+printf "CSS Preprocessor Support: ([less]/compass/none): "
+read PRECSS
+
 DEFAULT_NAME="WordPress Plugin Template"
 DEFAULT_CLASS=${DEFAULT_NAME// /_}
 DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
@@ -21,11 +24,12 @@ CLASS=${NAME// /_}
 TOKEN=$( tr '[A-Z]' '[a-z]' <<< $CLASS)
 SLUG=${TOKEN//_/-}
 
+mkdir -p $FOLDER
+
 git clone --depth=1 git@github.com:hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
 echo "Removing git files..."
 
-mkdir -p $FOLDER
 cd $FOLDER/$SLUG
 
 rm -rf .git
@@ -33,9 +37,37 @@ rm README.md
 rm build-plugin.sh
 rm changelog.txt
 
+
 if [ "$GRUNT" == "n" ]; then
 	rm Gruntfile.js
 	rm package.json
+fi
+
+
+if [ "${PRECSS}" == "compass" ]; then
+    echo "Removing 'less'  files..";
+    rm assets/css/frontend.less
+    rm assets/css/admin.less
+    if [ "${GRUNT}" == "y" ]; then
+        echo "Defaulting to Compass in Gruntfile..."
+        cp Gruntfile.js Gruntfile.tmp
+        sed "s/'less', \/\/ or compass/'compass', \/\/ or less/g" Gruntfile.tmp > Gruntfile.js
+        rm Gruntfile.tmp
+    fi
+
+elif [ "${PRECSS}" == "none" ]; then
+    echo "Removing all preprocessor files..";
+    rm assets/css/frontend.less
+    rm assets/css/admin.less
+    rm assets/css/scss/admin.scss
+    rm assets/css/scss/frontend.scss
+    rm assets/css/scss/config.rb
+    rmdir assets/css/scss
+else # defaulting to less
+    echo "Removing Compass/scss files..";
+    rm assets/css/scss/*.scss
+    rm assets/css/scss/config.rb
+    rmdir assets/css/scss
 fi
 
 echo "Updating plugin files..."
@@ -164,6 +196,16 @@ if [ "$NEWREPO" == "y" ]; then
 	echo "Initialising new git repo..."
 	cd ../..
 	git init
+
+	if [ ${GRUNT} == 'y' ]; then
+	    echo 'node_modules' >> .gitignore
+    fi
+
+    if [ ${PRECSS} == 'compass' ]; then
+        echo '*sass-cache*' >> .gitignore
+    fi
+else
+    rm .gitignore
 fi
 
 echo "Complete!"
