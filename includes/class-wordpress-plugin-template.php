@@ -210,7 +210,15 @@ class WordPress_Plugin_Template {
 	 */
 	public function load_plugin_textdomain () {
 	    $domain = 'wordpress-plugin-template';
-
+		/**
+		 * plugin_locale filter hook:
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param string $get_locale
+		 * @param string $domain
+		 *
+		 */
 	    $locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
 	    load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );

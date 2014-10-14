@@ -76,7 +76,17 @@ class WordPress_Plugin_Template_Post_Type {
 			'parent_item_colon' => sprintf( __( 'Parent %s' ), $this->single ),
 			'menu_name' => $this->plural,
 		);
-
+		/**
+		 * {$posttype}_labels filter hook: Preprocessing of posttype label
+		 *
+		 * Modify $labels array as needed before creating the posttype.
+		 * http://codex.wordpress.org/Function_Reference/register_post_type#Arguments
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args Labels Array.
+		 *
+		 */
 		$args = array(
 			'labels' => apply_filters( $this->post_type . '_labels', $labels ),
 			'description' => $this->description,
@@ -96,7 +106,19 @@ class WordPress_Plugin_Template_Post_Type {
 			'menu_position' => 5,
 			'menu_icon' => 'dashicons-admin-post',
 		);
-
+		/**
+		 * {$posttype}_register_args filter hook: Additional parameters for Custom Type
+		 *
+		 * Add parameters to $args array. E.g.:  as in  $args['menu_icon'] = 'dashicons-cart';
+		 * For full reference on possible parameters, consult
+		 * http://codex.wordpress.org/Function_Reference/register_post_type
+		 *
+		 * @since 1.0.0
+		 *
+		 * @param array $args Argument Array for register_post_type.
+		 * @param string $post_type
+		 *
+		 */
 		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args, $this->post_type ) );
 	}
 
