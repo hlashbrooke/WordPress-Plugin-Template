@@ -11,6 +11,13 @@ msgstr ""
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en_GB\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;"
+"_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;"
+"esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+"X-Poedit-SearchPath-1: .\n"
 
 #: classes/post-types/class-wordpress-plugin-template-post_type.php:52
 #: includes/post-types/class-wordpress-plugin-template-post_type.php:42
@@ -400,8 +407,4 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Hugh Lashbrooke"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://www.hughlashbrooke.com/"
 msgstr ""
