@@ -26,6 +26,18 @@ class WordPress_Plugin_Template_Admin_API {
 			$field = $data;
 		}
 
+		// Some defaults for field data, in case not all field's fields are provided
+		$field_defaults = array(
+			'placeholder' => '',
+			'label' => __('Default label', 'wordpress-plugin-template'),
+			'description' => __('Default description', 'wordpress-plugin-template'),
+			'type' => 'text',
+			'metabox' => array(),
+			'default' => __('Default Default', 'wordpress-plugin-template')
+
+		);
+		$field = wp_parse_args($field, $field_defaults);
+
 		// Check for prefix on option name
 		$option_name = '';
 		if( isset( $data['prefix'] ) ) {
