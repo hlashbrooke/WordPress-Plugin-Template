@@ -205,7 +205,7 @@ if [ "$NEWREPO" == "y" ]; then
         echo '*sass-cache*' >> .gitignore
     fi
 else
-    rm .gitignore
+    rm ./.gitignore
 fi
 
 echo "Complete!"
