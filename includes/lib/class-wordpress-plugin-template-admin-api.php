@@ -228,6 +228,48 @@ class WordPress_Plugin_Template_Admin_API {
 
 		return $data;
 	}
+	/**
+	 * Add Meta Boxes to the Dashboard
+	 *
+	 * Convenience method to generate metaboxes from hash
+	 * array
+	 *     ['id'] Id for the Metabox (mandatory, wont add otherwise)
+	 *     ['title'] Title for the Metabox
+	 *     ['context'] Context for the metabox  ('normal', 'advanced', or 'side')
+	 *     ['priority'] The priority within the context where the boxes should show ('high', 'core', 'default' or 'low')
+	 *     ['callback_args'] Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable.
+	 *
+	 * @param array $metaboxes
+	 */
+	public function add_meta_boxes($metaboxes = array()) {
+		// Shortcircuit if empty
+		if (empty($metaboxes)) return;
+
+		$default_metabox = array(
+			'title' => '',
+			'post_types' => array(),
+			'context' => 'advanced',
+			'priority' => 'default',
+			'callback_args' => null
+		);
+
+		foreach ( $metaboxes as $metabox ) {
+			if ( ! isset( $metabox['id'] ) or empty( $metabox['id'] ) ) {
+				continue;
+			}
+
+			$metabox = wp_parse_args( $metabox, $default_metabox );
+
+			$this->add_meta_box(
+				$metabox['id'],
+				$metabox['title'],
+				$metabox['post_types'],
+				$metabox['context'],
+				$metabox['priority'],
+				$metabox['callback_args'] );
+		}
+
+	}
 
 	/**
 	 * Add meta box to the dashboard
