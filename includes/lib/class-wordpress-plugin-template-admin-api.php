@@ -322,6 +322,15 @@ class WordPress_Plugin_Template_Admin_API {
 
 		}
 
+		/**
+		 * filter {$metaboxid}_post_meta_box_content
+		 *
+		 * To add content at the end of a particular metabox.
+		 *
+		 * @parm Post $post
+		 * @parm array $args
+		 */
+		do_action($args['id'] .'_post_meta_box_content', $post, $args);
 		echo '</div>' . "\n";
 
 	}
