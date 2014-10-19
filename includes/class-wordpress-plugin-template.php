@@ -105,7 +105,7 @@ class WordPress_Plugin_Template {
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ), 10, 1 );
 
 		// Load API for generic admin functions
-		if( is_admin() ) {
+		if ( is_admin() ) {
 			$this->admin = new WordPress_Plugin_Template_Admin_API();
 		}
 
@@ -124,7 +124,7 @@ class WordPress_Plugin_Template {
 	 */
 	public function register_post_type ( $post_type = '', $plural = '', $single = '', $description = '' ) {
 
-		if( ! $post_type || ! $plural || ! $single ) return;
+		if ( ! $post_type || ! $plural || ! $single ) return;
 
 		$post_type = new WordPress_Plugin_Template_Post_Type( $post_type, $plural, $single, $description );
 
@@ -141,7 +141,7 @@ class WordPress_Plugin_Template {
 	 */
 	public function register_taxonomy ( $taxonomy = '', $plural = '', $single = '', $post_types = array() ) {
 
-		if( ! $taxonomy || ! $plural || ! $single ) return;
+		if ( ! $taxonomy || ! $plural || ! $single ) return;
 
 		$taxonomy = new WordPress_Plugin_Template_Taxonomy( $taxonomy, $plural, $single, $post_types );
 

@@ -20,7 +20,7 @@ class WordPress_Plugin_Template_Admin_API {
 	public function display_field ( $data = array(), $post = false, $echo = true ) {
 
 		// Get field info
-		if( isset( $data['field'] ) ) {
+		if ( isset( $data['field'] ) ) {
 			$field = $data['field'];
 		} else {
 			$field = $data;
@@ -28,20 +28,20 @@ class WordPress_Plugin_Template_Admin_API {
 
 		// Check for prefix on option name
 		$option_name = '';
-		if( isset( $data['prefix'] ) ) {
+		if ( isset( $data['prefix'] ) ) {
 			$option_name = $data['prefix'];
 		}
 
 		// Get saved data
 		$data = '';
-		if( $post ) {
+		if ( $post ) {
 
 			// Get saved field data
 			$option_name .= $field['id'];
 			$option = get_post_meta( $post->ID, $field['id'], true );
 
 			// Get data to display in field
-			if( isset( $option ) ) {
+			if ( isset( $option ) ) {
 				$data = $option;
 			}
 
@@ -52,16 +52,16 @@ class WordPress_Plugin_Template_Admin_API {
 			$option = get_option( $option_name );
 
 			// Get data to display in field
-			if( isset( $option ) ) {
+			if ( isset( $option ) ) {
 				$data = $option;
 			}
 
 		}
 
 		// Show default data if no option saved and default is supplied
-		if( $data === false && isset( $field['default'] ) ) {
+		if ( $data === false && isset( $field['default'] ) ) {
 			$data = $field['default'];
-		} elseif( $data === false ) {
+		} elseif ( $data === false ) {
 			$data = '';
 		}
 
@@ -79,12 +79,12 @@ class WordPress_Plugin_Template_Admin_API {
 			case 'number':
 			case 'hidden':
 				$min = '';
-				if( isset( $field['min'] ) ) {
+				if ( isset( $field['min'] ) ) {
 					$min = ' min="' . esc_attr( $field['min'] ) . '"';
 				}
 
 				$max = '';
-				if( isset( $field['max'] ) ) {
+				if ( isset( $field['max'] ) ) {
 					$max = ' max="' . esc_attr( $field['max'] ) . '"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="' . esc_attr( $data ) . '"' . $min . '' . $max . '/>' . "\n";
@@ -100,16 +100,16 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'checkbox':
 				$checked = '';
-				if( $data && 'on' == $data ) {
+				if ( $data && 'on' == $data ) {
 					$checked = 'checked="checked"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" ' . $checked . '/>' . "\n";
 			break;
 
 			case 'checkbox_multi':
-				foreach( $field['options'] as $k => $v ) {
+				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if( in_array( $k, $data ) ) {
+					if ( in_array( $k, $data ) ) {
 						$checked = true;
 					}
 					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '" class="checkbox_multi"><input type="checkbox" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
@@ -117,9 +117,9 @@ class WordPress_Plugin_Template_Admin_API {
 			break;
 
 			case 'radio':
-				foreach( $field['options'] as $k => $v ) {
+				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if( $k == $data ) {
+					if ( $k == $data ) {
 						$checked = true;
 					}
 					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '"><input type="radio" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
@@ -128,9 +128,9 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'select':
 				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '">';
-				foreach( $field['options'] as $k => $v ) {
+				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if( $k == $data ) {
+					if ( $k == $data ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
@@ -140,9 +140,9 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'select_multi':
 				$html .= '<select name="' . esc_attr( $option_name ) . '[]" id="' . esc_attr( $field['id'] ) . '" multiple="multiple">';
-				foreach( $field['options'] as $k => $v ) {
+				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if( in_array( $k, $data ) ) {
+					if ( in_array( $k, $data ) ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
@@ -152,7 +152,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'image':
 				$image_thumb = '';
-				if( $data ) {
+				if ( $data ) {
 					$image_thumb = wp_get_attachment_thumb_url( $data );
 				}
 				$html .= '<img id="' . $option_name . '_preview" class="image_preview" src="' . $image_thumb . '" /><br/>' . "\n";
@@ -180,19 +180,19 @@ class WordPress_Plugin_Template_Admin_API {
 			break;
 
 			default:
-				if( ! $post ) {
+				if ( ! $post ) {
 					$html .= '<label for="' . esc_attr( $field['id'] ) . '">' . "\n";
 				}
 
 				$html .= '<span class="description">' . $field['description'] . '</span>' . "\n";
 
-				if( ! $post ) {
+				if ( ! $post ) {
 					$html .= '</label>' . "\n";
 				}
 			break;
 		}
 
-		if( ! $echo ) {
+		if ( ! $echo ) {
 			return $html;
 		}
 
@@ -230,12 +230,12 @@ class WordPress_Plugin_Template_Admin_API {
 	public function add_meta_box ( $id = '', $title = '', $post_types = array(), $context = 'advanced', $priority = 'default', $callback_args = null ) {
 
 		// Get post type(s)
-		if( ! is_array( $post_types ) ) {
+		if ( ! is_array( $post_types ) ) {
 			$post_types = array( $post_types );
 		}
 
 		// Generate each metabox
-		foreach( $post_types as $post_type ) {
+		foreach ( $post_types as $post_type ) {
 			add_meta_box( $id, $title, array( $this, 'meta_box_content' ), $post_type, $context, $priority, $callback_args );
 		}
 	}
@@ -250,19 +250,19 @@ class WordPress_Plugin_Template_Admin_API {
 
 		$fields = apply_filters( $post->post_type . '_custom_fields', array(), $post->post_type );
 
-		if( ! is_array( $fields ) || 0 == count( $fields ) ) return;
+		if ( ! is_array( $fields ) || 0 == count( $fields ) ) return;
 
 		echo '<div class="custom-field-panel">' . "\n";
 
-		foreach( $fields as $field ) {
+		foreach ( $fields as $field ) {
 
-			if( ! isset( $field['metabox'] ) ) continue;
+			if ( ! isset( $field['metabox'] ) ) continue;
 
-			if( ! is_array( $field['metabox'] ) ) {
+			if ( ! is_array( $field['metabox'] ) ) {
 				$field['metabox'] = array( $field['metabox'] );
 			}
 
-			if( in_array( $args['id'], $field['metabox'] ) ) {
+			if ( in_array( $args['id'], $field['metabox'] ) ) {
 				$this->display_meta_box_field( $field, $post );
 			}
 
@@ -280,7 +280,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function display_meta_box_field ( $field = array(), $post ) {
 
-		if( ! is_array( $field ) || 0 == count( $field ) ) return;
+		if ( ! is_array( $field ) || 0 == count( $field ) ) return;
 
 		$field = '<p class="form-field"><label for="' . $field['id'] . '">' . $field['label'] . '</label>' . $this->display_field( $field, $post, false ) . '</p>' . "\n";
 
@@ -294,16 +294,16 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function save_meta_boxes ( $post_id = 0 ) {
 
-		if( ! $post_id ) return;
+		if ( ! $post_id ) return;
 
 		$post_type = get_post_type( $post_id );
 
 		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
 
-		if( ! is_array( $fields ) || 0 == count( $fields ) ) return;
+		if ( ! is_array( $fields ) || 0 == count( $fields ) ) return;
 
-		foreach( $fields as $field ) {
-			if( isset( $_REQUEST[ $field['id'] ] ) ) {
+		foreach ( $fields as $field ) {
+			if ( isset( $_REQUEST[ $field['id'] ] ) ) {
 				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) );
 			} else {
 				update_post_meta( $post_id, $field['id'], '' );
