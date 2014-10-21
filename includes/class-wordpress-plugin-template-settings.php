@@ -67,7 +67,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @return void
 	 */
 	public function add_menu_item () {
-		$page = add_options_page( __( 'Plugin Settings', 'wordpress-plugin-template' ) , __( 'Plugin Settings', 'wordpress-plugin-template' ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ) );
+		$page = add_options_page( __( 'Plugin Settings', $this->parent->_token ) , __( 'Plugin Settings', $this->parent->_token ) , 'manage_options' , $this->parent->_token . '_settings' ,  array( $this, 'settings_page' ) );
 		add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 	}
 
@@ -96,7 +96,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @return array 		Modified links
 	 */
 	public function add_settings_link ( $links ) {
-		$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
+		$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', $this->parent->_token ) . '</a>';
   		array_push( $links, $settings_link );
   		return $links;
 	}
@@ -108,68 +108,68 @@ class WordPress_Plugin_Template_Settings {
 	private function settings_fields () {
 
 		$settings['standard'] = array(
-			'title'					=> __( 'Standard', 'wordpress-plugin-template' ),
-			'description'			=> __( 'These are fairly standard form input fields.', 'wordpress-plugin-template' ),
+			'title'					=> __( 'Standard', $this->parent->_token ),
+			'description'			=> __( 'These are fairly standard form input fields.', $this->parent->_token ),
 			'fields'				=> array(
 				array(
 					'id' 			=> 'text_field',
-					'label'			=> __( 'Some Text' , 'wordpress-plugin-template' ),
-					'description'	=> __( 'This is a standard text field.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'Some Text' , $this->parent->_token ),
+					'description'	=> __( 'This is a standard text field.', $this->parent->_token ),
 					'type'			=> 'text',
 					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text', 'wordpress-plugin-template' )
+					'placeholder'	=> __( 'Placeholder text', $this->parent->_token )
 				),
 				array(
 					'id' 			=> 'password_field',
-					'label'			=> __( 'A Password' , 'wordpress-plugin-template' ),
-					'description'	=> __( 'This is a standard password field.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'A Password' , $this->parent->_token ),
+					'description'	=> __( 'This is a standard password field.', $this->parent->_token ),
 					'type'			=> 'password',
 					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text', 'wordpress-plugin-template' )
+					'placeholder'	=> __( 'Placeholder text', $this->parent->_token )
 				),
 				array(
 					'id' 			=> 'secret_text_field',
-					'label'			=> __( 'Some Secret Text' , 'wordpress-plugin-template' ),
-					'description'	=> __( 'This is a secret text field - any data saved here will not be displayed after the page has reloaded, but it will be saved.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'Some Secret Text' , $this->parent->_token ),
+					'description'	=> __( 'This is a secret text field - any data saved here will not be displayed after the page has reloaded, but it will be saved.', $this->parent->_token ),
 					'type'			=> 'text_secret',
 					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text', 'wordpress-plugin-template' )
+					'placeholder'	=> __( 'Placeholder text', $this->parent->_token )
 				),
 				array(
 					'id' 			=> 'text_block',
-					'label'			=> __( 'A Text Block' , 'wordpress-plugin-template' ),
-					'description'	=> __( 'This is a standard text area.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'A Text Block' , $this->parent->_token ),
+					'description'	=> __( 'This is a standard text area.', $this->parent->_token ),
 					'type'			=> 'textarea',
 					'default'		=> '',
-					'placeholder'	=> __( 'Placeholder text for this textarea', 'wordpress-plugin-template' )
+					'placeholder'	=> __( 'Placeholder text for this textarea', $this->parent->_token )
 				),
 				array(
 					'id' 			=> 'single_checkbox',
-					'label'			=> __( 'An Option', 'wordpress-plugin-template' ),
-					'description'	=> __( 'A standard checkbox - if you save this option as checked then it will store the option as \'on\', otherwise it will be an empty string.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'An Option', $this->parent->_token ),
+					'description'	=> __( 'A standard checkbox - if you save this option as checked then it will store the option as \'on\', otherwise it will be an empty string.', $this->parent->_token ),
 					'type'			=> 'checkbox',
 					'default'		=> ''
 				),
 				array(
 					'id' 			=> 'select_box',
-					'label'			=> __( 'A Select Box', 'wordpress-plugin-template' ),
-					'description'	=> __( 'A standard select box.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'A Select Box', $this->parent->_token ),
+					'description'	=> __( 'A standard select box.', $this->parent->_token ),
 					'type'			=> 'select',
 					'options'		=> array( 'drupal' => 'Drupal', 'joomla' => 'Joomla', 'wordpress' => 'WordPress' ),
 					'default'		=> 'wordpress'
 				),
 				array(
 					'id' 			=> 'radio_buttons',
-					'label'			=> __( 'Some Options', 'wordpress-plugin-template' ),
-					'description'	=> __( 'A standard set of radio buttons.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'Some Options', $this->parent->_token ),
+					'description'	=> __( 'A standard set of radio buttons.', $this->parent->_token ),
 					'type'			=> 'radio',
 					'options'		=> array( 'superman' => 'Superman', 'batman' => 'Batman', 'ironman' => 'Iron Man' ),
 					'default'		=> 'batman'
 				),
 				array(
 					'id' 			=> 'multiple_checkboxes',
-					'label'			=> __( 'Some Items', 'wordpress-plugin-template' ),
-					'description'	=> __( 'You can select multiple items and they will be stored as an array.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'Some Items', $this->parent->_token ),
+					'description'	=> __( 'You can select multiple items and they will be stored as an array.', $this->parent->_token ),
 					'type'			=> 'checkbox_multi',
 					'options'		=> array( 'square' => 'Square', 'circle' => 'Circle', 'rectangle' => 'Rectangle', 'triangle' => 'Triangle' ),
 					'default'		=> array( 'circle', 'triangle' )
@@ -178,36 +178,36 @@ class WordPress_Plugin_Template_Settings {
 		);
 
 		$settings['extra'] = array(
-			'title'					=> __( 'Extra', 'wordpress-plugin-template' ),
-			'description'			=> __( 'These are some extra input fields that maybe aren\'t as common as the others.', 'wordpress-plugin-template' ),
+			'title'					=> __( 'Extra', $this->parent->_token ),
+			'description'			=> __( 'These are some extra input fields that maybe aren\'t as common as the others.', $this->parent->_token ),
 			'fields'				=> array(
 				array(
 					'id' 			=> 'number_field',
-					'label'			=> __( 'A Number' , 'wordpress-plugin-template' ),
-					'description'	=> __( 'This is a standard number field - if this field contains anything other than numbers then the form will not be submitted.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'A Number' , $this->parent->_token ),
+					'description'	=> __( 'This is a standard number field - if this field contains anything other than numbers then the form will not be submitted.', $this->parent->_token ),
 					'type'			=> 'number',
 					'default'		=> '',
-					'placeholder'	=> __( '42', 'wordpress-plugin-template' )
+					'placeholder'	=> __( '42', $this->parent->_token )
 				),
 				array(
 					'id' 			=> 'colour_picker',
-					'label'			=> __( 'Pick a colour', 'wordpress-plugin-template' ),
-					'description'	=> __( 'This uses WordPress\' built-in colour picker - the option is stored as the colour\'s hex code.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'Pick a colour', $this->parent->_token ),
+					'description'	=> __( 'This uses WordPress\' built-in colour picker - the option is stored as the colour\'s hex code.', $this->parent->_token ),
 					'type'			=> 'color',
 					'default'		=> '#21759B'
 				),
 				array(
 					'id' 			=> 'an_image',
-					'label'			=> __( 'An Image' , 'wordpress-plugin-template' ),
-					'description'	=> __( 'This will upload an image to your media library and store the attachment ID in the option field. Once you have uploaded an imge the thumbnail will display above these buttons.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'An Image' , $this->parent->_token ),
+					'description'	=> __( 'This will upload an image to your media library and store the attachment ID in the option field. Once you have uploaded an imge the thumbnail will display above these buttons.', $this->parent->_token ),
 					'type'			=> 'image',
 					'default'		=> '',
 					'placeholder'	=> ''
 				),
 				array(
 					'id' 			=> 'multi_select_box',
-					'label'			=> __( 'A Multi-Select Box', 'wordpress-plugin-template' ),
-					'description'	=> __( 'A standard multi-select box - the saved data is stored as an array.', 'wordpress-plugin-template' ),
+					'label'			=> __( 'A Multi-Select Box', $this->parent->_token ),
+					'description'	=> __( 'A standard multi-select box - the saved data is stored as an array.', $this->parent->_token ),
 					'type'			=> 'select_multi',
 					'options'		=> array( 'linux' => 'Linux', 'mac' => 'Mac', 'windows' => 'Windows' ),
 					'default'		=> array( 'linux' )
@@ -278,7 +278,7 @@ class WordPress_Plugin_Template_Settings {
 
 		// Build page HTML
 		$html = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
-			$html .= '<h2>' . __( 'Plugin Settings' , 'wordpress-plugin-template' ) . '</h2>' . "\n";
+			$html .= '<h2>' . __( 'Plugin Settings' , $this->parent->_token ) . '</h2>' . "\n";
 
 			$tab = '';
 			if( isset( $_GET['tab'] ) && $_GET['tab'] ) {
@@ -330,7 +330,7 @@ class WordPress_Plugin_Template_Settings {
 
 				$html .= '<p class="submit">' . "\n";
 					$html .= '<input type="hidden" name="tab" value="' . esc_attr( $tab ) . '" />' . "\n";
-					$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings' , 'wordpress-plugin-template' ) ) . '" />' . "\n";
+					$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Settings' , $this->parent->_token ) ) . '" />' . "\n";
 				$html .= '</p>' . "\n";
 			$html .= '</form>' . "\n";
 		$html .= '</div>' . "\n";
