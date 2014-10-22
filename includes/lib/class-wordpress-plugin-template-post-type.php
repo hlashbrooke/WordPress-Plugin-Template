@@ -38,7 +38,7 @@ class WordPress_Plugin_Template_Post_Type {
 
 	public function __construct ( $post_type = '', $plural = '', $single = '', $description = '' ) {
 
-		if( ! $post_type || ! $plural || ! $single ) return;
+		if ( ! $post_type || ! $plural || ! $single ) return;
 
 		// Post type name and labels
 		$this->post_type = $post_type;

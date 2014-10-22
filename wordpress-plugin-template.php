@@ -37,7 +37,7 @@ require_once( 'includes/lib/class-wordpress-plugin-template-taxonomy.php' );
 function WordPress_Plugin_Template () {
 	$instance = WordPress_Plugin_Template::instance( __FILE__, '1.0.0' );
 
-	if( is_null( $instance->settings ) ) {
+	if ( is_null( $instance->settings ) ) {
 		$instance->settings = WordPress_Plugin_Template_Settings::instance( $instance );
 	}
 

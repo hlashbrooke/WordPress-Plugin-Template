@@ -38,13 +38,13 @@ class WordPress_Plugin_Template_Taxonomy {
 
 	public function __construct ( $taxonomy = '', $plural = '', $single = '', $post_types = array() ) {
 
-		if( ! $taxonomy || ! $plural || ! $single ) return;
+		if ( ! $taxonomy || ! $plural || ! $single ) return;
 
 		// Post type name and labels
 		$this->taxonomy = $taxonomy;
 		$this->plural = $plural;
 		$this->single = $single;
-		if( ! is_array( $post_types ) ) {
+		if ( ! is_array( $post_types ) ) {
 			$post_types = array( $post_types );
 		}
 		$this->post_types = $post_types;
