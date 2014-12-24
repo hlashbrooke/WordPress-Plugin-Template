@@ -122,11 +122,11 @@ class WordPress_Plugin_Template {
 	 * @param  string $description Description of post type
 	 * @return object              Post type class object
 	 */
-	public function register_post_type ( $post_type = '', $plural = '', $single = '', $description = '' ) {
+	public function register_post_type ( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
 
 		if ( ! $post_type || ! $plural || ! $single ) return;
 
-		$post_type = new WordPress_Plugin_Template_Post_Type( $post_type, $plural, $single, $description );
+		$post_type = new WordPress_Plugin_Template_Post_Type( $post_type, $plural, $single, $description, $options );
 
 		return $post_type;
 	}
@@ -139,11 +139,11 @@ class WordPress_Plugin_Template {
 	 * @param  array  $post_types Post types to which this taxonomy applies
 	 * @return object             Taxonomy class object
 	 */
-	public function register_taxonomy ( $taxonomy = '', $plural = '', $single = '', $post_types = array() ) {
+	public function register_taxonomy ( $taxonomy = '', $plural = '', $single = '', $post_types = array(), $taxonomy_args = array() ) {
 
 		if ( ! $taxonomy || ! $plural || ! $single ) return;
 
-		$taxonomy = new WordPress_Plugin_Template_Taxonomy( $taxonomy, $plural, $single, $post_types );
+		$taxonomy = new WordPress_Plugin_Template_Taxonomy( $taxonomy, $plural, $single, $post_types, $taxonomy_args );
 
 		return $taxonomy;
 	}
