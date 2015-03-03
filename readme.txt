@@ -24,7 +24,7 @@ Installing "WordPress Plugin Template" can be done either by searching for "Word
 
 == Frequently Asked Questions ==
 
-= What is the plugin tepmlate for? =
+= What is the plugin template for? =
 
 This plugin template is designed to help you get started with any new WordPress plugin.
 
