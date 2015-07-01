@@ -33,7 +33,7 @@ SLUG=${TOKEN//_/-}
 
 echo "Get source from: git@github.com:uldisn/$DEFAULT_SLUG.git"
 
-git clone https://github.com/hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
+git clone https://github.com/uldisn/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
 echo "Removing git files..."
 
@@ -151,6 +151,11 @@ cp class-$SLUG-settings.php class-$SLUG-settings.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
 rm class-$SLUG-settings.tmp
 
+if [ "$COMPOSER" == "y" ]; then
+    rename class-$SLUG-settings.php $SLUG_Settings.php
+    rename class-$SLUG.php          $SLUG.php
+
+fi
 
 cd lib
 mv class-$DEFAULT_SLUG-post-type.php class-$SLUG-post-type.php
@@ -197,6 +202,12 @@ cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
 rm class-$SLUG-admin-api.tmp
 
+
+if [ "$COMPOSER" == "y" ]; then
+    rename class-$SLUG-post-type.php $SLUG_Post_Type.php
+    rename class-$SLUG-taxonomy      $SLUG_Taxonomy.php
+    rename class-$SLUG-admin-api     $SLUG_Admin_API.php
+fi
 
 if [ "$NEWREPO" == "y" ]; then
 	echo "Initialising new git repo..."
