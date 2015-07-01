@@ -152,8 +152,8 @@ sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.ph
 rm class-$SLUG-settings.tmp
 
 if [ "$COMPOSER" == "y" ]; then
-    rename class-$SLUG-settings.php $SLUG_Settings.php
-    rename class-$SLUG.php          $SLUG.php
+    mv class-$SLUG-settings.php $SLUG_Settings.php
+    mv class-$SLUG.php          $SLUG.php
 
 fi
 
@@ -204,9 +204,9 @@ rm class-$SLUG-admin-api.tmp
 
 
 if [ "$COMPOSER" == "y" ]; then
-    rename class-$SLUG-post-type.php $SLUG_Post_Type.php
-    rename class-$SLUG-taxonomy      $SLUG_Taxonomy.php
-    rename class-$SLUG-admin-api     $SLUG_Admin_API.php
+    mv class-$SLUG-post-type.php $SLUG_Post_Type.php
+    mv class-$SLUG-taxonomy      $SLUG_Taxonomy.php
+    mv class-$SLUG-admin-api     $SLUG_Admin_API.php
 fi
 
 if [ "$NEWREPO" == "y" ]; then
