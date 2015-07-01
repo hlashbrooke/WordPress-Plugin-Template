@@ -1,0 +1,8 @@
+{
+  "name": "hlashbrooke/WordPress_Plugin_Template",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "classmap": ["includes/","includes/lib/"]
+
+  }
+}
