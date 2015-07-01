@@ -1,0 +1,8 @@
+{
+  "name": "wp_plugins/wordpress-plugin-template",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "classmap": ["includes/","includes/lib/"]
+
+  }
+}
