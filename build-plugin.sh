@@ -205,8 +205,8 @@ rm class-$SLUG-admin-api.tmp
 
 if [ "$COMPOSER" == "y" ]; then
     mv class-$SLUG-post-type.php $SLUG_Post_Type.php
-    mv class-$SLUG-taxonomy      $SLUG_Taxonomy.php
-    mv class-$SLUG-admin-api     $SLUG_Admin_API.php
+    mv class-$SLUG-taxonomy.php  $SLUG_Taxonomy.php
+    mv class-$SLUG-admin-api.php $SLUG_Admin_API.php
 fi
 
 if [ "$NEWREPO" == "y" ]; then
