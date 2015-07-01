@@ -1,5 +1,5 @@
 {
-  "name": "wp_plugins/wordpress-plugin-template",
+  "name": "hlashbrooke/wordpress-plugin-template",
   "type": "wordpress-plugin",
   "autoload": {
     "classmap": ["includes/","includes/lib/"]
