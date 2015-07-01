@@ -9,6 +9,15 @@ read FOLDER
 printf "Include Grunt support (y/n): "
 read GRUNT
 
+printf "Include composer.json (y/n): "
+read COMPOSER
+
+if [ "$COMPOSER" == "y" ]; then
+	printf "Organisation name for composer: "
+	read ORGNAME
+fi
+
+
 printf "Initialise new git repo (y/n): "
 read NEWREPO
 
@@ -16,12 +25,15 @@ DEFAULT_NAME="WordPress Plugin Template"
 DEFAULT_CLASS=${DEFAULT_NAME// /_}
 DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
 DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
+DEFAULT_ORGNAME="hlashbrooke"
 
 CLASS=${NAME// /_}
 TOKEN=$( tr '[A-Z]' '[a-z]' <<< $CLASS)
 SLUG=${TOKEN//_/-}
 
-git clone git@github.com:hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
+echo "Get source from: git@github.com:uldisn/$DEFAULT_SLUG.git"
+
+git clone https://github.com/uldisn/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
 echo "Removing git files..."
 
@@ -40,6 +52,20 @@ fi
 
 echo "Updating plugin files..."
 
+
+if [ "$COMPOSER" == "y" ]; then
+	cp composer.json composer.tmp
+	sed "s/$DEFAULT_CLASS/$CLASS/g" composer.tmp > composer.tmp1
+	sed "s/$DEFAULT_ORGNAME/$ORGNAME/g" composer.tmp1 > composer.json
+	rm composer.tmp
+	rm composer.tmp1
+fi
+
+if [ "$COMPOSER" == "n" ]; then
+	rm composer.json
+fi
+
+
 mv $DEFAULT_SLUG.php $SLUG.php
 
 cp $SLUG.php $SLUG.tmp
@@ -57,6 +83,18 @@ rm $SLUG.tmp
 cp $SLUG.php $SLUG.tmp
 sed "s/$DEFAULT_CLASS/$CLASS/g" $SLUG.tmp > $SLUG.php
 rm $SLUG.tmp
+
+if [ "$COMPOSER" == "y" ]; then
+
+	cp $SLUG.php $SLUG.tmp
+	sed "/require_once/d" $SLUG.tmp > $SLUG.php
+	rm $SLUG.tmp
+
+	cp $SLUG.php $SLUG.tmp
+	sed "/ Load plugin/d" $SLUG.tmp > $SLUG.php
+	rm $SLUG.tmp
+fi
+
 
 cp readme.txt readme.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
