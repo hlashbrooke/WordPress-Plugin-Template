@@ -33,7 +33,7 @@ SLUG=${TOKEN//_/-}
 
 echo "Get source from: git@github.com:uldisn/$DEFAULT_SLUG.git"
 
-git clone https://github.com/uldisn/$DEFAULT_SLUG.git $FOLDER/$SLUG
+git clone https://github.com/hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
 echo "Removing git files..."
 
