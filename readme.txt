@@ -4,7 +4,7 @@ Donate link: http://www.hughlashbrooke.com/donate
 Tags: wordpress, plugin, template
 Requires at least: 3.9
 Tested up to: 4.0
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,10 @@ Installing "WordPress Plugin Template" can be done either by searching for "Word
 This plugin template is designed to help you get started with any new WordPress plugin.
 
 == Changelog ==
+
+= 1.0.1 =
+* 2016-6-29
+* Added REST API support to custom post type and custom taxonomy classes
 
 = 1.0 =
 * 2012-12-13

@@ -82,7 +82,7 @@ class WordPress_Plugin_Template {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	public function __construct ( $file = '', $version = '1.0.0' ) {
+	public function __construct ( $file = '', $version = '1.0.1' ) {
 		$this->_version = $version;
 		$this->_token = 'wordpress_plugin_template';
 
