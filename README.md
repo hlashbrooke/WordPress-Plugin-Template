@@ -1,7 +1,7 @@
 WordPress Plugin Template
 =========================
 
-A robust code template for creating a standards-compliant WordPress plugin.
+A robust and GPL-licensed code template for creating a standards-compliant WordPress plugin.
 
 
 ## Why this template?
