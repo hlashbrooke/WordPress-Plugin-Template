@@ -45,6 +45,10 @@ Using the [taxonomy API](https://github.com/hlashbrooke/WordPress-Plugin-Templat
 
 This will register a new taxonomy with all the standard settings. If you would like to modify the taxonomy settings you can use the `{$taxonomy}_register_args` filter. See [the WordPress codex page](http://codex.wordpress.org/Function_Reference/register_taxonomy) for all available arguments.
 
+#### Calling your Options
+
+Using the [Settings API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/class-wordpress-plugin-template-settings.php) and the wrapper function from the main plugin class you can easily store options from the WP admin like text boxes, radio options, dropdown, etc. You can call the values by using `id` that you have set under the `settings_fields` function. For example you have the `id` - `text_field`, you can call its value by using `get_option('wpt_text_field')`. Take note that by default, this plugin is using a prefix of `wpt_` before the id that you will be calling, you can override that value by changing it under the `__construct` function `$this->base` variable;
+
 ## What does this template give me?
 
 This template includes the following features:
