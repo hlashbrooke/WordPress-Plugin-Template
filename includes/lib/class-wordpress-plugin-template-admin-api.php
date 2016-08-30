@@ -168,6 +168,20 @@ class WordPress_Plugin_Template_Admin_API {
 			    </div>
 			    <?php
 			break;
+			
+			case 'dropdown_pages':
+				if(!$data)
+					$data = 0;
+				$args = array(
+					'depth'                 => 0,
+					'child_of'              => 0,
+					'selected'              => $data,
+					'echo'                  => 1,
+					'name'                  => esc_attr( $option_name ),
+					'id'                    => esc_attr( $field['id'] )
+				);
+				wp_dropdown_pages( $args );
+				break;
 
 		}
 
