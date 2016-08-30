@@ -173,7 +173,6 @@ class WordPress_Plugin_Template_Admin_API {
 				$args = array(
 					'depth'                 => 0,
 					'child_of'              => 0,
-					'echo'                  => 1,
 					'show_option_none'      => null, // string
 					'show_option_no_change' => null, // string
 					'option_none_value'     => null, // string
