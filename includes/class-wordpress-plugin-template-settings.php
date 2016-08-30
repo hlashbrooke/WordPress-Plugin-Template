@@ -173,6 +173,19 @@ class WordPress_Plugin_Template_Settings {
 					'type'			=> 'checkbox_multi',
 					'options'		=> array( 'square' => 'Square', 'circle' => 'Circle', 'rectangle' => 'Rectangle', 'triangle' => 'Triangle' ),
 					'default'		=> array( 'circle', 'triangle' )
+				),
+				array(
+					'id' 			=> 'dropdown_pages',
+					'label'			=> __( 'Select a Page', 'wordpress-plugin-template' ),
+					'description'	=> __( 'You can select a page and use it later.', 'wordpress-plugin-template' ),
+					'type'			=> 'dropdown_pages',
+					'args'			=> array(
+						'depth'                 => 0,
+						'child_of'              => 0,
+						'show_option_none'      => null, // string
+						'show_option_no_change' => null, // string
+						'option_none_value' => null // string
+					)
 				)
 			)
 		);
