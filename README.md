@@ -54,6 +54,11 @@ $settings['location'] = 'submenu';
 $settings['parent_slug'] = 'themes.php';
 ```
 
+See respective codex pages for `location` option defined below:
+https://codex.wordpress.org/Function_Reference/add_options_page
+https://developer.wordpress.org/reference/functions/add_menu_page/
+https://developer.wordpress.org/reference/functions/add_submenu_page/
+
 #### Calling your Options
 
 Using the [Settings API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/class-wordpress-plugin-template-settings.php) and the wrapper function from the main plugin class you can easily store options from the WP admin like text boxes, radio options, dropdown, etc. You can call the values by using `id` that you have set under the `settings_fields` function. For example you have the `id` - `text_field`, you can call its value by using `get_option('wpt_text_field')`. Take note that by default, this plugin is using a prefix of `wpt_` before the id that you will be calling, you can override that value by changing it under the `__construct` function `$this->base` variable;
