@@ -81,7 +81,6 @@ class WordPress_Plugin_Template_Settings {
 					$page = add_submenu_page( $args[ 'parent_slug' ], $args[ 'page_title' ], $args[ 'menu_title' ], $args[ 'capability' ], $args[ 'menu_slug' ], $args[ 'function' ] );
 					break;
 				case 'menu':
-					error_log( 'blah' );
 					$page = add_menu_page( $args[ 'page_title' ], $args[ 'menu_title' ], $args[ 'capability' ], $args[ 'menu_slug' ], $args[ 'function' ], $args[ 'icon_url' ], $args[ 'position' ] );
 					break;
 				default:
