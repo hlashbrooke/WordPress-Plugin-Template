@@ -98,6 +98,7 @@ class WordPress_Plugin_Template_Taxonomy {
             'show_tagcloud' => true,
             'meta_box_cb' => null,
             'show_admin_column' => true,
+            'show_in_quick_edit' => true,
             'update_count_callback' => '',
             'show_in_rest'          => true,
             'rest_base'             => $this->taxonomy,
