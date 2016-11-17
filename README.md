@@ -47,7 +47,7 @@ This will register a new taxonomy with all the standard settings. If you would l
 
 #### Defining your Settings Page Location
 
-Using the filter {base}menu_settings you can define the placement of your settings page. Set the `location` key to `options`, `menu` or `submenu`. When using `menu` also set the `parent_slug` key to your preferred parent menu, e.g `themes.php`. For example use the following code to let your options page display under the Appearance parent menu.
+Using the filter {base}menu_settings you can define the placement of your settings page. Set the `location` key to `options`, `menu` or `submenu`. When using `submenu` also set the `parent_slug` key to your preferred parent menu, e.g `themes.php`. For example use the following code to let your options page display under the Appearance parent menu.
 
 ```php
 $settings['location'] = 'submenu';
