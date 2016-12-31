@@ -1,0 +1,87 @@
+diff --git a/includes/class-wordpress-plugin-template.php b/includes/class-wordpress-plugin-template.php
+index b61b9d9..fab1fd4 100644
+--- a/includes/class-wordpress-plugin-template.php
++++ b/includes/class-wordpress-plugin-template.php
+@@ -82,7 +82,7 @@ class WordPress_Plugin_Template {
+ 	 * @since   1.0.0
+ 	 * @return  void
+ 	 */
+-	public function __construct ( $file = '', $version = '1.0.0' ) {
++	public function __construct ( $file = '', $version = '1.0.1' ) {
+ 		$this->_version = $version;
+ 		$this->_token = 'wordpress_plugin_template';
+ 
+diff --git a/includes/lib/class-wordpress-plugin-template-post-type.php b/includes/lib/class-wordpress-plugin-template-post-type.php
+index 8933979..2003d11 100644
+--- a/includes/lib/class-wordpress-plugin-template-post-type.php
++++ b/includes/lib/class-wordpress-plugin-template-post-type.php
+@@ -101,6 +101,9 @@ class WordPress_Plugin_Template_Post_Type {
+ 			'capability_type' => 'post',
+ 			'has_archive' => true,
+ 			'hierarchical' => true,
++			'show_in_rest'       	=> true,
++	  		'rest_base'          	=> $this->post_type,
++	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
+ 			'supports' => array( 'title', 'editor', 'excerpt', 'comments', 'thumbnail' ),
+ 			'menu_position' => 5,
+ 			'menu_icon' => 'dashicons-admin-post',
+diff --git a/includes/lib/class-wordpress-plugin-template-taxonomy.php b/includes/lib/class-wordpress-plugin-template-taxonomy.php
+index 1a1837f..93216ed 100644
+--- a/includes/lib/class-wordpress-plugin-template-taxonomy.php
++++ b/includes/lib/class-wordpress-plugin-template-taxonomy.php
+@@ -99,6 +99,9 @@ class WordPress_Plugin_Template_Taxonomy {
+             'meta_box_cb' => null,
+             'show_admin_column' => true,
+             'update_count_callback' => '',
++            'show_in_rest'          => true,
++            'rest_base'             => $this->taxonomy,
++            'rest_controller_class' => 'WP_REST_Terms_Controller',
+             'query_var' => $this->taxonomy,
+             'rewrite' => true,
+             'sort' => '',
+diff --git a/readme.txt b/readme.txt
+index 5ba4797..1705d1a 100644
+--- a/readme.txt
++++ b/readme.txt
+@@ -4,7 +4,7 @@ Donate link: http://www.hughlashbrooke.com/donate
+ Tags: wordpress, plugin, template
+ Requires at least: 3.9
+ Tested up to: 4.0
+-Stable tag: 1.0
++Stable tag: 1.0.1
+ License: GPLv2 or later
+ License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ 
+@@ -36,6 +36,10 @@ This plugin template is designed to help you get started with any new WordPress
+ 
+ == Changelog ==
+ 
++= 1.0.1 =
++* 2016-6-29
++* Added REST API support to custom post type and custom taxonomy classes
++
+ = 1.0 =
+ * 2012-12-13
+ * Initial release
+diff --git a/wordpress-plugin-template.php b/wordpress-plugin-template.php
+index 7d671b1..aec7e6a 100644
+--- a/wordpress-plugin-template.php
++++ b/wordpress-plugin-template.php
+@@ -1,7 +1,7 @@
+ <?php
+ /*
+  * Plugin Name: WordPress Plugin Template
+- * Version: 1.0
++ * Version: 1.0.1
+  * Plugin URI: http://www.hughlashbrooke.com/
+  * Description: This is your starter template for your next WordPress plugin.
+  * Author: Hugh Lashbrooke
+@@ -35,7 +35,7 @@ require_once( 'includes/lib/class-wordpress-plugin-template-taxonomy.php' );
+  * @return object WordPress_Plugin_Template
+  */
+ function WordPress_Plugin_Template () {
+-	$instance = WordPress_Plugin_Template::instance( __FILE__, '1.0.0' );
++	$instance = WordPress_Plugin_Template::instance( __FILE__, '1.0.1' );
+ 
+ 	if ( is_null( $instance->settings ) ) {
+ 		$instance->settings = WordPress_Plugin_Template_Settings::instance( $instance );
