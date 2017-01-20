@@ -17,7 +17,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 * @param  boolean $echo  Whether to echo the field HTML or return it
 	 * @return void
 	 */
-	public function display_field ( $data = array(), $post = false, $echo = true ) {
+	public function display_field ( $data = array(), $item = false, $echo = true ) {
 
 		// Get field info
 		if ( isset( $data['field'] ) ) {
@@ -34,11 +34,22 @@ class WordPress_Plugin_Template_Admin_API {
 
 		// Get saved data
 		$data = '';
-		if ( $post ) {
+		if ( !empty( $item->caps ) ) {
 
 			// Get saved field data
 			$option_name .= $field['id'];
-			$option = get_post_meta( $post->ID, $field['id'], true );
+			$option = get_user_meta( $item->ID, $field['id'], true );
+
+			// Get data to display in field
+			if ( isset( $option ) ) {
+				$data = $option;
+			}
+
+		} elseif ( !empty($item->ID) ) {
+
+			// Get saved field data
+			$option_name .= $field['id'];
+			$option = get_post_meta( $item->ID, $field['id'], true );
 
 			// Get data to display in field
 			if ( isset( $option ) ) {
@@ -180,13 +191,13 @@ class WordPress_Plugin_Template_Admin_API {
 			break;
 
 			default:
-				if ( ! $post ) {
+				if ( ! $item ) {
 					$html .= '<label for="' . esc_attr( $field['id'] ) . '">' . "\n";
 				}
 
 				$html .= '<span class="description">' . $field['description'] . '</span>' . "\n";
 
-				if ( ! $post ) {
+				if ( ! $item ) {
 					$html .= '</label>' . "\n";
 				}
 			break;
