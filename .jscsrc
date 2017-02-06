@@ -1,0 +1,8 @@
+{
+    "preset": "wordpress",
+    "fileExtensions": [ ".js" ],
+    "excludeFiles": [
+    	"assets/js/**.min.js",
+		"Gruntfile.js"
+    ]
+}

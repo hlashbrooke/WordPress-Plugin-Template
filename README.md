@@ -1,6 +1,8 @@
 WordPress Plugin Template
 =========================
 
+[![Build Status](https://travis-ci.org/carl-alberto/WordPress-Plugin-Template.svg?branch=master)](https://travis-ci.org/carl-alberto/WordPress-Plugin-Template)
+
 A robust and GPL-licensed code template for creating a standards-compliant WordPress plugin.
 
 
