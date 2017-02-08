@@ -1,8 +1,7 @@
 # Travis CI (MIT License) configuration file for the Underscores WordPress theme.
 # @link https://travis-ci.org/
 
-# For use with the Underscores WordPress theme.
-# @link https://github.com/Automattic/_s
+# For WPCS checks patterened from how the Underscores theme is checked usin PHPWPCS, jshint & jscs
 
 # Ditch sudo and use containers.
 # @link http://docs.travis-ci.com/user/migrating-from-legacy/#Why-migrate-to-container-based-infrastructure%3F
