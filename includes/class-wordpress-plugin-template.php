@@ -1,78 +1,98 @@
 <?php
+/**
+ * This file contains the main plugin class.
+ *
+ * @package wordpress
+ */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	 die;
+}
 
+/**
+ * Plugin class.
+ */
 class WordPress_Plugin_Template {
 
 	/**
 	 * The single instance of WordPress_Plugin_Template.
-	 * @var 	object
-	 * @access  private
-	 * @since 	1.0.0
+	 *
+	 * @var    object
+	 * @access private
+	 * @since  1.0.0
 	 */
 	private static $_instance = null;
 
 	/**
 	 * Settings class object
-	 * @var     object
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    object
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $settings = null;
 
 	/**
 	 * The version number.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $_version;
 
 	/**
 	 * The token.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $_token;
 
 	/**
 	 * The main plugin file.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $file;
 
 	/**
 	 * The main plugin directory.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $dir;
 
 	/**
 	 * The plugin assets directory.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $assets_dir;
 
 	/**
 	 * The plugin assets URL.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $assets_url;
 
 	/**
 	 * Suffix for Javascripts.
-	 * @var     string
-	 * @access  public
-	 * @since   1.0.0
+	 *
+	 * @var    string
+	 * @access public
+	 * @since  1.0.0
 	 */
 	public $script_suffix;
 

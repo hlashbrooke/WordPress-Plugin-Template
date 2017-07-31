@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Plugin Name: WordPress Plugin Template
  * Version: 1.0
  * Plugin URI: http://www.hughlashbrooke.com/
@@ -17,24 +17,28 @@
  * @since 1.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	 die;
+}
 
-// Load plugin class files
+// Load plugin class files.
 require_once( 'includes/class-wordpress-plugin-template.php' );
 require_once( 'includes/class-wordpress-plugin-template-settings.php' );
 
-// Load plugin libraries
+// Load plugin libraries.
 require_once( 'includes/lib/class-wordpress-plugin-template-admin-api.php' );
 require_once( 'includes/lib/class-wordpress-plugin-template-post-type.php' );
 require_once( 'includes/lib/class-wordpress-plugin-template-taxonomy.php' );
 
 /**
- * Returns the main instance of WordPress_Plugin_Template to prevent the need to use globals.
+ * Returns the main instance of WordPress_Plugin_Template to
+ * prevent the need to use globals.
  *
  * @since  1.0.0
  * @return object WordPress_Plugin_Template
  */
-function WordPress_Plugin_Template () {
+function WordPress_Plugin_Template() {
 	$instance = WordPress_Plugin_Template::instance( __FILE__, '1.0.0' );
 
 	if ( is_null( $instance->settings ) ) {
