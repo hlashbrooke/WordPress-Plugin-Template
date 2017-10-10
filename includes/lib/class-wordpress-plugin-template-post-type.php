@@ -73,7 +73,9 @@ class WordPress_Plugin_Template_Post_Type {
 	public function __construct( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
 
 		if ( ! $post_type || ! $plural || ! $single ) {
+
 			return;
+
 		}
 
 		// Post type name and labels.
@@ -89,6 +91,7 @@ class WordPress_Plugin_Template_Post_Type {
 		// Display custom update messages for posts edits.
 		add_filter( 'post_updated_messages', array( $this, 'updated_messages' ) );
 		add_filter( 'bulk_post_updated_messages', array( $this, 'bulk_updated_messages' ), 10, 2 );
+
 	}
 
 	/**
@@ -141,6 +144,7 @@ class WordPress_Plugin_Template_Post_Type {
 		$args = array_merge( $args, $this->options );
 
 		register_post_type( $this->post_type, apply_filters( $this->post_type . '_register_args', $args, $this->post_type ) );
+
 	}
 
 	/**
@@ -169,6 +173,7 @@ class WordPress_Plugin_Template_Post_Type {
 		);
 
 		return $messages;
+
 	}
 
 	/**
@@ -188,6 +193,7 @@ class WordPress_Plugin_Template_Post_Type {
 	        'untrashed' => sprintf( _n( '%1$s %2$s restored from the Trash.', '%1$s %3$s restored from the Trash.', $bulk_counts['untrashed'], 'wordpress-plugin-template' ), $bulk_counts['untrashed'], $this->single, $this->plural ),
 	    );
 
-	    return $bulk_messages;
+		return $bulk_messages;
+
 	}
 }

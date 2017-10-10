@@ -72,21 +72,28 @@ class WordPress_Plugin_Template_Taxonomy {
 	public function __construct( $taxonomy = '', $plural = '', $single = '', $post_types = array(), $tax_args = array() ) {
 
 		if ( ! $taxonomy || ! $plural || ! $single ) {
+
 			return;
+
 		}
 
 		// Post type name and labels.
 		$this->taxonomy = $taxonomy;
 		$this->plural = $plural;
 		$this->single = $single;
+
 		if ( ! is_array( $post_types ) ) {
+
 			$post_types = array( $post_types );
+
 		}
+
 		$this->post_types = $post_types;
 		$this->taxonomy_args = $tax_args;
 
 		// Register taxonomy.
 		add_action( 'init', array( $this, 'register_taxonomy' ) );
+
 	}
 
 	/**
@@ -139,5 +146,6 @@ class WordPress_Plugin_Template_Taxonomy {
 		$args = array_merge( $args, $this->taxonomy_args );
 
 		register_taxonomy( $this->taxonomy, $this->post_types, apply_filters( $this->taxonomy . '_register_args', $args, $this->taxonomy, $this->post_types ) );
+
 	}
 }

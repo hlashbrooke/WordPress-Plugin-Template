@@ -19,7 +19,9 @@ class WordPress_Plugin_Template_Admin_API {
 	 * Constructor function
 	 */
 	public function __construct() {
+
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 10, 1 );
+
 	}
 
 	/**
@@ -34,19 +36,27 @@ class WordPress_Plugin_Template_Admin_API {
 
 		// Get field info.
 		if ( isset( $data['field'] ) ) {
+
 			$field = $data['field'];
+
 		} else {
+
 			$field = $data;
+
 		}
 
 		// Check for prefix on option name.
 		$option_name = '';
+
 		if ( isset( $data['prefix'] ) ) {
+
 			$option_name = $data['prefix'];
+
 		}
 
 		// Get saved data.
 		$data = '';
+
 		if ( $post ) {
 
 			// Get saved field data.
@@ -55,7 +65,9 @@ class WordPress_Plugin_Template_Admin_API {
 
 			// Get data to display in field.
 			if ( isset( $option ) ) {
+
 				$data = $option;
+
 			}
 		} else {
 
@@ -65,15 +77,21 @@ class WordPress_Plugin_Template_Admin_API {
 
 			// Get data to display in field.
 			if ( isset( $option ) ) {
+
 				$data = $option;
+
 			}
 		}
 
 		// Show default data if no option saved and default is supplied.
 		if ( false === $data && isset( $field['default'] ) ) {
+
 			$data = $field['default'];
+
 		} elseif ( false === $data ) {
+
 			$data = '';
+
 		}
 
 		$html = '';
@@ -204,9 +222,13 @@ class WordPress_Plugin_Template_Admin_API {
 		} // End switch().
 
 		if ( ! $echo ) {
+
 			return $html;
+
 		}
+
 		echo $html;
+
 	}
 
 	/**
@@ -234,6 +256,7 @@ class WordPress_Plugin_Template_Admin_API {
 		}
 
 		return $data;
+
 	}
 
 	/**
@@ -251,13 +274,18 @@ class WordPress_Plugin_Template_Admin_API {
 
 		// Get post type(s).
 		if ( ! is_array( $post_types ) ) {
+
 			$post_types = array( $post_types );
+
 		}
 
 		// Generate each metabox.
 		foreach ( $post_types as $post_type ) {
+
 			add_meta_box( $id, $title, array( $this, 'meta_box_content' ), $post_type, $context, $priority, $callback_args );
+
 		}
+
 	}
 
 	/**
@@ -272,7 +300,9 @@ class WordPress_Plugin_Template_Admin_API {
 		$fields = apply_filters( $post->post_type . '_custom_fields', array(), $post->post_type );
 
 		if ( ! is_array( $fields ) || 0 == count( $fields ) ) {
+
 			return;
+
 		}
 
 		echo '<div class="custom-field-panel">' . "\n";
@@ -280,18 +310,24 @@ class WordPress_Plugin_Template_Admin_API {
 		foreach ( $fields as $field ) {
 
 			if ( ! isset( $field['metabox'] ) ) {
+
 				continue;
+
 			}
 
 			if ( ! is_array( $field['metabox'] ) ) {
+
 				$field['metabox'] = array( $field['metabox'] );
+
 			}
 
 			if ( in_array( $args['id'], $field['metabox'] ) ) {
-				$this->display_meta_box_field( $field, $post );
-			}
 
+				$this->display_meta_box_field( $field, $post );
+
+			}
 		}
+
 		echo '</div>' . "\n";
 
 	}
@@ -306,12 +342,15 @@ class WordPress_Plugin_Template_Admin_API {
 	public function display_meta_box_field( $field = array(), $post ) {
 
 		if ( ! is_array( $field ) || 0 == count( $field ) ) {
+
 			return;
+
 		}
 
 		$field = '<p class="form-field"><label for="' . $field['id'] . '">' . $field['label'] . '</label>' . $this->display_field( $field, $post, false ) . '</p>' . "\n";
 
 		echo $field;
+
 	}
 
 	/**
@@ -323,7 +362,9 @@ class WordPress_Plugin_Template_Admin_API {
 	public function save_meta_boxes( $post_id = 0 ) {
 
 		if ( ! $post_id ) {
+
 			return;
+
 		}
 
 		$post_type = get_post_type( $post_id );
@@ -331,14 +372,21 @@ class WordPress_Plugin_Template_Admin_API {
 		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
 
 		if ( ! is_array( $fields ) || 0 == count( $fields ) ) {
+
 			return;
+
 		}
 
 		foreach ( $fields as $field ) {
+
 			if ( isset( $_REQUEST[ $field['id'] ] ) ) {
+
 				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) );
+
 			} else {
+
 				update_post_meta( $post_id, $field['id'], '' );
+
 			}
 		}
 	}

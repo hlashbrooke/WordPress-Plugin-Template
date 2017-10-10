@@ -1,16 +1,15 @@
 <?php
 /**
- * Plugin Name: WordPress Plugin Template
- * Version: 1.0
- * Plugin URI: http://www.hughlashbrooke.com/
- * Description: This is your starter template for your next WordPress plugin.
- * Author: Hugh Lashbrooke
- * Author URI: http://www.hughlashbrooke.com/
+ * Plugin Name:       WordPress Plugin Template
+ * Version:           0.1.0
+ * Plugin URI:        http://www.hughlashbrooke.com/
+ * Description:       This is your starter template for your next WordPress plugin.
+ * Author:            Hugh Lashbrooke
+ * Author URI:        http://www.hughlashbrooke.com/
  * Requires at least: 4.0
- * Tested up to: 4.0
- *
- * Text Domain: wordpress-plugin-template
- * Domain Path: /lang/
+ * Tested up to:      4.0
+ * Text Domain:       wordpress-plugin-template
+ * Domain Path:      /languages/
  *
  * @package WordPress
  * @author Hugh Lashbrooke
@@ -19,7 +18,9 @@
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-	 die;
+
+	die;
+
 }
 
 // Load plugin class files.
@@ -39,13 +40,17 @@ require_once( 'includes/lib/class-wordpress-plugin-template-taxonomy.php' );
  * @return object WordPress_Plugin_Template
  */
 function WordPress_Plugin_Template() {
+
 	$instance = WordPress_Plugin_Template::instance( __FILE__, '1.0.0' );
 
 	if ( is_null( $instance->settings ) ) {
+
 		$instance->settings = WordPress_Plugin_Template_Settings::instance( $instance );
+
 	}
 
 	return $instance;
+
 }
 
 WordPress_Plugin_Template();
