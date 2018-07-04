@@ -18,9 +18,6 @@ read AUTHOR_URL
 printf "Text Domain (for translations): "
 read TEXT_DOMAIN
 
-printf "Include Grunt support (y/n): "
-read GRUNT
-
 printf "Initialise new git repo (y/n): "
 read NEWREPO
 
@@ -47,14 +44,10 @@ mkdir -p $FOLDER
 cd $FOLDER/$SLUG
 
 rm -rf .git
+rm -rf .idea
 rm README.md
 rm build-plugin.sh
 rm changelog.txt
-
-if [ "$GRUNT" == "n" ]; then
-	rm Gruntfile.js
-	rm package.json
-fi
 
 echo "Updating plugin files..."
 
@@ -108,20 +101,6 @@ cp readme.txt readme.tmp
 sed "s/__TODAYS_DATE__/$TODAYS_DATE/g" readme.tmp > readme.txt
 rm readme.tmp
 
-if [ "$GRUNT" != "n" ]; then
-	cp package.json package.tmp
-	sed "s/__PLUGIN_URL__/$(echo $PLUGIN_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" package.tmp > package.json
-	rm package.tmp
-
-	cp package.json package.tmp
-	sed "s/$DEFAULT_NAME/$NAME/g" package.tmp > package.json
-	rm package.tmp
-
-	cp package.json package.tmp
-	sed "s/$DEFAULT_SLUG/$SLUG/g" package.tmp > package.json
-	rm package.tmp
-fi
-
 cd lang
 mv $DEFAULT_SLUG.pot $SLUG.pot
 
@@ -141,54 +120,45 @@ cp $SLUG.pot $SLUG.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" $SLUG.tmp > $SLUG.pot
 rm $SLUG.tmp
 
-
 cd ../includes
-mv class-$DEFAULT_SLUG.php class-$SLUG.php
 
-cp class-$SLUG.php class-$SLUG.tmp
-sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG.tmp > class-$SLUG.php
-rm class-$SLUG.tmp
+cp plugin.php plugin.tmp
+sed "s/$DEFAULT_CLASS/$CLASS/g" plugin.tmp > plugin.php
+rm plugin.tmp
 
-cp class-$SLUG.php class-$SLUG.tmp
-sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG.tmp > class-$SLUG.php
-rm class-$SLUG.tmp
+cp plugin.php plugin.tmp
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" plugin.tmp > plugin.php
+rm plugin.tmp
 
-cp class-$SLUG.php class-$SLUG.tmp
-sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG.tmp > class-$SLUG.php
-rm class-$SLUG.tmp
+cp plugin.php plugin.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" plugin.tmp > plugin.php
+rm plugin.tmp
 
+cp settings.php settings.tmp
+sed "s/$DEFAULT_CLASS/$CLASS/g" settings.tmp > settings.php
+rm settings.tmp
 
-mv class-$DEFAULT_SLUG-settings.php class-$SLUG-settings.php
+cp settings.php settings.tmp
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" settings.tmp > settings.php
+rm settings.tmp
 
-cp class-$SLUG-settings.php class-$SLUG-settings.tmp
-sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
-rm class-$SLUG-settings.tmp
-
-cp class-$SLUG-settings.php class-$SLUG-settings.tmp
-sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
-rm class-$SLUG-settings.tmp
-
-cp class-$SLUG-settings.php class-$SLUG-settings.tmp
-sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
-rm class-$SLUG-settings.tmp
-
+cp settings.php settings.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" settings.tmp > settings.php
+rm settings.tmp
 
 cd lib
 
-mv class-$DEFAULT_SLUG-admin-api.php class-$SLUG-admin-api.php
+cp admin-api.php admin-api.tmp
+sed "s/$DEFAULT_CLASS/$CLASS/g" admin-api.tmp > admin-api.php
+rm admin-api.tmp
 
-cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
-sed "s/$DEFAULT_CLASS/$CLASS/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
-rm class-$SLUG-admin-api.tmp
+cp admin-api.php admin-api.tmp
+sed "s/$DEFAULT_TOKEN/$TOKEN/g" admin-api.tmp > admin-api.php
+rm admin-api.tmp
 
-cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
-sed "s/$DEFAULT_TOKEN/$TOKEN/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
-rm class-$SLUG-admin-api.tmp
-
-cp class-$SLUG-admin-api.php class-$SLUG-admin-api.tmp
-sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-admin-api.tmp > class-$SLUG-admin-api.php
-rm class-$SLUG-admin-api.tmp
-
+cp admin-api.php admin-api.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" admin-api.tmp > admin-api.php
+rm admin-api.tmp
 
 if [ "$NEWREPO" == "y" ]; then
 	echo "Initialising new git repo..."

@@ -22,11 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Load plugin class files
-require_once( 'includes/class-wordpress-plugin-template.php' );
-require_once( 'includes/class-wordpress-plugin-template-settings.php' );
+require_once( dirname( __FILE__ ) . 'includes/plugin.php' );
+require_once( dirname( __FILE__ ) . 'includes/settings.php' );
 
 // Load plugin libraries
-require_once( 'includes/lib/class-wordpress-plugin-template-admin-api.php' );
+require_once( 'includes/lib/admin-api.php' );
 
 /**
  * Returns the main instance of WordPress_Plugin_Template to prevent the need to use globals.
