@@ -38,7 +38,8 @@ if [[ -z "${TEXT_DOMAIN// }" ]]; then
 	TEXT_DOMAIN=$SLUG
 fi
 
-git clone https://github.com/sjregan/$DEFAULT_SLUG.git $FOLDER/$SLUG
+mkdir $FOLDER/$SLUG
+cp -Rp . $FOLDER/$SLUG/
 
 echo "Removing git files..."
 
