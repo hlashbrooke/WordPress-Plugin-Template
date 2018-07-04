@@ -1,5 +1,10 @@
 *** WordPress Plugin Template Changelog ***
 
+2018.07.04 - version 4.0.0
+ * Removed post types and taxonomy libraries
+ * Fixed phpdocs
+ * Changed coding standard closer to Wordpress standard
+
 2014.08.05 - version 3.0.0
  * New - Library for registering post types
  * New - Library for registering taxonomies
