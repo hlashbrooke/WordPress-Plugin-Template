@@ -78,13 +78,33 @@ module.exports = function( grunt ){
 			}
 		},
 
+		// Build a zip file for deployment
+		compress: {
+			main: {
+				options: {
+					archive: 'wordpress-plugin-template.zip'
+				},
+				files: [
+					{src: ['assets/css/*.css'], dest: 'assets/css/', filter: 'isFile'}, // includes css files in css path
+					{src: ['assets/js/*.min.js'], dest: 'assets/js/', filter: 'isFile'}, // includes js files in js path
+					{src: ['includes/*'], dest: 'includes/', filter: 'isFile'}, //includes files in includes path
+					{src: ['lang/*'], dest: 'lang/', filter: 'isFile' }, //includes files in lang path
+					{src: ['vendor/*'], dest: 'vendor/', filter: 'isFile' }, //includes files in lang path
+					{src: ['*.php', 'LICENSE', '*.txt'], filter: 'isFile' }
+				]
+			}
+		}
+
 	});
+
+	grunt.loadTasks('tasks');
 
 	// Load NPM tasks to be used here
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
 
 	// Register tasks
 	grunt.registerTask( 'default', [
@@ -92,5 +112,12 @@ module.exports = function( grunt ){
 		'cssmin',
 		'uglify'
 	]);
+
+	grunt.registerTask( 'build', [
+		'less',
+		'cssmin',
+		'uglify',
+		'compress'
+	])
 
 };

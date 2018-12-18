@@ -62,6 +62,10 @@ cp readme.txt readme.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
 rm readme.tmp
 
+cp Gruntfile.js Gruntfile.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" Gruntfile.tmp > Gruntfile.js
+rm Gruntfile.tmp
+
 
 cd lang
 mv $DEFAULT_SLUG.pot $SLUG.pot
