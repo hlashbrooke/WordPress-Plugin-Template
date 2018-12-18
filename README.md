@@ -70,7 +70,7 @@ See the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blo
 
 ## I've got an idea/fix for the template
 
-If you would like to contribute to this template then please fork it and send a pull request. I'll merge the request if it fits into the goals for the template and credit you in the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/changelog.txt).
+If you would like to contribute to this template then please fork it and send a pull request. Please submit all pull requests to the `develop` branch. I'll merge the request if it fits into the goals for the template and credit you in the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/changelog.txt).
 
 ## This template is amazing! How can I ever repay you?
 
