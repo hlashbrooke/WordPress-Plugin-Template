@@ -87,10 +87,11 @@ module.exports = function( grunt ){
 				files: [
 					{src: ['assets/css/*.css'], dest: 'assets/css/', filter: 'isFile'}, // includes css files in css path
 					{src: ['assets/js/*.min.js'], dest: 'assets/js/', filter: 'isFile'}, // includes js files in js path
-					{src: ['includes/*'], dest: 'includes/', filter: 'isFile'}, //includes files in includes path
-					{src: ['lang/*'], dest: 'lang/', filter: 'isFile' }, //includes files in lang path
-					{src: ['vendor/*'], dest: 'vendor/', filter: 'isFile' }, //includes files in lang path
-					{src: ['*.php', 'LICENSE', '*.txt'], filter: 'isFile' }
+					{src: ['assets/**', '!assets/js', '!assets/css'], dest: 'assets/', filter: 'isFile'}, // includes any other assets outside js/css
+					{src: ['includes/**'], dest: 'includes/', filter: 'isFile'}, //includes files in includes path
+					{src: ['lang/**'], dest: 'lang/', filter: 'isFile' }, //includes files in lang path
+					{src: ['vendor/**'], dest: 'vendor/', filter: 'isFile' }, //includes files in lang path
+					{src: ['*.php', 'LICENSE', '*.txt'], filter: 'isFile' } //includes base directory files
 				]
 			}
 		}
