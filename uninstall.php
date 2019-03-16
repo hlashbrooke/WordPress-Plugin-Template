@@ -15,3 +15,14 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 // Do something here if plugin is being uninstalled.
+if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+	exit;
+}
+
+//change your plugin prefix here
+delete_options_prefixed( 'test_' );
+
+function delete_options_prefixed( $prefix ) {
+    global $wpdb;
+    $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '{$prefix}%'" );
+}
