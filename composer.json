@@ -14,9 +14,5 @@
     },
 	"require-dev": {
         "wp-coding-standards/wpcs": "2.1.*"
-    },
-	"scripts": {
-		"format": "phpcbf --standard=phpcs.ruleset.xml --report-summary --report-source",
-		"lint": "phpcs --standard=phpcs.ruleset.xml --report-summary --report-source"
-	}
+    }
 }

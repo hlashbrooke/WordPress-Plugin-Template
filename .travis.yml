@@ -24,4 +24,5 @@ before_install:
   - if [[ "$SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
 
 script:
-  - if [[ "$SNIFF" == "1" ]]; then ./vendor/bin/phpcs -p . --standard=WordPress; fi
+  - export SNIFFS_IGNORE=*Gruntfile.js*,*.min.js*,*.min.css*,*.less*
+  - if [[ "$SNIFF" == "1" ]]; then ./vendor/bin/phpcs -p . --standard=WordPress --ignore=$SNIFFS_IGNORE; fi
