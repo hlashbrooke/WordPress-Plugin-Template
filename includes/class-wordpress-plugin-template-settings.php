@@ -21,7 +21,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $_instance = null;
+	private static $_instance = null; //phpcs:ignore
 
 	/**
 	 * The main plugin object.
@@ -108,7 +108,7 @@ class WordPress_Plugin_Template_Settings {
 		// If you're not including an image upload then you can leave this function call out.
 		wp_enqueue_media();
 
-		wp_register_script( $this->parent->_token . '-settings-js', $this->parent->assets_url . 'js/settings' . $this->parent->script_suffix . '.js', array( 'farbtastic', 'jquery' ), '1.0.0' );
+		wp_register_script( $this->parent->_token . '-settings-js', $this->parent->assets_url . 'js/settings' . $this->parent->script_suffix . '.js', array( 'farbtastic', 'jquery' ), '1.0.0', true );
 		wp_enqueue_script( $this->parent->_token . '-settings-js' );
 	}
 
@@ -283,7 +283,7 @@ class WordPress_Plugin_Template_Settings {
 
 			foreach ( $this->settings as $section => $data ) {
 
-				if ( $current_section && $current_section != $section ) {
+				if ( $current_section && $current_section !== $section ) {
 					continue;
 				}
 
@@ -362,19 +362,19 @@ class WordPress_Plugin_Template_Settings {
 
 				// Set tab class.
 				$class = 'nav-tab';
-				if ( ! isset( $_GET['tab'] ) ) {
-					if ( 0 == $c ) {
+				if ( ! isset( $_GET['tab'] ) ) { //phpcs:ignore
+					if ( 0 === $c ) {
 						$class .= ' nav-tab-active';
 					}
 				} else {
-					if ( isset( $_GET['tab'] ) && $section == $_GET['tab'] ) {
+					if ( isset( $_GET['tab'] ) && $section == $_GET['tab'] ) { //phpcs:ignore
 						$class .= ' nav-tab-active';
 					}
 				}
 
 				// Set tab link.
 				$tab_link = add_query_arg( array( 'tab' => $section ) );
-				if ( isset( $_GET['settings-updated'] ) ) {
+				if ( isset( $_GET['settings-updated'] ) ) { //phpcs:ignore
 					$tab_link = remove_query_arg( 'settings-updated', $tab_link );
 				}
 

@@ -110,7 +110,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 			case 'checkbox':
 				$checked = '';
-				if ( $data && 'on' == $data ) {
+				if ( $data && 'on' === $data ) {
 					$checked = 'checked="checked"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" ' . $checked . '/>' . "\n";
@@ -119,7 +119,7 @@ class WordPress_Plugin_Template_Admin_API {
 			case 'checkbox_multi':
 				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if ( in_array( $k, (array) $data ) ) {
+					if ( in_array( $k, (array) $data, true ) ) {
 						$checked = true;
 					}
 					$html .= '<p><label for="' . esc_attr( $field['id'] . '_' . $k ) . '" class="checkbox_multi"><input type="checkbox" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label></p> ';
@@ -129,7 +129,7 @@ class WordPress_Plugin_Template_Admin_API {
 			case 'radio':
 				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if ( $k == $data ) {
+					if ( $k === $data ) {
 						$checked = true;
 					}
 					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '"><input type="radio" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
@@ -140,7 +140,7 @@ class WordPress_Plugin_Template_Admin_API {
 				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '">';
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( $k == $data ) {
+					if ( $k === $data ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
@@ -152,7 +152,7 @@ class WordPress_Plugin_Template_Admin_API {
 				$html .= '<select name="' . esc_attr( $option_name ) . '[]" id="' . esc_attr( $field['id'] ) . '" multiple="multiple">';
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( in_array( $k, (array) $data ) ) {
+					if ( in_array( $k, (array) $data, true ) ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
@@ -281,7 +281,7 @@ class WordPress_Plugin_Template_Admin_API {
 
 		$fields = apply_filters( $post->post_type . '_custom_fields', array(), $post->post_type );
 
-		if ( ! is_array( $fields ) || 0 == count( $fields ) ) {
+		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
 			return;
 		}
 
@@ -297,7 +297,7 @@ class WordPress_Plugin_Template_Admin_API {
 				$field['metabox'] = array( $field['metabox'] );
 			}
 
-			if ( in_array( $args['id'], $field['metabox'] ) ) {
+			if ( in_array( $args['id'], $field['metabox'], true ) ) {
 				$this->display_meta_box_field( $field, $post );
 			}
 		}
@@ -315,7 +315,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function display_meta_box_field( $field = array(), $post ) {
 
-		if ( ! is_array( $field ) || 0 == count( $field ) ) {
+		if ( ! is_array( $field ) || 0 === count( $field ) ) {
 			return;
 		}
 
@@ -340,12 +340,12 @@ class WordPress_Plugin_Template_Admin_API {
 
 		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
 
-		if ( ! is_array( $fields ) || 0 == count( $fields ) ) {
+		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
 			return;
 		}
 
 		foreach ( $fields as $field ) {
-			if ( isset( $_REQUEST[ $field['id'] ] ) ) {
+			if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
 				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) ); //phpcs:ignore
 			} else {
 				update_post_meta( $post_id, $field['id'], '' );

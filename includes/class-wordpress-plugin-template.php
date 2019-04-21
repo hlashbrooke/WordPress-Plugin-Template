@@ -21,7 +21,7 @@ class WordPress_Plugin_Template {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $_instance = null;
+	private static $_instance = null; //phpcs:ignore
 
 	/**
 	 * Settings class object
@@ -39,7 +39,7 @@ class WordPress_Plugin_Template {
 	 * @access  public
 	 * @since   1.0.0
 	 */
-	public $_version;
+	public $_version; //phpcs:ignore
 
 	/**
 	 * The token.
@@ -48,7 +48,7 @@ class WordPress_Plugin_Template {
 	 * @access  public
 	 * @since   1.0.0
 	 */
-	public $_token;
+	public $_token; //phpcs:ignore
 
 	/**
 	 * The main plugin file.
@@ -196,7 +196,7 @@ class WordPress_Plugin_Template {
 	 * @return  void
 	 */
 	public function enqueue_scripts() {
-		wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
+		wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
 		wp_enqueue_script( $this->_token . '-frontend' );
 	} // End enqueue_scripts ()
 
@@ -220,7 +220,7 @@ class WordPress_Plugin_Template {
 	 * @return  void
 	 */
 	public function admin_enqueue_scripts( $hook = '' ) {
-		wp_register_script( $this->_token . '-admin', esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version );
+		wp_register_script( $this->_token . '-admin', esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
 		wp_enqueue_script( $this->_token . '-admin' );
 	} // End admin_enqueue_scripts ()
 
@@ -306,7 +306,7 @@ class WordPress_Plugin_Template {
 	 * @since   1.0.0
 	 * @return  void
 	 */
-	private function _log_version_number() {
+	private function _log_version_number() { //phpcs:ignore
 		update_option( $this->_token . '_version', $this->_version );
 	} // End _log_version_number ()
 
