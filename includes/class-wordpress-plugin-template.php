@@ -105,7 +105,7 @@ class WordPress_Plugin_Template {
 		$this->_version = $version;
 		$this->_token   = 'wordpress_plugin_template';
 
-		// Load plugin environment variables
+		// Load plugin environment variables.
 		$this->file       = $file;
 		$this->dir        = dirname( $this->file );
 		$this->assets_dir = trailingslashit( $this->dir ) . 'assets';
@@ -115,32 +115,33 @@ class WordPress_Plugin_Template {
 
 		register_activation_hook( $this->file, array( $this, 'install' ) );
 
-		// Load frontend JS & CSS
+		// Load frontend JS & CSS.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ), 10 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
 
-		// Load admin JS & CSS
+		// Load admin JS & CSS.
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 1 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_styles' ), 10, 1 );
 
-		// Load API for generic admin functions
+		// Load API for generic admin functions.
 		if ( is_admin() ) {
 			$this->admin = new WordPress_Plugin_Template_Admin_API();
 		}
 
-		// Handle localisation
+		// Handle localisation.
 		$this->load_plugin_textdomain();
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
 	} // End __construct ()
 
 	/**
-	 * Wrapper function to register a new post type
+	 * Register post type function.
 	 *
-	 * @param  string $post_type   Post type name
-	 * @param  string $plural      Post type item plural name
-	 * @param  string $single      Post type item single name
-	 * @param  string $description Description of post type
-	 * @return object              Post type class object
+	 * @param string $post_type Declare post type.
+	 * @param string $plural Declare post type plural name.
+	 * @param string $single Declare post type singular name.
+	 * @param string $description Declare post type description.
+	 * @param array  $options Additional options.
+	 * @return object
 	 */
 	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
 
@@ -154,12 +155,14 @@ class WordPress_Plugin_Template {
 	}
 
 	/**
-	 * Wrapper function to register a new taxonomy
+	 * Wrapper function to register a new taxonomy.
 	 *
-	 * @param  string $taxonomy   Taxonomy name
-	 * @param  string $plural     Taxonomy single name
-	 * @param  string $single     Taxonomy plural name
-	 * @param  array  $post_types Post types to which this taxonomy applies
+	 * @param  string $taxonomy   Taxonomy name.
+	 * @param  string $plural     Taxonomy single name.
+	 * @param  string $single     Taxonomy plural name.
+	 * @param  array  $post_types Post types to which this taxonomy applies.
+	 * @param  array  $taxonomy_args Additional taxonomy aguments.
+	 *
 	 * @return object             Taxonomy class object
 	 */
 	public function register_taxonomy( $taxonomy = '', $plural = '', $single = '', $post_types = array(), $taxonomy_args = array() ) {
@@ -198,11 +201,10 @@ class WordPress_Plugin_Template {
 	} // End enqueue_scripts ()
 
 	/**
-	 * Load admin CSS.
+	 * Admin enqueue style.
 	 *
-	 * @access  public
-	 * @since   1.0.0
-	 * @return  void
+	 * @param string $hook Hook parameter.
+	 * @return void
 	 */
 	public function admin_enqueue_styles( $hook = '' ) {
 		wp_register_style( $this->_token . '-admin', esc_url( $this->assets_url ) . 'css/admin.css', array(), $this->_version );
@@ -213,6 +215,7 @@ class WordPress_Plugin_Template {
 	 * Load admin Javascript.
 	 *
 	 * @access  public
+	 * @param string $hook Hook parameter.
 	 * @since   1.0.0
 	 * @return  void
 	 */
@@ -255,6 +258,8 @@ class WordPress_Plugin_Template {
 	 *
 	 * @since 1.0.0
 	 * @static
+	 * @param string $file File instance.
+	 * @param string $version Version parameter.
 	 * @see WordPress_Plugin_Template()
 	 * @return Main WordPress_Plugin_Template instance
 	 */
@@ -271,7 +276,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
 	} // End __clone ()
 
 	/**
@@ -280,7 +285,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
 	} // End __wakeup ()
 
 	/**
