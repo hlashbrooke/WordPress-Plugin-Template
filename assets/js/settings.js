@@ -1,5 +1,5 @@
 /**
- * Plugin Template settings.
+ * Plugin Template js settings.
  *
  *  @package WordPress Plugin Template/Settings
  */
