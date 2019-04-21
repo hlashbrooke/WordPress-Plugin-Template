@@ -1,0 +1,5 @@
+{
+    "phpcs.standard": "WordPress",
+    "phpcbf.standard": "WordPress",
+    "git.ignoreLimitWarning": true
+}
