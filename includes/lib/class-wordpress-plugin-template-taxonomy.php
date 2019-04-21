@@ -1,10 +1,17 @@
 <?php
-
+/**
+ * Taxonomy functions file.
+ *
+ * @package WordPress Plugin Template/Includes
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Taxonomy functions class.
+ */
 class WordPress_Plugin_Template_Taxonomy {
 
 	/**
@@ -52,13 +59,22 @@ class WordPress_Plugin_Template_Taxonomy {
 	 */
 	public $taxonomy_args;
 
+	/**
+	 * Taxonomy constructor.
+	 *
+	 * @param string $taxonomy Taxonomy variable nnam.
+	 * @param string $plural Taxonomy plural name.
+	 * @param string $single Taxonomy singular name.
+	 * @param array  $post_types Affected post types.
+	 * @param array  $tax_args Taxonomy additional args.
+	 */
 	public function __construct( $taxonomy = '', $plural = '', $single = '', $post_types = array(), $tax_args = array() ) {
 
 		if ( ! $taxonomy || ! $plural || ! $single ) {
 			return;
 		}
 
-		// Post type name and labels
+		// Post type name and labels.
 		$this->taxonomy = $taxonomy;
 		$this->plural   = $plural;
 		$this->single   = $single;
@@ -68,7 +84,7 @@ class WordPress_Plugin_Template_Taxonomy {
 		$this->post_types    = $post_types;
 		$this->taxonomy_args = $tax_args;
 
-		// Register taxonomy
+		// Register taxonomy.
 		add_action( 'init', array( $this, 'register_taxonomy' ) );
 	}
 
@@ -78,7 +94,7 @@ class WordPress_Plugin_Template_Taxonomy {
 	 * @return void
 	 */
 	public function register_taxonomy() {
-
+		//phpcs:disable
 		$labels = array(
 			'name'                       => $this->plural,
 			'singular_name'              => $this->single,
@@ -98,7 +114,7 @@ class WordPress_Plugin_Template_Taxonomy {
 			'choose_from_most_used'      => sprintf( __( 'Choose from the most used %s', 'wordpress-plugin-template' ), $this->plural ),
 			'not_found'                  => sprintf( __( 'No %s found', 'wordpress-plugin-template' ), $this->plural ),
 		);
-
+		//phpcs:enable
 		$args = array(
 			'label'                 => $this->plural,
 			'labels'                => apply_filters( $this->taxonomy . '_labels', $labels ),
