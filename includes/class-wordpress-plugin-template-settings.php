@@ -270,6 +270,7 @@ class WordPress_Plugin_Template_Settings {
 		if ( is_array( $this->settings ) ) {
 
 			// Check posted/selected tab.
+			//phpcs:disable
 			$current_section = '';
 			if ( isset( $_POST['tab'] ) && $_POST['tab'] ) {
 				$current_section = $_POST['tab'];
@@ -278,6 +279,7 @@ class WordPress_Plugin_Template_Settings {
 					$current_section = $_GET['tab'];
 				}
 			}
+			//phpcs:enable
 
 			foreach ( $this->settings as $section => $data ) {
 
@@ -285,22 +287,22 @@ class WordPress_Plugin_Template_Settings {
 					continue;
 				}
 
-				// Add section to page
+				// Add section to page.
 				add_settings_section( $section, $data['title'], array( $this, 'settings_section' ), $this->parent->_token . '_settings' );
 
 				foreach ( $data['fields'] as $field ) {
 
-					// Validation callback for field
+					// Validation callback for field.
 					$validation = '';
 					if ( isset( $field['callback'] ) ) {
 						$validation = $field['callback'];
 					}
 
-					// Register field
+					// Register field.
 					$option_name = $this->base . $field['id'];
 					register_setting( $this->parent->_token . '_settings', $option_name, $validation );
 
-					// Add field to page
+					// Add field to page.
 					add_settings_field(
 						$field['id'],
 						$field['label'],
@@ -321,28 +323,36 @@ class WordPress_Plugin_Template_Settings {
 		}
 	}
 
+	/**
+	 * Settings section.
+	 *
+	 * @param array $section Array of section ids.
+	 * @return void
+	 */
 	public function settings_section( $section ) {
 		$html = '<p> ' . $this->settings[ $section['id'] ]['description'] . '</p>' . "\n";
-		echo $html;
+		echo $html; //phpcs:ignore
 	}
 
 	/**
-	 * Load settings page content
+	 * Load settings page content.
 	 *
 	 * @return void
 	 */
 	public function settings_page() {
 
-		// Build page HTML
+		// Build page HTML.
 		$html      = '<div class="wrap" id="' . $this->parent->_token . '_settings">' . "\n";
 			$html .= '<h2>' . __( 'Plugin Settings', 'wordpress-plugin-template' ) . '</h2>' . "\n";
 
 			$tab = '';
+		//phpcs:disable
 		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
 			$tab .= $_GET['tab'];
 		}
+		//phpcs:enable
 
-			// Show page tabs
+		// Show page tabs.
 		if ( is_array( $this->settings ) && 1 < count( $this->settings ) ) {
 
 			$html .= '<h2 class="nav-tab-wrapper">' . "\n";
@@ -350,7 +360,7 @@ class WordPress_Plugin_Template_Settings {
 			$c = 0;
 			foreach ( $this->settings as $section => $data ) {
 
-				// Set tab class
+				// Set tab class.
 				$class = 'nav-tab';
 				if ( ! isset( $_GET['tab'] ) ) {
 					if ( 0 == $c ) {
@@ -362,13 +372,13 @@ class WordPress_Plugin_Template_Settings {
 					}
 				}
 
-				// Set tab link
+				// Set tab link.
 				$tab_link = add_query_arg( array( 'tab' => $section ) );
 				if ( isset( $_GET['settings-updated'] ) ) {
 					$tab_link = remove_query_arg( 'settings-updated', $tab_link );
 				}
 
-				// Output tab
+				// Output tab.
 				$html .= '<a href="' . $tab_link . '" class="' . esc_attr( $class ) . '">' . esc_html( $data['title'] ) . '</a>' . "\n";
 
 				++$c;
@@ -379,7 +389,7 @@ class WordPress_Plugin_Template_Settings {
 
 			$html .= '<form method="post" action="options.php" enctype="multipart/form-data">' . "\n";
 
-				// Get settings fields
+				// Get settings fields.
 				ob_start();
 				settings_fields( $this->parent->_token . '_settings' );
 				do_settings_sections( $this->parent->_token . '_settings' );
@@ -392,7 +402,7 @@ class WordPress_Plugin_Template_Settings {
 			$html         .= '</form>' . "\n";
 		$html             .= '</div>' . "\n";
 
-		echo $html;
+		echo $html; //phpcs:ignore
 	}
 
 	/**
@@ -403,6 +413,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 * @static
 	 * @see WordPress_Plugin_Template()
+	 * @param object $parent Object instance.
 	 * @return Main WordPress_Plugin_Template_Settings instance
 	 */
 	public static function instance( $parent ) {
@@ -418,7 +429,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
 	} // End __clone()
 
 	/**
@@ -427,7 +438,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), $this->parent->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
 	} // End __wakeup()
 
 }

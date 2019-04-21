@@ -276,7 +276,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
 	} // End __clone ()
 
 	/**
@@ -285,7 +285,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html( 'Cheatin&#8217; huh?' ), esc_html( $this->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
 	} // End __wakeup ()
 
 	/**
