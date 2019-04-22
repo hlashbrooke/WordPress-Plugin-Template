@@ -46,4 +46,4 @@ function wordpress_plugin_template() {
 	return $instance;
 }
 
-WordPress_Plugin_Template();
+wordpress_plugin_template();
