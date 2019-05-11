@@ -1,79 +1,89 @@
 <?php
+/**
+ * Post type Admin API file.
+ *
+ * @package WordPress Plugin Template/Includes
+ */
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
+/**
+ * Admin API class.
+ */
 class WordPress_Plugin_Template_Admin_API {
 
 	/**
 	 * Constructor function
 	 */
-	public function __construct () {
+	public function __construct() {
 		add_action( 'save_post', array( $this, 'save_meta_boxes' ), 10, 1 );
 	}
 
 	/**
-	 * Generate HTML for displaying fields
-	 * @param  array   $field Field data
-	 * @param  boolean $echo  Whether to echo the field HTML or return it
-	 * @return void
+	 * Generate HTML for displaying fields.
+	 *
+	 * @param  array   $data Data array.
+	 * @param  array   $post Field data.
+	 * @param  boolean $echo  Whether to echo the field HTML or return it.
+	 * @return string
 	 */
-	public function display_field ( $data = array(), $post = false, $echo = true ) {
+	public function display_field( $data = array(), $post = false, $echo = true ) {
 
-		// Get field info
+		// Get field info.
 		if ( isset( $data['field'] ) ) {
 			$field = $data['field'];
 		} else {
 			$field = $data;
 		}
 
-		// Check for prefix on option name
+		// Check for prefix on option name.
 		$option_name = '';
 		if ( isset( $data['prefix'] ) ) {
 			$option_name = $data['prefix'];
 		}
 
-		// Get saved data
+		// Get saved data.
 		$data = '';
 		if ( $post ) {
 
-			// Get saved field data
+			// Get saved field data.
 			$option_name .= $field['id'];
-			$option = get_post_meta( $post->ID, $field['id'], true );
+			$option       = get_post_meta( $post->ID, $field['id'], true );
 
-			// Get data to display in field
+			// Get data to display in field.
 			if ( isset( $option ) ) {
 				$data = $option;
 			}
-
 		} else {
 
-			// Get saved option
+			// Get saved option.
 			$option_name .= $field['id'];
-			$option = get_option( $option_name );
+			$option       = get_option( $option_name );
 
-			// Get data to display in field
+			// Get data to display in field.
 			if ( isset( $option ) ) {
 				$data = $option;
 			}
-
 		}
 
-		// Show default data if no option saved and default is supplied
-		if ( $data === false && isset( $field['default'] ) ) {
+		// Show default data if no option saved and default is supplied.
+		if ( false === $data && isset( $field['default'] ) ) {
 			$data = $field['default'];
-		} elseif ( $data === false ) {
+		} elseif ( false === $data ) {
 			$data = '';
 		}
 
 		$html = '';
 
-		switch( $field['type'] ) {
+		switch ( $field['type'] ) {
 
 			case 'text':
 			case 'url':
 			case 'email':
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="text" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="' . esc_attr( $data ) . '" />' . "\n";
-			break;
+				break;
 
 			case 'password':
 			case 'number':
@@ -88,67 +98,67 @@ class WordPress_Plugin_Template_Admin_API {
 					$max = ' max="' . esc_attr( $field['max'] ) . '"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="' . esc_attr( $data ) . '"' . $min . '' . $max . '/>' . "\n";
-			break;
+				break;
 
 			case 'text_secret':
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="text" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '" value="" />' . "\n";
-			break;
+				break;
 
 			case 'textarea':
-				$html .= '<textarea id="' . esc_attr( $field['id'] ) . '" rows="5" cols="50" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '">' . $data . '</textarea><br/>'. "\n";
-			break;
+				$html .= '<textarea id="' . esc_attr( $field['id'] ) . '" rows="5" cols="50" name="' . esc_attr( $option_name ) . '" placeholder="' . esc_attr( $field['placeholder'] ) . '">' . $data . '</textarea><br/>' . "\n";
+				break;
 
 			case 'checkbox':
 				$checked = '';
-				if ( $data && 'on' == $data ) {
+				if ( $data && 'on' === $data ) {
 					$checked = 'checked="checked"';
 				}
 				$html .= '<input id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" ' . $checked . '/>' . "\n";
-			break;
+				break;
 
 			case 'checkbox_multi':
 				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if ( in_array( $k, (array) $data ) ) {
+					if ( in_array( $k, (array) $data, true ) ) {
 						$checked = true;
 					}
 					$html .= '<p><label for="' . esc_attr( $field['id'] . '_' . $k ) . '" class="checkbox_multi"><input type="checkbox" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '[]" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label></p> ';
 				}
-			break;
+				break;
 
 			case 'radio':
 				foreach ( $field['options'] as $k => $v ) {
 					$checked = false;
-					if ( $k == $data ) {
+					if ( $k === $data ) {
 						$checked = true;
 					}
 					$html .= '<label for="' . esc_attr( $field['id'] . '_' . $k ) . '"><input type="radio" ' . checked( $checked, true, false ) . ' name="' . esc_attr( $option_name ) . '" value="' . esc_attr( $k ) . '" id="' . esc_attr( $field['id'] . '_' . $k ) . '" /> ' . $v . '</label> ';
 				}
-			break;
+				break;
 
 			case 'select':
 				$html .= '<select name="' . esc_attr( $option_name ) . '" id="' . esc_attr( $field['id'] ) . '">';
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( $k == $data ) {
+					if ( $k === $data ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
 				}
 				$html .= '</select> ';
-			break;
+				break;
 
 			case 'select_multi':
 				$html .= '<select name="' . esc_attr( $option_name ) . '[]" id="' . esc_attr( $field['id'] ) . '" multiple="multiple">';
 				foreach ( $field['options'] as $k => $v ) {
 					$selected = false;
-					if ( in_array( $k, (array) $data ) ) {
+					if ( in_array( $k, (array) $data, true ) ) {
 						$selected = true;
 					}
 					$html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '">' . $v . '</option>';
 				}
 				$html .= '</select> ';
-			break;
+				break;
 
 			case 'image':
 				$image_thumb = '';
@@ -156,34 +166,40 @@ class WordPress_Plugin_Template_Admin_API {
 					$image_thumb = wp_get_attachment_thumb_url( $data );
 				}
 				$html .= '<img id="' . $option_name . '_preview" class="image_preview" src="' . $image_thumb . '" /><br/>' . "\n";
-				$html .= '<input id="' . $option_name . '_button" type="button" data-uploader_title="' . __( 'Upload an image' , 'wordpress-plugin-template' ) . '" data-uploader_button_text="' . __( 'Use image' , 'wordpress-plugin-template' ) . '" class="image_upload_button button" value="'. __( 'Upload new image' , 'wordpress-plugin-template' ) . '" />' . "\n";
-				$html .= '<input id="' . $option_name . '_delete" type="button" class="image_delete_button button" value="'. __( 'Remove image' , 'wordpress-plugin-template' ) . '" />' . "\n";
+				$html .= '<input id="' . $option_name . '_button" type="button" data-uploader_title="' . __( 'Upload an image', 'wordpress-plugin-template' ) . '" data-uploader_button_text="' . __( 'Use image', 'wordpress-plugin-template' ) . '" class="image_upload_button button" value="' . __( 'Upload new image', 'wordpress-plugin-template' ) . '" />' . "\n";
+				$html .= '<input id="' . $option_name . '_delete" type="button" class="image_delete_button button" value="' . __( 'Remove image', 'wordpress-plugin-template' ) . '" />' . "\n";
 				$html .= '<input id="' . $option_name . '" class="image_data_field" type="hidden" name="' . $option_name . '" value="' . $data . '"/><br/>' . "\n";
-			break;
+				break;
 
 			case 'color':
+				//phpcs:disable
 				?><div class="color-picker" style="position:relative;">
-			        <input type="text" name="<?php esc_attr_e( $option_name ); ?>" class="color" value="<?php esc_attr_e( $data ); ?>" />
-			        <div style="position:absolute;background:#FFF;z-index:99;border-radius:100%;" class="colorpicker"></div>
-			    </div>
-			    <?php
-			break;
-			
+					<input type="text" name="<?php esc_attr_e( $option_name ); ?>" class="color" value="<?php esc_attr_e( $data ); ?>" />
+					<div style="position:absolute;background:#FFF;z-index:99;border-radius:100%;" class="colorpicker"></div>
+				</div>
+				<?php
+				//phpcs:enable
+				break;
+
 			case 'editor':
-				wp_editor($data, $option_name, array(
-					'textarea_name' => $option_name
-				) );
-			break;
+				wp_editor(
+					$data,
+					$option_name,
+					array(
+						'textarea_name' => $option_name,
+					)
+				);
+				break;
 
 		}
 
-		switch( $field['type'] ) {
+		switch ( $field['type'] ) {
 
 			case 'checkbox_multi':
 			case 'radio':
 			case 'select_multi':
 				$html .= '<br/><span class="description">' . $field['description'] . '</span>';
-			break;
+				break;
 
 			default:
 				if ( ! $post ) {
@@ -195,52 +211,60 @@ class WordPress_Plugin_Template_Admin_API {
 				if ( ! $post ) {
 					$html .= '</label>' . "\n";
 				}
-			break;
+				break;
 		}
 
 		if ( ! $echo ) {
 			return $html;
 		}
 
-		echo $html;
+		echo $html; //phpcs:ignore
 
 	}
 
 	/**
 	 * Validate form field
-	 * @param  string $data Submitted value
-	 * @param  string $type Type of field to validate
+	 *
+	 * @param  string $data Submitted value.
+	 * @param  string $type Type of field to validate.
 	 * @return string       Validated value
 	 */
-	public function validate_field ( $data = '', $type = 'text' ) {
+	public function validate_field( $data = '', $type = 'text' ) {
 
-		switch( $type ) {
-			case 'text': $data = esc_attr( $data ); break;
-			case 'url': $data = esc_url( $data ); break;
-			case 'email': $data = is_email( $data ); break;
+		switch ( $type ) {
+			case 'text':
+				$data = esc_attr( $data );
+				break;
+			case 'url':
+				$data = esc_url( $data );
+				break;
+			case 'email':
+				$data = is_email( $data );
+				break;
 		}
 
 		return $data;
 	}
 
 	/**
-	 * Add meta box to the dashboard
-	 * @param string $id            Unique ID for metabox
-	 * @param string $title         Display title of metabox
-	 * @param array  $post_types    Post types to which this metabox applies
-	 * @param string $context       Context in which to display this metabox ('advanced' or 'side')
-	 * @param string $priority      Priority of this metabox ('default', 'low' or 'high')
-	 * @param array  $callback_args Any axtra arguments that will be passed to the display function for this metabox
+	 * Add meta box to the dashboard.
+	 *
+	 * @param string $id            Unique ID for metabox.
+	 * @param string $title         Display title of metabox.
+	 * @param array  $post_types    Post types to which this metabox applies.
+	 * @param string $context       Context in which to display this metabox ('advanced' or 'side').
+	 * @param string $priority      Priority of this metabox ('default', 'low' or 'high').
+	 * @param array  $callback_args Any axtra arguments that will be passed to the display function for this metabox.
 	 * @return void
 	 */
-	public function add_meta_box ( $id = '', $title = '', $post_types = array(), $context = 'advanced', $priority = 'default', $callback_args = null ) {
+	public function add_meta_box( $id = '', $title = '', $post_types = array(), $context = 'advanced', $priority = 'default', $callback_args = null ) {
 
-		// Get post type(s)
+		// Get post type(s).
 		if ( ! is_array( $post_types ) ) {
 			$post_types = array( $post_types );
 		}
 
-		// Generate each metabox
+		// Generate each metabox.
 		foreach ( $post_types as $post_type ) {
 			add_meta_box( $id, $title, array( $this, 'meta_box_content' ), $post_type, $context, $priority, $callback_args );
 		}
@@ -248,30 +272,34 @@ class WordPress_Plugin_Template_Admin_API {
 
 	/**
 	 * Display metabox content
-	 * @param  object $post Post object
-	 * @param  array  $args Arguments unique to this metabox
+	 *
+	 * @param  object $post Post object.
+	 * @param  array  $args Arguments unique to this metabox.
 	 * @return void
 	 */
-	public function meta_box_content ( $post, $args ) {
+	public function meta_box_content( $post, $args ) {
 
 		$fields = apply_filters( $post->post_type . '_custom_fields', array(), $post->post_type );
 
-		if ( ! is_array( $fields ) || 0 == count( $fields ) ) return;
+		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
+			return;
+		}
 
 		echo '<div class="custom-field-panel">' . "\n";
 
 		foreach ( $fields as $field ) {
 
-			if ( ! isset( $field['metabox'] ) ) continue;
+			if ( ! isset( $field['metabox'] ) ) {
+				continue;
+			}
 
 			if ( ! is_array( $field['metabox'] ) ) {
 				$field['metabox'] = array( $field['metabox'] );
 			}
 
-			if ( in_array( $args['id'], $field['metabox'] ) ) {
+			if ( in_array( $args['id'], $field['metabox'], true ) ) {
 				$this->display_meta_box_field( $field, $post );
 			}
-
 		}
 
 		echo '</div>' . "\n";
@@ -280,37 +308,45 @@ class WordPress_Plugin_Template_Admin_API {
 
 	/**
 	 * Dispay field in metabox
-	 * @param  array  $field Field data
-	 * @param  object $post  Post object
+	 *
+	 * @param  array  $field Field data.
+	 * @param  object $post  Post object.
 	 * @return void
 	 */
-	public function display_meta_box_field ( $field = array(), $post ) {
+	public function display_meta_box_field( $field = array(), $post ) {
 
-		if ( ! is_array( $field ) || 0 == count( $field ) ) return;
+		if ( ! is_array( $field ) || 0 === count( $field ) ) {
+			return;
+		}
 
 		$field = '<p class="form-field"><label for="' . $field['id'] . '">' . $field['label'] . '</label>' . $this->display_field( $field, $post, false ) . '</p>' . "\n";
 
-		echo $field;
+		echo $field; //phpcs:ignore
 	}
 
 	/**
-	 * Save metabox fields
-	 * @param  integer $post_id Post ID
+	 * Save metabox fields.
+	 *
+	 * @param  integer $post_id Post ID.
 	 * @return void
 	 */
-	public function save_meta_boxes ( $post_id = 0 ) {
+	public function save_meta_boxes( $post_id = 0 ) {
 
-		if ( ! $post_id ) return;
+		if ( ! $post_id ) {
+			return;
+		}
 
 		$post_type = get_post_type( $post_id );
 
 		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
 
-		if ( ! is_array( $fields ) || 0 == count( $fields ) ) return;
+		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
+			return;
+		}
 
 		foreach ( $fields as $field ) {
-			if ( isset( $_REQUEST[ $field['id'] ] ) ) {
-				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) );
+			if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
+				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) ); //phpcs:ignore
 			} else {
 				update_post_meta( $post_id, $field['id'], '' );
 			}
