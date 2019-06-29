@@ -25,11 +25,11 @@ class WordPress_Plugin_Template_Admin_API {
 	 * Generate HTML for displaying fields.
 	 *
 	 * @param  array   $data Data array.
-	 * @param  array   $post Field data.
+	 * @param  object  $post Post object.
 	 * @param  boolean $echo  Whether to echo the field HTML or return it.
 	 * @return string
 	 */
-	public function display_field( $data = array(), $post = false, $echo = true ) {
+	public function display_field( $data = array(), $post = null, $echo = true ) {
 
 		// Get field info.
 		if ( isset( $data['field'] ) ) {
@@ -313,7 +313,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 * @param  object $post  Post object.
 	 * @return void
 	 */
-	public function display_meta_box_field( $field = array(), $post ) {
+	public function display_meta_box_field( $field = array(), $post = null ) {
 
 		if ( ! is_array( $field ) || 0 === count( $field ) ) {
 			return;
