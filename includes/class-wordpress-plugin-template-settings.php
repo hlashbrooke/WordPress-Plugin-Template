@@ -69,12 +69,18 @@ class WordPress_Plugin_Template_Settings {
 		// Add settings page to menu.
 		add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
 
-		// Add settings link to plugins page
-		add_filter( 'plugin_action_links_' . plugin_basename( $this->parent->file ) , array( $this, 'add_settings_link' ) );
+		// Add settings link to plugins page.
+		add_filter(
+			'plugin_action_links_' . plugin_basename( $this->parent->file ),
+			array(
+				$this,
+				'add_settings_link',
+			)
+		);
 
-		// Configure placement of plugin settings page. See readme for implementation
+		// Configure placement of plugin settings page. See readme for implementation.
 		add_filter( $this->base . 'menu_settings', array( $this, 'configure_settings' ) );
-	}	
+	}
 
 	/**
 	 * Initialise settings
@@ -90,23 +96,22 @@ class WordPress_Plugin_Template_Settings {
 	 *
 	 * @return void
 	 */
-	public function add_menu_item () {
+	public function add_menu_item() {
 
 		$args = $this->menu_settings();
 
-		// Do nothing if wrong location key is set
-		if ( is_array( $args ) && isset( $args[ 'location' ] ) && function_exists( 'add_' . $args[ 'location' ] . '_page' ) ) {
-			switch( $args[ 'location' ] ) {
+		// Do nothing if wrong location key is set.
+		if ( is_array( $args ) && isset( $args['location'] ) && function_exists( 'add_' . $args['location'] . '_page' ) ) {
+			switch ( $args['location'] ) {
 				case 'options':
 				case 'submenu':
-					$page = add_submenu_page( $args[ 'parent_slug' ], $args[ 'page_title' ], $args[ 'menu_title' ], $args[ 'capability' ], $args[ 'menu_slug' ], $args[ 'function' ] );
+					$page = add_submenu_page( $args['parent_slug'], $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'] );
 					break;
 				case 'menu':
-					$page = add_menu_page( $args[ 'page_title' ], $args[ 'menu_title' ], $args[ 'capability' ], $args[ 'menu_slug' ], $args[ 'function' ], $args[ 'icon_url' ], $args[ 'position' ] );
+					$page = add_menu_page( $args['page_title'], $args['menu_title'], $args['capability'], $args['menu_slug'], $args['function'], $args['icon_url'], $args['position'] );
 					break;
 				default:
 					return;
-					break;
 			}
 			add_action( 'admin_print_styles-' . $page, array( $this, 'settings_assets' ) );
 		}
@@ -114,27 +119,34 @@ class WordPress_Plugin_Template_Settings {
 
 	/**
 	 * Prepare default settings page arguments
-	 * @return void
+	 *
+	 * @return mixed|void
 	 */
 	private function menu_settings() {
-		return apply_filters( $this->base . 'menu_settings', array(
-			'location' => 'options', // Possible settings: options, menu, submenu
-			'parent_slug' => 'options-general.php', 
-			'page_title' => __( 'Plugin Settings', 'wordpress-plugin-template' ),
-			'menu_title' =>__( 'Plugin Settings', 'wordpress-plugin-template' ),
-			'capability' => 'manage_options',
-			'menu_slug' => $this->parent->_token . '_settings',
-			'function' => array( $this, 'settings_page' ),
-			'icon_url' => '',
-			'position' => null
-		) );
+		return apply_filters(
+			$this->base . 'menu_settings',
+			array(
+				'location'    => 'options', // Possible settings: options, menu, submenu.
+				'parent_slug' => 'options-general.php',
+				'page_title'  => __( 'Plugin Settings', 'wordpress-plugin-template' ),
+				'menu_title'  => __( 'Plugin Settings', 'wordpress-plugin-template' ),
+				'capability'  => 'manage_options',
+				'menu_slug'   => $this->parent->_token . '_settings',
+				'function'    => array( $this, 'settings_page' ),
+				'icon_url'    => '',
+				'position'    => null,
+			)
+		);
 	}
 
 	/**
 	 * Container for settings page arguments
-	 * @return void
+	 *
+	 * @param array $settings Settings array.
+	 *
+	 * @return array
 	 */
-	public function configure_settings( $settings ) {
+	public function configure_settings( $settings = array() ) {
 		return $settings;
 	}
 
@@ -460,7 +472,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @static
 	 * @see WordPress_Plugin_Template()
 	 * @param object $parent Object instance.
-	 * @return Main WordPress_Plugin_Template_Settings instance
+	 * @return object WordPress_Plugin_Template_Settings instance
 	 */
 	public static function instance( $parent ) {
 		if ( is_null( self::$_instance ) ) {
@@ -475,7 +487,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cloning of WordPress_Plugin_Template_API is forbidden.' ) ), esc_attr( $this->parent->_version ) );
 	} // End __clone()
 
 	/**
@@ -484,7 +496,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template_API is forbidden.' ) ), esc_attr( $this->parent->_version ) );
 	} // End __wakeup()
 
 }
