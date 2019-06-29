@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: WordPress Plugin Template
- * Version: 1.0
+ * Version: 1.0.0
  * Plugin URI: http://www.hughlashbrooke.com/
  * Description: This is your starter template for your next WordPress plugin.
  * Author: Hugh Lashbrooke
