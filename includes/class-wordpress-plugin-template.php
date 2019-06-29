@@ -23,12 +23,12 @@ class WordPress_Plugin_Template {
 	 */
 	private static $_instance = null; //phpcs:ignore
 
-    /**
-     * Local instance of WordPress_Plugin_Template_Admin_API
-     *
-     * @var WordPress_Plugin_Template_Admin_API|null
-     */
-    private $admin = null;
+	/**
+	 * Local instance of WordPress_Plugin_Template_Admin_API
+	 *
+	 * @var WordPress_Plugin_Template_Admin_API|null
+	 */
+	private $admin = null;
 
 	/**
 	 * Settings class object
@@ -140,16 +140,17 @@ class WordPress_Plugin_Template {
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
 	} // End __construct ()
 
-    /**
-     * Register post type function.
-     *
-     * @param string $post_type
-     * @param string $plural
-     * @param string $single
-     * @param string $description
-     * @param array $options
-     * @return bool|string|WordPress_Plugin_Template_Post_Type
-     */
+	/**
+	 * Register post type function.
+	 *
+	 * @param string $post_type
+	 * @param string $plural
+	 * @param string $single
+	 * @param string $description
+	 * @param array $options
+	 *
+	 * @return bool|string|WordPress_Plugin_Template_Post_Type
+	 */
 	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
 
 		if ( ! $post_type || ! $plural || ! $single ) {
@@ -161,16 +162,17 @@ class WordPress_Plugin_Template {
 		return $post_type;
 	}
 
-    /**
-     * Wrapper function to register a new taxonomy.
-     *
-     * @param string $taxonomy
-     * @param string $plural
-     * @param string $single
-     * @param array $post_types
-     * @param array $taxonomy_args
-     * @return bool|string|WordPress_Plugin_Template_Taxonomy
-     */
+	/**
+	 * Wrapper function to register a new taxonomy.
+	 *
+	 * @param string $taxonomy
+	 * @param string $plural
+	 * @param string $single
+	 * @param array $post_types
+	 * @param array $taxonomy_args
+	 *
+	 * @return bool|string|WordPress_Plugin_Template_Taxonomy
+	 */
 	public function register_taxonomy( $taxonomy = '', $plural = '', $single = '', $post_types = array(), $taxonomy_args = array() ) {
 
 		if ( ! $taxonomy || ! $plural || ! $single ) {
@@ -186,8 +188,8 @@ class WordPress_Plugin_Template {
 	 * Load frontend CSS.
 	 *
 	 * @access  public
-	 * @since   1.0.0
 	 * @return void
+	 * @since   1.0.0
 	 */
 	public function enqueue_styles() {
 		wp_register_style( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'css/frontend.css', array(), $this->_version );
@@ -198,8 +200,8 @@ class WordPress_Plugin_Template {
 	 * Load frontend Javascript.
 	 *
 	 * @access  public
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	public function enqueue_scripts() {
 		wp_register_script( $this->_token . '-frontend', esc_url( $this->assets_url ) . 'js/frontend' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
@@ -210,6 +212,7 @@ class WordPress_Plugin_Template {
 	 * Admin enqueue style.
 	 *
 	 * @param string $hook Hook parameter.
+	 *
 	 * @return void
 	 */
 	public function admin_enqueue_styles( $hook = '' ) {
@@ -221,9 +224,11 @@ class WordPress_Plugin_Template {
 	 * Load admin Javascript.
 	 *
 	 * @access  public
+	 *
 	 * @param string $hook Hook parameter.
-	 * @since   1.0.0
+	 *
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	public function admin_enqueue_scripts( $hook = '' ) {
 		wp_register_script( $this->_token . '-admin', esc_url( $this->assets_url ) . 'js/admin' . $this->script_suffix . '.js', array( 'jquery' ), $this->_version, true );
@@ -234,8 +239,8 @@ class WordPress_Plugin_Template {
 	 * Load plugin localisation
 	 *
 	 * @access  public
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	public function load_localisation() {
 		load_plugin_textdomain( 'wordpress-plugin-template', false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
@@ -245,8 +250,8 @@ class WordPress_Plugin_Template {
 	 * Load plugin textdomain
 	 *
 	 * @access  public
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	public function load_plugin_textdomain() {
 		$domain = 'wordpress-plugin-template';
@@ -262,17 +267,19 @@ class WordPress_Plugin_Template {
 	 *
 	 * Ensures only one instance of WordPress_Plugin_Template is loaded or can be loaded.
 	 *
-	 * @since 1.0.0
-	 * @static
 	 * @param string $file File instance.
 	 * @param string $version Version parameter.
-	 * @see WordPress_Plugin_Template()
+	 *
 	 * @return Object WordPress_Plugin_Template instance
+	 * @see WordPress_Plugin_Template()
+	 * @since 1.0.0
+	 * @static
 	 */
 	public static function instance( $file = '', $version = '1.0.0' ) {
 		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self( $file, $version );
 		}
+
 		return self::$_instance;
 	} // End instance ()
 
@@ -282,7 +289,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cloning of WordPress_Plugin_Template is forbidden' ) ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cloning of WordPress_Plugin_Template is forbidden' ) ), esc_attr( $this->_version ) );
 
 	} // End __clone ()
 
@@ -292,15 +299,15 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-        _doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template is forbidden' ) ), $this->_version );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template is forbidden' ) ), esc_attr( $this->_version ) );
 	} // End __wakeup ()
 
 	/**
 	 * Installation. Runs on activation.
 	 *
 	 * @access  public
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	public function install() {
 		$this->_log_version_number();
@@ -310,8 +317,8 @@ class WordPress_Plugin_Template {
 	 * Log the plugin version number.
 	 *
 	 * @access  public
-	 * @since   1.0.0
 	 * @return  void
+	 * @since   1.0.0
 	 */
 	private function _log_version_number() { //phpcs:ignore
 		update_option( $this->_token . '_version', $this->_version );
