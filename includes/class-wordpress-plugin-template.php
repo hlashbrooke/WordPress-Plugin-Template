@@ -143,11 +143,11 @@ class WordPress_Plugin_Template {
 	/**
 	 * Register post type function.
 	 *
-	 * @param string $post_type
-	 * @param string $plural
-	 * @param string $single
-	 * @param string $description
-	 * @param array $options
+	 * @param string $post_type Post Type.
+	 * @param string $plural Plural Label.
+	 * @param string $single Single Label.
+	 * @param string $description Description.
+	 * @param array  $options Options array.
 	 *
 	 * @return bool|string|WordPress_Plugin_Template_Post_Type
 	 */
@@ -165,11 +165,11 @@ class WordPress_Plugin_Template {
 	/**
 	 * Wrapper function to register a new taxonomy.
 	 *
-	 * @param string $taxonomy
-	 * @param string $plural
-	 * @param string $single
-	 * @param array $post_types
-	 * @param array $taxonomy_args
+	 * @param string $taxonomy Taxonomy.
+	 * @param string $plural Plural Label.
+	 * @param string $single Single Label.
+	 * @param array  $post_types Post types to register this taxonomy for.
+	 * @param array  $taxonomy_args Taxonomy arguments.
 	 *
 	 * @return bool|string|WordPress_Plugin_Template_Taxonomy
 	 */
