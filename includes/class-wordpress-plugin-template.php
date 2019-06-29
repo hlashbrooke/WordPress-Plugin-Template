@@ -23,6 +23,13 @@ class WordPress_Plugin_Template {
 	 */
 	private static $_instance = null; //phpcs:ignore
 
+    /**
+     * Local instance of WordPress_Plugin_Template_Admin_API
+     *
+     * @var WordPress_Plugin_Template_Admin_API|null
+     */
+    private $admin = null;
+
 	/**
 	 * Settings class object
 	 *
@@ -87,7 +94,7 @@ class WordPress_Plugin_Template {
 	public $assets_url;
 
 	/**
-	 * Suffix for Javascripts.
+	 * Suffix for JavaScripts.
 	 *
 	 * @var     string
 	 * @access  public
@@ -133,20 +140,20 @@ class WordPress_Plugin_Template {
 		add_action( 'init', array( $this, 'load_localisation' ), 0 );
 	} // End __construct ()
 
-	/**
-	 * Register post type function.
-	 *
-	 * @param string $post_type Declare post type.
-	 * @param string $plural Declare post type plural name.
-	 * @param string $single Declare post type singular name.
-	 * @param string $description Declare post type description.
-	 * @param array  $options Additional options.
-	 * @return object
-	 */
+    /**
+     * Register post type function.
+     *
+     * @param string $post_type
+     * @param string $plural
+     * @param string $single
+     * @param string $description
+     * @param array $options
+     * @return bool|string|WordPress_Plugin_Template_Post_Type
+     */
 	public function register_post_type( $post_type = '', $plural = '', $single = '', $description = '', $options = array() ) {
 
 		if ( ! $post_type || ! $plural || ! $single ) {
-			return;
+			return false;
 		}
 
 		$post_type = new WordPress_Plugin_Template_Post_Type( $post_type, $plural, $single, $description, $options );
@@ -154,21 +161,20 @@ class WordPress_Plugin_Template {
 		return $post_type;
 	}
 
-	/**
-	 * Wrapper function to register a new taxonomy.
-	 *
-	 * @param  string $taxonomy   Taxonomy name.
-	 * @param  string $plural     Taxonomy single name.
-	 * @param  string $single     Taxonomy plural name.
-	 * @param  array  $post_types Post types to which this taxonomy applies.
-	 * @param  array  $taxonomy_args Additional taxonomy aguments.
-	 *
-	 * @return object             Taxonomy class object
-	 */
+    /**
+     * Wrapper function to register a new taxonomy.
+     *
+     * @param string $taxonomy
+     * @param string $plural
+     * @param string $single
+     * @param array $post_types
+     * @param array $taxonomy_args
+     * @return bool|string|WordPress_Plugin_Template_Taxonomy
+     */
 	public function register_taxonomy( $taxonomy = '', $plural = '', $single = '', $post_types = array(), $taxonomy_args = array() ) {
 
 		if ( ! $taxonomy || ! $plural || ! $single ) {
-			return;
+			return false;
 		}
 
 		$taxonomy = new WordPress_Plugin_Template_Taxonomy( $taxonomy, $plural, $single, $post_types, $taxonomy_args );
@@ -261,7 +267,7 @@ class WordPress_Plugin_Template {
 	 * @param string $file File instance.
 	 * @param string $version Version parameter.
 	 * @see WordPress_Plugin_Template()
-	 * @return Main WordPress_Plugin_Template instance
+	 * @return Object WordPress_Plugin_Template instance
 	 */
 	public static function instance( $file = '', $version = '1.0.0' ) {
 		if ( is_null( self::$_instance ) ) {
@@ -276,7 +282,8 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
+		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cloning of WordPress_Plugin_Template is forbidden' ) ), $this->_version );
+
 	} // End __clone ()
 
 	/**
@@ -285,7 +292,7 @@ class WordPress_Plugin_Template {
 	 * @since 1.0.0
 	 */
 	public function __wakeup() {
-		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Cheatin&#8217; huh?' ), $this->parent->_version ) );
+        _doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template is forbidden' ) ), $this->_version );
 	} // End __wakeup ()
 
 	/**
