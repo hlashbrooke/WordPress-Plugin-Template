@@ -28,7 +28,7 @@ class WordPress_Plugin_Template {
 	 *
 	 * @var WordPress_Plugin_Template_Admin_API|null
 	 */
-	private $admin = null;
+	public $admin = null;
 
 	/**
 	 * Settings class object
