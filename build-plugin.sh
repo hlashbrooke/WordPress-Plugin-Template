@@ -1,10 +1,24 @@
 #!/bin/bash
 
+DEFAULT_NAME="WordPress Plugin Template"
+DEFAULT_CLASS=${DEFAULT_NAME// /_}
+DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
+DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
+
 printf "Plugin name: "
 read NAME
 
+CLASS_NAME=${NAME// /_}
+
 printf "Destination folder: "
 read FOLDER
+
+printf "Class name \e[3m(Default is %s)\e[0m: " "$CLASS_NAME"
+read CLASS
+
+if [ $CLASS == "" ]; then
+	$CLASS = $CLASS_NAME
+fi
 
 printf "Include Grunt support (y/n): "
 read GRUNT
@@ -12,12 +26,7 @@ read GRUNT
 printf "Initialise new git repo (y/n): "
 read NEWREPO
 
-DEFAULT_NAME="WordPress Plugin Template"
-DEFAULT_CLASS=${DEFAULT_NAME// /_}
-DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
-DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
 
-CLASS=${NAME// /_}
 TOKEN=$( tr '[A-Z]' '[a-z]' <<< $CLASS)
 SLUG=${TOKEN//_/-}
 
@@ -61,6 +70,10 @@ rm $SLUG.tmp
 cp readme.txt readme.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
 rm readme.tmp
+
+cp Gruntfile.js Gruntfile.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" Gruntfile.tmp > Gruntfile.js
+rm Gruntfile.tmp
 
 
 cd lang
