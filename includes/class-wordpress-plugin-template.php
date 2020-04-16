@@ -103,14 +103,24 @@ class WordPress_Plugin_Template {
 	public $script_suffix;
 
 	/**
+	 * Plugin Text Domain.
+	 *
+	 * @var     string
+	 * @access  public
+	 * @since   1.0.0
+	 */
+	public $text_domain;
+
+	/**
 	 * Constructor funtion.
 	 *
 	 * @param string $file File constructor.
 	 * @param string $version Plugin version.
 	 */
 	public function __construct( $file = '', $version = '1.0.0' ) {
-		$this->_version = $version;
-		$this->_token   = 'wordpress_plugin_template';
+		$this->_version    = $version;
+		$this->_token      = 'wordpress_plugin_template';
+		$this->text_domain = 'wordpress-plugin-template';
 
 		// Load plugin environment variables.
 		$this->file       = $file;
@@ -137,7 +147,7 @@ class WordPress_Plugin_Template {
 
 		// Handle localisation.
 		$this->load_plugin_textdomain();
-		add_action( 'init', array( $this, 'load_localisation' ), 0 );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ), 0 );
 	} // End __construct ()
 
 	/**
@@ -236,17 +246,6 @@ class WordPress_Plugin_Template {
 	} // End admin_enqueue_scripts ()
 
 	/**
-	 * Load plugin localisation
-	 *
-	 * @access  public
-	 * @return  void
-	 * @since   1.0.0
-	 */
-	public function load_localisation() {
-		load_plugin_textdomain( 'wordpress-plugin-template', false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
-	} // End load_localisation ()
-
-	/**
 	 * Load plugin textdomain
 	 *
 	 * @access  public
@@ -254,12 +253,7 @@ class WordPress_Plugin_Template {
 	 * @since   1.0.0
 	 */
 	public function load_plugin_textdomain() {
-		$domain = 'wordpress-plugin-template';
-
-		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
-
-		load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
+		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( $this->file ) ) . '/lang/' );
 	} // End load_plugin_textdomain ()
 
 	/**
