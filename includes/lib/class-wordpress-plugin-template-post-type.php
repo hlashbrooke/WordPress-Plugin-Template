@@ -158,7 +158,7 @@ class WordPress_Plugin_Template_Post_Type {
 			3  => __( 'Custom field deleted.', 'wordpress-plugin-template' ),
 			4  => sprintf( __( '%1$s updated.', 'wordpress-plugin-template' ), $this->single ),
 			5  => isset( $_GET['revision'] ) ? sprintf( __( '%1$s restored to revision from %2$s.', 'wordpress-plugin-template' ), $this->single, wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => sprintf( __( '%1$s published. %2$sView %3$s%4s.', 'wordpress-plugin-template' ), $this->single, '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', $this->single, '</a>' ),
+			6  => sprintf( __( '%1$s published. %2$sView %3$s%4$s.', 'wordpress-plugin-template' ), $this->single, '<a href="' . esc_url( get_permalink( $post_ID ) ) . '">', $this->single, '</a>' ),
 			7  => sprintf( __( '%1$s saved.', 'wordpress-plugin-template' ), $this->single ),
 			8  => sprintf( __( '%1$s submitted. %2$sPreview post%3$s%4$s.', 'wordpress-plugin-template' ), $this->single, '<a target="_blank" href="' . esc_url( add_query_arg( 'preview', 'true', get_permalink( $post_ID ) ) ) . '">', $this->single, '</a>' ),
 			9  => sprintf( __( '%1$s scheduled for: %2$s. %3$sPreview %4$s%5$s.', 'wordpress-plugin-template' ), $this->single, '<strong>' . date_i18n( __( 'M j, Y @ G:i', 'wordpress-plugin-template' ), strtotime( $post->post_date ) ) . '</strong>', '<a target="_blank" href="' . esc_url( get_permalink( $post_ID ) ) . '">', $this->single, '</a>' ),
