@@ -4,6 +4,7 @@ DEFAULT_NAME="WordPress Plugin Template"
 DEFAULT_CLASS=${DEFAULT_NAME// /_}
 DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
 DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
+DEFAULT_OPT_PREFIX="wpt_"
 
 printf "Plugin name: "
 read NAME
@@ -23,12 +24,16 @@ fi
 printf "Include Grunt support (y/n): "
 read GRUNT
 
+printf "Options prefix: "
+read OPT_PREFIX
+
 printf "Initialise new git repo (y/n): "
 read NEWREPO
 
 
 TOKEN=$( tr '[A-Z]' '[a-z]' <<< $CLASS)
 SLUG=${TOKEN//_/-}
+OPT_PREFIX=${OPT_PREFIX}_
 
 git clone https://github.com/hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
@@ -124,6 +129,10 @@ rm class-$SLUG-settings.tmp
 
 cp class-$SLUG-settings.php class-$SLUG-settings.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
+rm class-$SLUG-settings.tmp
+
+cp class-$SLUG-settings.php class-$SLUG-settings.tmp
+sed "s/$DEFAULT_OPT_PREFIX/$OPT_PREFIX/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
 rm class-$SLUG-settings.tmp
 
 
