@@ -21,7 +21,7 @@ class WordPress_Plugin_Template {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $_instance = null; //phpcs:ignore
+	private static $instance = null;
 
 	/**
 	 * Local instance of WordPress_Plugin_Template_Admin_API
@@ -51,7 +51,7 @@ class WordPress_Plugin_Template {
 	/**
 	 * The token.
 	 *
-	 * @var     string
+	 * @var     strings
 	 * @access  public
 	 * @since   1.0.0
 	 */
@@ -276,11 +276,11 @@ class WordPress_Plugin_Template {
 	 * @static
 	 */
 	public static function instance( $file = '', $version = '1.0.0' ) {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self( $file, $version );
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $file, $version );
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	} // End instance ()
 
 	/**
@@ -321,7 +321,7 @@ class WordPress_Plugin_Template {
 	 * @since   1.0.0
 	 */
 	private function _log_version_number() { //phpcs:ignore
-		update_option( $this->_token . '_version', $this->_version );
+		update_option( $this->_token . '_version', $this->version );
 	} // End _log_version_number ()
 
 }

@@ -21,7 +21,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $_instance = null; //phpcs:ignore
+	private static $instance = null;
 
 	/**
 	 * The main plugin object.
@@ -389,7 +389,7 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	public function settings_section( $section ) {
 		$html = '<p> ' . $this->settings[ $section['id'] ]['description'] . '</p>' . "\n";
-		echo $html; //phpcs:ignore
+		echo wp_kses( $html, $this->allowed_htmls );
 	}
 
 	/**
@@ -404,11 +404,19 @@ class WordPress_Plugin_Template_Settings {
 			$html .= '<h2>' . __( 'Plugin Settings', 'wordpress-plugin-template' ) . '</h2>' . "\n";
 
 			$tab = '';
-		//phpcs:disable
-		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-			$tab .= $_GET['tab'];
+
+			$nonce_name = 'WordPress_Plugin_Template_nonce';
+			$nonce      = sanitize_text_field( wp_create_nonce( $nonce_name ) );
+
+		if ( isset( $_POST['tab'] ) ) {
+			if ( wp_verify_nonce( $nonce, $nonce_name ) ) {
+				$current_section = sanitize_text_field( wp_unslash( $_POST['tab'] ) );
+			}
+		} else {
+			if ( isset( $_GET['tab'] ) && sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) {
+				$current_section = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
+			}
 		}
-		//phpcs:enable
 
 		// Show page tabs.
 		if ( is_array( $this->settings ) && 1 < count( $this->settings ) ) {
@@ -420,19 +428,28 @@ class WordPress_Plugin_Template_Settings {
 
 				// Set tab class.
 				$class = 'nav-tab';
-				if ( ! isset( $_GET['tab'] ) ) { //phpcs:ignore
+				if ( ! isset( $_GET['tab'] ) ) {
 					if ( 0 === $c ) {
 						$class .= ' nav-tab-active';
 					}
 				} else {
-					if ( isset( $_GET['tab'] ) && $section == $_GET['tab'] ) { //phpcs:ignore
+					if ( isset( $_GET['tab'] ) && $section === $_GET['tab'] ) {
+						$tab    = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 						$class .= ' nav-tab-active';
 					}
 				}
 
 				// Set tab link.
-				$tab_link = add_query_arg( array( 'tab' => $section ) );
-				if ( isset( $_GET['settings-updated'] ) ) { //phpcs:ignore
+				$tab_link = add_query_arg(
+					array(
+						'tab'       => $section,
+						$nonce_name => $nonce,
+					)
+				);
+
+				if ( isset( $_GET['settings-updated'] ) ) {
+					$updated = sanitize_text_field( wp_unslash( $_GET['settings-updated'] ) );
+
 					$tab_link = remove_query_arg( 'settings-updated', $tab_link );
 				}
 
@@ -460,7 +477,7 @@ class WordPress_Plugin_Template_Settings {
 			$html         .= '</form>' . "\n";
 		$html             .= '</div>' . "\n";
 
-		echo $html; //phpcs:ignore
+		echo wp_kses( $html, $this->allowed_htmls );
 	}
 
 	/**
@@ -475,10 +492,10 @@ class WordPress_Plugin_Template_Settings {
 	 * @return object WordPress_Plugin_Template_Settings instance
 	 */
 	public static function instance( $parent ) {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self( $parent );
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $parent );
 		}
-		return self::$_instance;
+		return self::$instance;
 	} // End instance()
 
 	/**
@@ -499,4 +516,126 @@ class WordPress_Plugin_Template_Settings {
 		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template_API is forbidden.' ) ), esc_attr( $this->parent->_version ) );
 	} // End __wakeup()
 
+	/**
+	 * Allowed html for output.
+	 *
+	 * @var array
+	 */
+	public $allowed_htmls = [
+		'a'        => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h1'       => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h2'       => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h3'       => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h4'       => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'input'    => [
+			'id'                  => [],
+			'type'                => [],
+			'name'                => [],
+			'placeholder'         => [],
+			'value'               => [],
+			'class'               => [],
+			'checked'             => [],
+			'style'               => [],
+			'data-uploader_title' => [],
+			'data-uploader_text'  => [],
+		],
+		'select'   => [
+			'id'          => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'multiple'    => [],
+			'style'       => [],
+		],
+		'option'   => [
+			'id'          => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'multiple'    => [],
+			'selected'    => [],
+		],
+		'label'    => [
+			'for'   => [],
+			'title' => [],
+		],
+		'span'     => [
+			'class' => [],
+			'title' => [],
+		],
+		'table'    => [
+			'scope' => [],
+			'title' => [],
+			'class' => [],
+			'role'  => [],
+		],
+		'tbody'    => [
+			'scope' => [],
+			'title' => [],
+			'class' => [],
+			'role'  => [],
+		],
+		'th'       => [
+			'scope' => [],
+			'title' => [],
+		],
+		'form'     => [
+			'method'      => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'multiple'    => [],
+			'selected'    => [],
+			'action'      => [],
+			'enctype'     => [],
+		],
+		'div'      => [
+			'class' => [],
+			'id'    => [],
+		],
+		'img'      => [
+			'class' => [],
+			'id'    => [],
+			'src'   => [],
+		],
+		'textarea' => [
+			'class'       => [],
+			'id'          => [],
+			'rows'        => [],
+			'cols'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'spellcheck'  => [],
+		],
+		'tr'       => [],
+		'td'       => [],
+		'p'        => [],
+		'br'       => [],
+		'em'       => [],
+		'strong'   => [],
+		'th'       => [],
+	];
 }
