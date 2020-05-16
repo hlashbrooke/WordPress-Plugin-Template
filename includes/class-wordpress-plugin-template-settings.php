@@ -389,7 +389,7 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	public function settings_section( $section ) {
 		$html = '<p> ' . $this->settings[ $section['id'] ]['description'] . '</p>' . "\n";
-		echo $html; //phpcs:ignore
+		echo wp_kses( $html, $this->allowed_htmls );
 	}
 
 	/**
@@ -460,7 +460,7 @@ class WordPress_Plugin_Template_Settings {
 			$html         .= '</form>' . "\n";
 		$html             .= '</div>' . "\n";
 
-		echo $html; //phpcs:ignore
+		echo wp_kses( $html, $this->allowed_htmls );
 	}
 
 	/**
@@ -499,4 +499,110 @@ class WordPress_Plugin_Template_Settings {
 		_doing_it_wrong( __FUNCTION__, esc_html( __( 'Unserializing instances of WordPress_Plugin_Template_API is forbidden.' ) ), esc_attr( $this->parent->_version ) );
 	} // End __wakeup()
 
+	/**
+	 * Allowed html.
+	 *
+	 * @var array
+	 */
+	public $allowed_htmls = [
+		'a'      => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h1'     => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h2'     => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h3'     => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'h4'     => [
+			'href'  => [],
+			'title' => [],
+			'class' => [],
+		],
+		'input'  => [
+			'id'          => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'class'       => [],
+			'checked'     => [],
+			'style'       => [],
+		],
+		'select' => [
+			'id'          => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'multiple'    => [],
+			'style'       => [],
+		],
+		'option' => [
+			'id'          => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'multiple'    => [],
+			'selected'    => [],
+		],
+		'label'  => [
+			'for'   => [],
+			'title' => [],
+		],
+		'span'   => [
+			'class' => [],
+			'title' => [],
+		],
+		'table'  => [
+			'scope' => [],
+			'title' => [],
+			'class' => [],
+			'role'  => [],
+		],
+		'tbody'  => [
+			'scope' => [],
+			'title' => [],
+			'class' => [],
+			'role'  => [],
+		],
+		'th'     => [
+			'scope' => [],
+			'title' => [],
+		],
+		'tr'     => [],
+		'td'     => [],
+		'p'      => [],
+		'br'     => [],
+		'em'     => [],
+		'strong' => [],
+		'th'     => [],
+		'form'   => [
+			'method'      => [],
+			'type'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'value'       => [],
+			'multiple'    => [],
+			'selected'    => [],
+			'action'      => [],
+			'enctype'     => [],
+		],
+		'div'    => [
+			'class' => [],
+			'id'    => [],
+		],
+	];
 }
