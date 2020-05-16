@@ -21,7 +21,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $_instance = null; //phpcs:ignore
+	private static $instance = null; //phpcs:ignore
 
 	/**
 	 * The main plugin object.
@@ -492,10 +492,10 @@ class WordPress_Plugin_Template_Settings {
 	 * @return object WordPress_Plugin_Template_Settings instance
 	 */
 	public static function instance( $parent ) {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self( $parent );
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $parent );
 		}
-		return self::$_instance;
+		return self::$instance;
 	} // End instance()
 
 	/**

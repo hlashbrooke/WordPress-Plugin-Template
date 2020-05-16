@@ -21,7 +21,7 @@ class WordPress_Plugin_Template {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $_instance = null; //phpcs:ignore
+	private static $instance = null; //phpcs:ignore
 
 	/**
 	 * Local instance of WordPress_Plugin_Template_Admin_API
@@ -276,11 +276,11 @@ class WordPress_Plugin_Template {
 	 * @static
 	 */
 	public static function instance( $file = '', $version = '1.0.0' ) {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self( $file, $version );
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self( $file, $version );
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	} // End instance ()
 
 	/**
