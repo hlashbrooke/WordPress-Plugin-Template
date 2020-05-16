@@ -404,11 +404,19 @@ class WordPress_Plugin_Template_Settings {
 			$html .= '<h2>' . __( 'Plugin Settings', 'wordpress-plugin-template' ) . '</h2>' . "\n";
 
 			$tab = '';
-		//phpcs:disable
-		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-			$tab .= $_GET['tab'];
+
+			$nonce_name = 'WordPress_Plugin_Template_nonce';
+			$nonce      = sanitize_text_field( wp_create_nonce( $nonce_name ) );
+
+		if ( isset( $_POST['tab'] ) ) {
+			if ( wp_verify_nonce( $nonce, $nonce_name ) ) {
+				$current_section = sanitize_text_field( wp_unslash( $_POST['tab'] ) );
+			}
+		} else {
+			if ( isset( $_GET['tab'] ) && sanitize_text_field( wp_unslash( $_GET['tab'] ) ) ) {
+				$current_section = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
+			}
 		}
-		//phpcs:enable
 
 		// Show page tabs.
 		if ( is_array( $this->settings ) && 1 < count( $this->settings ) ) {
@@ -420,19 +428,28 @@ class WordPress_Plugin_Template_Settings {
 
 				// Set tab class.
 				$class = 'nav-tab';
-				if ( ! isset( $_GET['tab'] ) ) { //phpcs:ignore
+				if ( ! isset( $_GET['tab'] ) ) {
 					if ( 0 === $c ) {
 						$class .= ' nav-tab-active';
 					}
 				} else {
-					if ( isset( $_GET['tab'] ) && $section == $_GET['tab'] ) { //phpcs:ignore
+					if ( isset( $_GET['tab'] ) && $section === $_GET['tab'] ) {
+						$tab    = sanitize_text_field( wp_unslash( $_GET['tab'] ) );
 						$class .= ' nav-tab-active';
 					}
 				}
 
 				// Set tab link.
-				$tab_link = add_query_arg( array( 'tab' => $section ) );
-				if ( isset( $_GET['settings-updated'] ) ) { //phpcs:ignore
+				$tab_link = add_query_arg(
+					array(
+						'tab'       => $section,
+						$nonce_name => $nonce,
+					)
+				);
+
+				if ( isset( $_GET['settings-updated'] ) ) {
+					$updated = sanitize_text_field( wp_unslash( $_GET['settings-updated'] ) );
+
 					$tab_link = remove_query_arg( 'settings-updated', $tab_link );
 				}
 
@@ -500,47 +517,49 @@ class WordPress_Plugin_Template_Settings {
 	} // End __wakeup()
 
 	/**
-	 * Allowed html.
+	 * Allowed html for output.
 	 *
 	 * @var array
 	 */
 	public $allowed_htmls = [
-		'a'      => [
+		'a'        => [
 			'href'  => [],
 			'title' => [],
 			'class' => [],
 		],
-		'h1'     => [
+		'h1'       => [
 			'href'  => [],
 			'title' => [],
 			'class' => [],
 		],
-		'h2'     => [
+		'h2'       => [
 			'href'  => [],
 			'title' => [],
 			'class' => [],
 		],
-		'h3'     => [
+		'h3'       => [
 			'href'  => [],
 			'title' => [],
 			'class' => [],
 		],
-		'h4'     => [
+		'h4'       => [
 			'href'  => [],
 			'title' => [],
 			'class' => [],
 		],
-		'input'  => [
-			'id'          => [],
-			'type'        => [],
-			'name'        => [],
-			'placeholder' => [],
-			'value'       => [],
-			'class'       => [],
-			'checked'     => [],
-			'style'       => [],
+		'input'    => [
+			'id'                  => [],
+			'type'                => [],
+			'name'                => [],
+			'placeholder'         => [],
+			'value'               => [],
+			'class'               => [],
+			'checked'             => [],
+			'style'               => [],
+			'data-uploader_title' => [],
+			'data-uploader_text'  => [],
 		],
-		'select' => [
+		'select'   => [
 			'id'          => [],
 			'type'        => [],
 			'name'        => [],
@@ -549,7 +568,7 @@ class WordPress_Plugin_Template_Settings {
 			'multiple'    => [],
 			'style'       => [],
 		],
-		'option' => [
+		'option'   => [
 			'id'          => [],
 			'type'        => [],
 			'name'        => [],
@@ -558,38 +577,31 @@ class WordPress_Plugin_Template_Settings {
 			'multiple'    => [],
 			'selected'    => [],
 		],
-		'label'  => [
+		'label'    => [
 			'for'   => [],
 			'title' => [],
 		],
-		'span'   => [
+		'span'     => [
 			'class' => [],
 			'title' => [],
 		],
-		'table'  => [
+		'table'    => [
 			'scope' => [],
 			'title' => [],
 			'class' => [],
 			'role'  => [],
 		],
-		'tbody'  => [
+		'tbody'    => [
 			'scope' => [],
 			'title' => [],
 			'class' => [],
 			'role'  => [],
 		],
-		'th'     => [
+		'th'       => [
 			'scope' => [],
 			'title' => [],
 		],
-		'tr'     => [],
-		'td'     => [],
-		'p'      => [],
-		'br'     => [],
-		'em'     => [],
-		'strong' => [],
-		'th'     => [],
-		'form'   => [
+		'form'     => [
 			'method'      => [],
 			'type'        => [],
 			'name'        => [],
@@ -600,9 +612,30 @@ class WordPress_Plugin_Template_Settings {
 			'action'      => [],
 			'enctype'     => [],
 		],
-		'div'    => [
+		'div'      => [
 			'class' => [],
 			'id'    => [],
 		],
+		'img'      => [
+			'class' => [],
+			'id'    => [],
+			'src'   => [],
+		],
+		'textarea' => [
+			'class'       => [],
+			'id'          => [],
+			'rows'        => [],
+			'cols'        => [],
+			'name'        => [],
+			'placeholder' => [],
+			'spellcheck'  => [],
+		],
+		'tr'       => [],
+		'td'       => [],
+		'p'        => [],
+		'br'       => [],
+		'em'       => [],
+		'strong'   => [],
+		'th'       => [],
 	];
 }
