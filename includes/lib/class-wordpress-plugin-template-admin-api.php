@@ -49,12 +49,16 @@ class WordPress_Plugin_Template_Admin_API {
 		if ( $post ) {
 
 			// Get saved field data.
-			$option_name .= $field['id'];
-			$option       = get_post_meta( $post->ID, $field['id'], true );
+			$option_name       .= $field['id'];
+			( $post ) ? $option = get_post_meta( $post->ID, $field['id'], true ) : $option = get_option( $option_name );
 
 			// Get data to display in field.
-			if ( isset( $option ) ) {
+			if ( isset( $option ) && '' !== $option ) {
 				$data = $option;
+			} elseif ( isset( $field['default'] ) ) {
+				$data = $field['default'];
+			} else {
+				$data = '';
 			}
 		} else {
 
