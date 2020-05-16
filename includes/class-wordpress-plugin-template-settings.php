@@ -21,7 +21,7 @@ class WordPress_Plugin_Template_Settings {
 	 * @access  private
 	 * @since   1.0.0
 	 */
-	private static $instance = null; //phpcs:ignore
+	private static $instance = null;
 
 	/**
 	 * The main plugin object.

@@ -218,7 +218,8 @@ class WordPress_Plugin_Template_Admin_API {
 			return $html;
 		}
 
-		echo $html; //phpcs:ignore
+		$sanitation = new WordPress_Plugin_Template_Settings( $this );
+		echo wp_kses( $field, $sanitation->allowed_htmls );
 
 	}
 
@@ -321,7 +322,8 @@ class WordPress_Plugin_Template_Admin_API {
 
 		$field = '<p class="form-field"><label for="' . $field['id'] . '">' . $field['label'] . '</label>' . $this->display_field( $field, $post, false ) . '</p>' . "\n";
 
-		echo $field; //phpcs:ignore
+		$sanitation = new WordPress_Plugin_Template_Settings( $this );
+		echo wp_kses( $field, $sanitation->allowed_htmls );
 	}
 
 	/**
