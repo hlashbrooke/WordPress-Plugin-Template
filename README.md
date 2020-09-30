@@ -1,6 +1,6 @@
 [![Build Status](https://www.travis-ci.org/wpugph/WordPress-Plugin-Template.svg?branch=master)](https://www.travis-ci.org/wpugph/WordPress-Plugin-Template)
 
-WordPress Plugin Template
+A Developer Friendly WordPress Plugin Template
 =========================
 
 A robust and GPL-licensed code template for creating a standards-compliant WordPress plugin.
