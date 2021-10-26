@@ -1,0 +1,28 @@
+language: php
+
+matrix:
+  include:
+    - php: '7.2'
+      env: SNIFF=1
+    - php: '7.1'
+      env: SNIFF=1
+  allow_failures:
+    - php: '5.6'
+      env: SNIFF=1
+    - php: '7.0'
+      env: SNIFF=1
+    - php: 'nightly'
+      env: SNIFF=1
+
+before_install:
+  - if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=$PWD/vendor/bin; fi
+  - if [[ "$SNIFF" == "1" ]]; then export SNIFFS_DIR=$PWD/vendor/wp-coding-standards/wpcs; fi
+  - composer install
+  - composer update 
+  - ./vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR
+  - ./vendor/bin/phpcs -i
+  - if [[ "$SNIFF" == "1" ]]; then ./vendor/bin/phpcs --config-set installed_paths $SNIFFS_DIR; fi
+
+script:
+  - export SNIFFS_IGNORE=*/node/*,*/vendor/*,*Gruntfile.js*,*.min.js*,*.min.css*,*.less*
+  - if [[ "$SNIFF" == "1" ]]; then ./vendor/bin/phpcs -p . --standard=WordPress --ignore=$SNIFFS_IGNORE; fi
