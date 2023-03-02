@@ -70,13 +70,7 @@ class WordPress_Plugin_Template_Settings {
 		add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
 
 		// Add settings link to plugins page.
-		add_filter(
-			'plugin_action_links_' . plugin_basename( $this->parent->file ),
-			array(
-				$this,
-				'add_settings_link',
-			)
-		);
+		add_filter( 'plugin_action_links',array($this,'add_settings_link'),10,2);
 
 		// Configure placement of plugin settings page. See readme for implementation.
 		add_filter( $this->base . 'menu_settings', array( $this, 'configure_settings' ) );
@@ -176,9 +170,11 @@ class WordPress_Plugin_Template_Settings {
 	 * @param  array $links Existing links.
 	 * @return array        Modified links.
 	 */
-	public function add_settings_link( $links ) {
-		$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
-		array_push( $links, $settings_link );
+	public function add_settings_link( $links, $file ) {
+		if( strpos( $file, basename( $this->parent->file ) ) !== false ) {
+			$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'svg-captcha' ) . '</a>';
+			array_push( $links, $settings_link );
+		}
 		return $links;
 	}
 
