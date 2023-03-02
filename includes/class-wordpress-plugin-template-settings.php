@@ -172,7 +172,7 @@ class WordPress_Plugin_Template_Settings {
 	 */
 	public function add_settings_link( $links, $file ) {
 		if( strpos( $file, basename( $this->parent->file ) ) !== false ) {
-			$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'svg-captcha' ) . '</a>';
+			$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
 			array_push( $links, $settings_link );
 		}
 		return $links;
