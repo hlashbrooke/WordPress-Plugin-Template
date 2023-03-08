@@ -324,15 +324,20 @@ class WordPress_Plugin_Template_Settings {
 		if ( is_array( $this->settings ) ) {
 
 			// Check posted/selected tab.
+			
 			//phpcs:disable
+			
 			$current_section = '';
-			if ( isset( $_POST['tab'] ) && $_POST['tab'] ) {
-				$current_section = $_POST['tab'];
-			} else {
-				if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-					$current_section = $_GET['tab'];
-				}
+			
+			if( isset( $_POST['tab'] ) ) {
+				
+				$current_section = sanitize_text_field($_POST['tab']);
+			} 
+			elseif( isset( $_GET['tab'] ) ) {
+					
+				$current_section = sanitize_text_field($_GET['tab']);
 			}
+			
 			//phpcs:enable
 
 			foreach ( $this->settings as $section => $data ) {
@@ -402,7 +407,8 @@ class WordPress_Plugin_Template_Settings {
 			$tab = '';
 		//phpcs:disable
 		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-			$tab .= $_GET['tab'];
+			
+			$tab .= sanitize_text_field($_GET['tab']);
 		}
 		//phpcs:enable
 
