@@ -230,18 +230,27 @@ class WordPress_Plugin_Template_Admin_API {
 	 * @param  string $type Type of field to validate.
 	 * @return string       Validated value
 	 */
-	public function validate_field( $data = '', $type = 'text' ) {
+	
+	public function validate_output ( $data = '', $type = 'text' ) {
 
-		switch ( $type ) {
-			case 'text':
-				$data = esc_attr( $data );
-				break;
-			case 'url':
-				$data = esc_url( $data );
-				break;
-			case 'email':
-				$data = is_email( $data );
-				break;
+		switch( $type ) {
+			
+			case 'text'		: $data = esc_attr( $data ); break;
+			case 'url'		: $data = esc_url( $data ); break;
+			case 'email'	: $data = is_email( $data ); break;
+		}
+
+		return $data;
+	}
+	
+	public function validate_input( $data = '', $type = 'text' ) {
+
+		switch( $type ) {
+			
+			case 'text'		: $data = sanitize_text_field( $data ); break;
+			case 'textarea'	: $data = sanitize_textarea_field( $data ); break;
+			case 'url'		: $data = sanitize_url( $data ); break;
+			case 'email'	: $data = sanitize_email( $data ); break;
 		}
 
 		return $data;
@@ -347,8 +356,11 @@ class WordPress_Plugin_Template_Admin_API {
 
 		foreach ( $fields as $field ) {
 			if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
-				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) ); //phpcs:ignore
-			} else {
+				
+				update_post_meta( $post_id, $field['id'], $this->validate_input( sanitize_text_field($_REQUEST[$field['id']]), $field['type'] ) ); //phpcs:ignore
+			} 
+			else {
+				
 				update_post_meta( $post_id, $field['id'], '' );
 			}
 		}
