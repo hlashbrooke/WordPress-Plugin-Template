@@ -355,13 +355,17 @@ class WordPress_Plugin_Template_Admin_API {
 		}
 
 		foreach ( $fields as $field ) {
-			if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
+			
+			if( !empty($field['id']) ){
 				
-				update_post_meta( $post_id, $field['id'], $this->validate_input( $_REQUEST[$field['id']], $field['type'] ) ); //phpcs:ignore
-			} 
-			else {
-				
-				update_post_meta( $post_id, $field['id'], '' );
+				if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
+					
+					update_post_meta( $post_id, $field['id'], $this->validate_input( $_REQUEST[$field['id']], $field['type'] ) ); //phpcs:ignore
+				} 
+				else {
+					
+					update_post_meta( $post_id, $field['id'], '' );
+				}
 			}
 		}
 	}
