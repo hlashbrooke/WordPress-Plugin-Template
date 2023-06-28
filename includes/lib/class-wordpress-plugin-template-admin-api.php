@@ -342,7 +342,7 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function save_meta_boxes( $post_id = 0 ) {
 
-		if( !$post_id || wp_verify_nonce($_POST['_inline_edit'],'inlineeditnonce') ){
+		if( !$post_id || ( isset($_POST['_inline_edit']) && wp_verify_nonce($_POST['_inline_edit'],'inlineeditnonce') ) ){
 			
 			return;
 		}
