@@ -342,7 +342,8 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function save_meta_boxes( $post_id = 0 ) {
 
-		if ( ! $post_id ) {
+		if( !$post_id || wp_verify_nonce($_POST['_inline_edit'],'inlineeditnonce') ){
+			
 			return;
 		}
 
@@ -351,6 +352,7 @@ class WordPress_Plugin_Template_Admin_API {
 		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
 
 		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
+			
 			return;
 		}
 
