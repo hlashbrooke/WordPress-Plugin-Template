@@ -70,13 +70,7 @@ class WordPress_Plugin_Template_Settings {
 		add_action( 'admin_menu', array( $this, 'add_menu_item' ) );
 
 		// Add settings link to plugins page.
-		add_filter(
-			'plugin_action_links_' . plugin_basename( $this->parent->file ),
-			array(
-				$this,
-				'add_settings_link',
-			)
-		);
+		add_filter( 'plugin_action_links',array($this,'add_settings_link'),10,2);
 
 		// Configure placement of plugin settings page. See readme for implementation.
 		add_filter( $this->base . 'menu_settings', array( $this, 'configure_settings' ) );
@@ -176,9 +170,11 @@ class WordPress_Plugin_Template_Settings {
 	 * @param  array $links Existing links.
 	 * @return array        Modified links.
 	 */
-	public function add_settings_link( $links ) {
-		$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
-		array_push( $links, $settings_link );
+	public function add_settings_link( $links, $file ) {
+		if( strpos( $file, basename( $this->parent->file ) ) !== false ) {
+			$settings_link = '<a href="options-general.php?page=' . $this->parent->_token . '_settings">' . __( 'Settings', 'wordpress-plugin-template' ) . '</a>';
+			array_push( $links, $settings_link );
+		}
 		return $links;
 	}
 
@@ -328,15 +324,20 @@ class WordPress_Plugin_Template_Settings {
 		if ( is_array( $this->settings ) ) {
 
 			// Check posted/selected tab.
+			
 			//phpcs:disable
+			
 			$current_section = '';
-			if ( isset( $_POST['tab'] ) && $_POST['tab'] ) {
-				$current_section = $_POST['tab'];
-			} else {
-				if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-					$current_section = $_GET['tab'];
-				}
+			
+			if( isset( $_POST['tab'] ) ) {
+				
+				$current_section = sanitize_text_field($_POST['tab']);
+			} 
+			elseif( isset( $_GET['tab'] ) ) {
+					
+				$current_section = sanitize_text_field($_GET['tab']);
 			}
+			
 			//phpcs:enable
 
 			foreach ( $this->settings as $section => $data ) {
@@ -388,8 +389,10 @@ class WordPress_Plugin_Template_Settings {
 	 * @return void
 	 */
 	public function settings_section( $section ) {
+		
 		$html = '<p> ' . $this->settings[ $section['id'] ]['description'] . '</p>' . "\n";
-		echo $html; //phpcs:ignore
+		
+		echo wp_kses_normalize_entities($html); //phpcs:ignore
 	}
 
 	/**
@@ -406,7 +409,8 @@ class WordPress_Plugin_Template_Settings {
 			$tab = '';
 		//phpcs:disable
 		if ( isset( $_GET['tab'] ) && $_GET['tab'] ) {
-			$tab .= $_GET['tab'];
+			
+			$tab .= sanitize_text_field($_GET['tab']);
 		}
 		//phpcs:enable
 
@@ -460,7 +464,7 @@ class WordPress_Plugin_Template_Settings {
 			$html         .= '</form>' . "\n";
 		$html             .= '</div>' . "\n";
 
-		echo $html; //phpcs:ignore
+		echo wp_kses_normalize_entities($html); //phpcs:ignore
 	}
 
 	/**

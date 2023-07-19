@@ -1,4 +1,6 @@
-[![Build Status](https://www.travis-ci.org/wpugph/WordPress-Plugin-Template.svg?branch=master)](https://www.travis-ci.org/wpugph/WordPress-Plugin-Template)
+**_This repo has been archived. It is now read-only and will no longer be updated or maintained. You are welcome to fork it and create your own plugins using it. [More info here.](https://github.com/hlashbrooke/WordPress-Plugin-Template/issues/104)_**
+
+---
 
 WordPress Plugin Template
 =========================

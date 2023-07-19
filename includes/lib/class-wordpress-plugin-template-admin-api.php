@@ -215,10 +215,11 @@ class WordPress_Plugin_Template_Admin_API {
 		}
 
 		if ( ! $echo ) {
-			return $html;
+			
+			return wp_kses_normalize_entities($html);
 		}
 
-		echo $html; //phpcs:ignore
+		echo wp_kses_normalize_entities($html); //phpcs:ignore
 
 	}
 
@@ -229,18 +230,27 @@ class WordPress_Plugin_Template_Admin_API {
 	 * @param  string $type Type of field to validate.
 	 * @return string       Validated value
 	 */
-	public function validate_field( $data = '', $type = 'text' ) {
+	
+	public function validate_output ( $data = '', $type = 'text' ) {
 
-		switch ( $type ) {
-			case 'text':
-				$data = esc_attr( $data );
-				break;
-			case 'url':
-				$data = esc_url( $data );
-				break;
-			case 'email':
-				$data = is_email( $data );
-				break;
+		switch( $type ) {
+			
+			case 'text'		: $data = esc_attr( $data ); break;
+			case 'url'		: $data = esc_url( $data ); break;
+			case 'email'	: $data = is_email( $data ); break;
+		}
+
+		return $data;
+	}
+	
+	public function validate_input( $data = '', $type = 'text' ) {
+
+		switch( $type ) {
+			
+			case 'text'		: $data = sanitize_text_field( $data ); break;
+			case 'textarea'	: $data = sanitize_textarea_field( $data ); break;
+			case 'url'		: $data = sanitize_url( $data ); break;
+			case 'email'	: $data = sanitize_email( $data ); break;
 		}
 
 		return $data;
@@ -332,7 +342,8 @@ class WordPress_Plugin_Template_Admin_API {
 	 */
 	public function save_meta_boxes( $post_id = 0 ) {
 
-		if ( ! $post_id ) {
+		if( !$post_id || ( isset($_POST['_inline_edit']) && wp_verify_nonce($_POST['_inline_edit'],'inlineeditnonce') ) ){
+			
 			return;
 		}
 
@@ -341,14 +352,22 @@ class WordPress_Plugin_Template_Admin_API {
 		$fields = apply_filters( $post_type . '_custom_fields', array(), $post_type );
 
 		if ( ! is_array( $fields ) || 0 === count( $fields ) ) {
+			
 			return;
 		}
 
 		foreach ( $fields as $field ) {
-			if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
-				update_post_meta( $post_id, $field['id'], $this->validate_field( $_REQUEST[ $field['id'] ], $field['type'] ) ); //phpcs:ignore
-			} else {
-				update_post_meta( $post_id, $field['id'], '' );
+			
+			if( !empty($field['id']) ){
+				
+				if ( isset( $_REQUEST[ $field['id'] ] ) ) { //phpcs:ignore
+					
+					update_post_meta( $post_id, $field['id'], $this->validate_input( $_REQUEST[$field['id']], $field['type'] ) ); //phpcs:ignore
+				} 
+				else {
+					
+					update_post_meta( $post_id, $field['id'], '' );
+				}
 			}
 		}
 	}
