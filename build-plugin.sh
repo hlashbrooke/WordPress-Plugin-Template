@@ -1,25 +1,39 @@
 #!/bin/bash
 
-printf "Plugin name: "
-read NAME
-
-printf "Destination folder: "
-read FOLDER
-
-printf "Include Grunt support (y/n): "
-read GRUNT
-
-printf "Initialise new git repo (y/n): "
-read NEWREPO
-
 DEFAULT_NAME="WordPress Plugin Template"
 DEFAULT_CLASS=${DEFAULT_NAME// /_}
 DEFAULT_TOKEN=$( tr '[A-Z]' '[a-z]' <<< $DEFAULT_CLASS)
 DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
+DEFAULT_OPT_PREFIX="wpt_"
 
-CLASS=${NAME// /_}
+printf "Plugin name: "
+read NAME
+
+CLASS_NAME=${NAME// /_}
+
+printf "Destination folder: "
+read FOLDER
+
+printf "Class name \e[3m(Default is %s)\e[0m: " "$CLASS_NAME"
+read CLASS
+
+if [ $CLASS == "" ]; then
+	$CLASS = $CLASS_NAME
+fi
+
+printf "Include Grunt support (y/n): "
+read GRUNT
+
+printf "Options prefix: "
+read OPT_PREFIX
+
+printf "Initialise new git repo (y/n): "
+read NEWREPO
+
+
 TOKEN=$( tr '[A-Z]' '[a-z]' <<< $CLASS)
 SLUG=${TOKEN//_/-}
+OPT_PREFIX=${OPT_PREFIX}_
 
 git clone https://github.com/hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
@@ -61,6 +75,10 @@ rm $SLUG.tmp
 cp readme.txt readme.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
 rm readme.tmp
+
+cp Gruntfile.js Gruntfile.tmp
+sed "s/$DEFAULT_SLUG/$SLUG/g" Gruntfile.tmp > Gruntfile.js
+rm Gruntfile.tmp
 
 
 cd lang
@@ -111,6 +129,10 @@ rm class-$SLUG-settings.tmp
 
 cp class-$SLUG-settings.php class-$SLUG-settings.tmp
 sed "s/$DEFAULT_SLUG/$SLUG/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
+rm class-$SLUG-settings.tmp
+
+cp class-$SLUG-settings.php class-$SLUG-settings.tmp
+sed "s/$DEFAULT_OPT_PREFIX/$OPT_PREFIX/g" class-$SLUG-settings.tmp > class-$SLUG-settings.php
 rm class-$SLUG-settings.tmp
 
 
